@@ -19,38 +19,38 @@
 
 - Motivation: intuition on high-dimensional spaces can be learned
 - Motivation: most things are somewhat linear
-- Objective: vector spaces, matrix-vector products, eigen-decomposition, SVD, Jordan form, QR, Cholesky, Shur decomposition
-- change of basis
+- vector spaces, matrix-vector products, eigen-decomposition, SVD, Jordan form, QR, Cholesky, Shur decomposition
+- rotation, unitary matrices, change of basis
 
 ### Day 2: Discrete-time linear dynamical system
 
+- Simulating discrete-time linear dynamics in 1D and 2D
+- Solution for arbitrary time
+- Discrete dynamics zoo
+- Filtering: finite impulse response, infinite impulse response, frequency response
+- Adjoint matrix: zero-padding, finite difference operator, binning
 - Normal vs non-normal matrix
-- Applications: deep linear network, discrete dynamics zoo
+- Applications: deep linear network, tap-delay-line
 - Neuroscience: memory structures [^Goldman2009][^Ganguli2008]
 - Neuroscience: non-normal / transient amplification [^Murphy2009]
 
 ### Day 3: Continuous-time linear dynamical system
 
 - existence and uniqueness
-- flow field
-- 1D system
-- stability
+- 1D system, stability, flow field
+- 2D system, visualization
 - invariant subspaces
-- 2D system
-- flow field
-- visualization
-- complete categorization
 - matrix fundamental solution
+- complete categorization
 - Neuroscience: line attractor
 - Neuroscience: first-order approximation of hair cell activity [^Meddis1986]
 
 ### Day 4: Advanced topics
 
 #### Nonlinear systems that are really linear
+- Linearization: Hartman-Grobman theorem, Rectification theorem, Volterra series
 - Kernel methods
-- Koopman operator
-- Hartman-Grobman theorem
-- Rectification theorem
+- Koopman operator theory
 - Neuroscience: Fundamental limits of linear systems as models of neural computation
 - Neuroscience: Balanced state networks
 
