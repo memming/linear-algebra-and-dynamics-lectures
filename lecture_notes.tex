@@ -1,0 +1,287 @@
+\documentclass[a4paper,11pt]{exam}
+
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{bm} % bold greek
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{forloop}
+\usepackage{amsbsy}
+%\usepackage[framed,numbered]{matlab-prettifier}
+%\usepackage{filecontents}
+\usepackage[numbers,sort&compress,super,comma]{natbib}
+
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps,.eps,.ps}
+
+\newcommand*{\clapp}[1]{\hbox to 0pt{\hss#1\hss}}
+\newcommand*{\mat}[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand*{\subdims}[3]{\clapp{\raisebox{#1}[0pt][0pt]{$\scriptstyle(#2 \times #3)$}}}
+\fboxrule=1pt
+
+\newcommand{\defvec}[1]{\expandafter\newcommand\csname v#1\endcsname{{\mathbf{#1}}}}
+\newcommand{\defrv}[1]{\expandafter\newcommand\csname rv#1\endcsname{{\mathbf{#1}}}}
+\newcounter{ct}
+\forLoop{1}{26}{ct}{
+    \edef\letter{\alph{ct}}
+    \expandafter\defvec\letter
+}
+% distinguish random vector
+\forLoop{1}{26}{ct}{
+    \edef\letter{\Alph{ct}}
+    \expandafter\defrv\letter
+}
+\forLoop{1}{26}{ct}{
+    \edef\letter{\alph{ct}}
+    \expandafter\defrv\letter
+}
+\newcommand{\tvv}[1]{\mathbf{\tilde{#1}}} % tilde vectors
+\newcommand{\hvv}[1]{\mathbf{\hat{#1}}} % hat vectors
+
+\newcommand{\braket}[2]{\ensuremath{\langle#1\mid#2\rangle}}
+\newcommand{\bra}[1]{\ensuremath{\langle#1|}}
+\newcommand{\ket}[1]{\ensuremath{|#1\rangle}}
+\newcommand{\horzbar}{\rule[.5ex]{1.5em}{0.4pt}}
+
+\newcommand{\inv}{^{-1}}
+\newcommand{\trp}{{^\top}} % transpose
+\newcommand{\dm}[1]{\ensuremath{\mathrm{d}{#1}}} % dx dy dz dmu
+\newcommand{\RN}[2]{\frac{\dm{#1}}{\dm{#2}}} % (Radon-Nikodym) derivative
+\newcommand{\PD}[2]{\frac{\partial #1}{\partial #2}} % partial derivative
+\newcommand{\norm}[1]{\ensuremath{\Vert{#1}\Vert}}
+\newcommand{\field}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand{\Kfield}{\field{K}}
+\newcommand{\reals}{\field{R}}
+\newcommand{\complex}{\field{C}}
+\newcommand{\integers}{\field{Z}}
+\newcommand{\naturalNumbers}{\field{N}}
+
+\DeclareMathOperator*{\E}{\mathbb{E}} % expectation
+\DeclareMathOperator*{\var}{var}
+\DeclareMathOperator*{\cov}{cov}
+\newcommand{\system}[2]{\mathcal{#1}\left[ #2 \right]}
+\DeclareMathOperator*{\tr}{tr} % trace
+
+\newcommand{\iid}{{\it i.i.d.}\xspace}
+\newcommand{\iidsample}{\stackrel{iid}{\sim}}
+\newcommand{\normalDist}{\mathcal{N}}
+\newcounter{homework}
+\newcommand{\homework}{\stepcounter{homework}\textcolor{violet}{\textbf{Homework \thehomework:}~}}
+\newcommand{\funfact}{\textbf{Fun Fact:}~}
+
+\pagestyle{headandfoot}
+\runningheadrule
+\runningheader{Nov 2022}{Linear Dynamics}{Il Memming Park}
+
+\title{Lecture notes on linear dynamical systems for neuroscience}
+\author{Il Memming Park}
+\begin{document}
+\maketitle
+\section{Motivation}
+Our aim is to understand complex spatio-temporal phenomena that involves the nervous system.
+In the physical space, there are many neurons, multiple subregions of a single neuron, multiple brain areas, and even multiple brains that are socially interacting.
+Various measurement technologies allow access to many pixels/voxels imaged, many electrodes that record electrical activities, and many magnetic field sensors.
+In the physical time, neural activity of interest in neuroscience span time scales from microseconds to years.
+Only through time, the neural systems can process information, store information, adapt to new context, learn, and generate meaningful behavior.
+Both for the practical data analysis, and for the theoretical study of neural system, we often face the grand challenge of making sense of high-dimensional spatio-temporal dynamics.
+If we want to ``understand'' how the brain works, we need some intuition on high-dimensional spatio-temporal dynamics.
+
+This may seem daunting at first, but we can stand on the shoulders of giants who developed various conceptual tools.
+In addition, fortunately, any one can learn the mathematical intuition for making precise statements on those concepts.
+In this week, we will learn versatile and extremely useful framework of linear dynamical systems.
+There are two key intuitions covered within two subjects in mathematics.
+\begin{tcolorbox}[colback=black!1!,title=Learning Objective 1]
+    Intuition on high-dimensional spaces can be gained by first studying \textbf{linear algebra}.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=black!1!,title=Learning Objective 2]
+    Intuition on lawful temporal changes can be gained by first studying \textbf{linear dynamical systems}.
+\end{tcolorbox}
+
+Learning them benefits you because of their immense practicality.
+For example, data analysis methods such as principal components analysis (PCA), filtering, fourier transform, and linear regression are much faster than corresponding nonlinear extensions.
+The recent boost in deep neural networks is fueled by the fast linear operations implemented on modern computer architectures (GPGPU-computing).
+\begin{tcolorbox}[colback=black!1!,title=Saves you time and the planet]
+    Linear systems are computationally \emph{fast} and can be made numerically stable.
+\end{tcolorbox}
+As we will see, with linear dynamical systems theory, we can understand when systems shows stable behavior, and how quickly it forgets the past.
+It may be surprising that there are a finite categories of linear dynamical systems if we are only concerned with their asymptotic behavior.
+\begin{tcolorbox}[colback=black!1!,title=Easy asymptotic theory]
+    We can understand \emph{all} possible (finite-dimensional) linear dynamical systems.
+\end{tcolorbox}
+This allows us to theoretically understand roughly what is going to happen in systems at longer time scales thanks to powerful first-order approximation techniques.
+\begin{tcolorbox}[colback=black!1!,title=Linearize (locally)]
+    Even complex nonlinear systems have a linear component.
+\end{tcolorbox}
+Of course, there are exceptions and limitations, however, they can be extended and generalized in ways that typically incorporates some forms of linearity.
+
+\section{Linear Algebra}
+\begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
+\textbf{Matrix multiplication}:
+Let $A$ be an $n \times k$ matrix, and $B$ be an $k \times m$ matrix.
+The $i$-th row and $j$-th column of $A$ is denoted $A_{i,j}$.
+The matrix product $C = AB$ is $n \times m$, and its entries are given by,
+\begin{align}
+    \framebox[1.5cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat C$}}\subdims{-2.0cm} n m} =
+    \framebox[1.0cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat A$}}\subdims{-2.0cm} n k} \ 
+    \framebox[1.5cm]{\clapp{\raisebox{0mm}[4.5mm][2.5mm]{$\mat B$}}       \subdims{-8mm} k m}
+    \qquad
+    C_{i,j} = \left(
+    A
+    B
+    \right)_{i,j}
+    =
+    \sum_k A_{i,k} B_{k,j}
+    \label{eq:matmult}
+\end{align}
+\\[3mm]
+\noindent
+Note that matrix products don't commute, i.e., $AB \neq BA$.\\[1mm]
+Vector inner product and outer products are special cases:
+%Let $\vu$ and $\vv$ be column vectors,
+\begin{align}
+    \vu\trp \vv &=
+    \begin{bmatrix}
+	u_1, u_2, \cdots, u_n
+    \end{bmatrix}
+    \begin{bmatrix}
+	v_1\\v_2\\\vdots\\ v_n
+    \end{bmatrix}
+    =
+    \sum_k u_k v_k
+    \,&
+    \text{\emph{inner product}}
+    \\
+    \vu \vv\trp &=
+    \begin{bmatrix}
+	u_1\\u_2\\\vdots\\ u_n
+    \end{bmatrix}
+    \begin{bmatrix}
+	v_1, v_2, \cdots, v_m
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+	u_1 v_1 & u_1 v_2 & \cdots & u_1 v_m
+	\\
+	u_2 v_1 & u_2 v_2 & \cdots & u_2 v_m
+	\\
+	\vdots & \vdots & \ddots & \vdots
+	\\
+	u_n v_1 & u_n v_2 & \cdots & u_n v_m
+    \end{bmatrix}
+    \,&
+    \text{\emph{outer product}}
+\end{align}
+Matrix outer product stacks:
+\begin{align}
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em \\
+	\vu_1 \\
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \begin{bmatrix}
+	\horzbar \vv_1 \horzbar
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em \\
+	\vu_2 \\
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \begin{bmatrix}
+	\horzbar \vv_2 \horzbar
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em
+	&
+	\kern.3em\vline\kern.3em
+	\\
+	\vu_1 & \vu_2 \\
+	\kern.3em\vline\kern.3em
+	&
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \begin{bmatrix}
+	\horzbar \vv_1 \horzbar \\
+	\horzbar \vv_2 \horzbar
+    \end{bmatrix}
+\end{align}
+%
+Matrix times diagonal matrix scales column vectors:
+\begin{align}
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+	\\
+	\vu_1 & \cdots & \vu_n \\
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+	d_1 & & \\
+	    & \ddots & \\
+	    & & d_n
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+	\\
+	d_1 \vu_1 & \cdots & d_n \vu_n \\
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \\
+    \begin{bmatrix}
+	d_1 & & \\
+	    & \ddots & \\
+	    & & d_n
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+	\horzbar \vv_1 \horzbar \\
+	\vdots \\
+	\horzbar \vv_n \horzbar
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+	\horzbar d_1 \vv_1 \horzbar \\
+	\vdots \\
+	\horzbar d_n \vv_n \horzbar
+    \end{bmatrix}
+\end{align}
+\textbf{Identity matrices} are diagonal matrices with ones on the diagonal:
+\begin{align}
+    I =
+    \begin{bmatrix}
+	1 & & \\
+	    & \ddots & \\
+	    & & 1
+    \end{bmatrix}
+\end{align}
+Note that $IA = AI = A$ for any matrix $A$.
+\end{tcolorbox}
+
+\begin{questions}
+\question \textbf{Motivating example:}
+
+
+\end{questions}
+
+\section{Discrete-time Linear Dynamical Systems}
+
+\section{Continuous-time Linear Dynamical Systems}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+\end{document}
