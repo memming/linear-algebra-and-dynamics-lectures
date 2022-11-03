@@ -19,6 +19,7 @@
 
 - Motivation: intuition on high-dimensional spaces can be learned
 - Motivation: most things are somewhat linear
+- Books [^Strang2006] [^Horn2012]
 - vector spaces, matrix-vector products, eigen-decomposition, SVD, Jordan form, QR, Cholesky, Shur decomposition
 - rotation, unitary matrices, change of basis
 
@@ -36,6 +37,7 @@
 
 ### Day 3: Continuous-time linear dynamical system
 
+- Books [^Brockett1970][^Chicone2006]
 - existence and uniqueness
 - 1D system, stability, flow field
 - 2D system, visualization
@@ -91,3 +93,9 @@
 ### Text books
 
 [^Horn2012]: Horn, R. A., & Johnson, C. R. (2012). Matrix Analysis. Cambridge University Press.
+
+[^Strang2006]: Strang, G. (2006). Linear Algebra and Its Applications.
+
+[^Brockett1970]: Brockett, R. W. (1970). Finite Dimensional Linear Systems. Wiley.
+
+[^Chicone2006]: Chicone, C. (2006). Ordinary Differential Equations with Applications. Springer Science & Business Media.
