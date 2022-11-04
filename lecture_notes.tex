@@ -304,10 +304,22 @@ Show that similar matrices have the same eigenvalues.
 
 \section{Nonlinear systems that are really linear}
 \subsection{Linearization theorems}
-Much of the nonlinear dynamical systems can be understood piece by piece using our knowledge of linear dynamical systems.
+Let us consider a (time-invariant and autonomous) nonlinear dynamical system:
+\begin{align}
+    \dot{x} = f(x)
+\end{align}
+where $x \in \reals^n$ and $f: \reals^n \to \reals^n$.
+Much of this nonlinear dynamical system can be understood piece by piece using our knowledge of linear dynamical systems.
 In particular, the dynamics around equilibria (fixed points) are topologically conjugate to that of the linearization.
-Let $\bar{x}$ be a fixed point of a (time-invariant and autonomous) nonlinear dynamical system $\dot{x} = f(x)$, that is, $f(\bar{x}) = 0$.
-Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}}$ be the Jacobian, i.e., linearization of the dynamics at $\bar{x}$.
+
+Let $\bar{x}$ be a fixed point of the dynamics that is, $f(\bar{x}) = 0$.
+Note that there are potentially many or infinitely many fixed points.
+Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}}$ be the Jacobian (matrix), i.e., linearization of the dynamics at $\bar{x}$:
+\begin{align}\label{eq:linearized_around_FP}
+    \dot{x} = Df(\bar{x}) (x - \bar{x})
+\end{align}
+
+
 \begin{theorem}[Hartman-Grobman]
     If $Df(\bar{x})$ has no zero or purely imaginary eigenvalues then there is a homeomorphism $h$ defined on some neighborhood $U$ of $\bar{x}$ in $\reals^n$ locally taking obits of the nonlinear flow $\phi_t$ to those of the linear flow.
 \end{theorem}
