@@ -22,6 +22,7 @@
 - Books [^Strang2006] [^Horn2012]
 - vector spaces, matrix-vector products, eigen-decomposition, SVD, Jordan form, QR, Cholesky, Shur decomposition
 - rotation, unitary matrices, change of basis
+- 12:00-13:00 CISS seminars
 
 ### Day 2: Discrete-time linear dynamical system
 
@@ -77,6 +78,7 @@
 ### Web resources
 - [Neuromatch Academy: Computational Neuroscience, Linear Algebra](https://compneuro.neuromatch.io/tutorials/W0D3_LinearAlgebra/chapter_title.html)
 - Petersen and Pedersen, [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
+- [NYU CNS Mathematical Tools for Neural and Cognitive Science](http://www.cns.nyu.edu/~eero/math-tools/)
 
 ### Neuroscience papers
 

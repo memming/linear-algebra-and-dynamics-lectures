@@ -3,6 +3,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[top=2cm, bottom=2cm, left=3cm, right=3cm]{geometry}
 \usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{hyperref}
 \usepackage{bm} % bold greek
 \usepackage{tcolorbox}
 \usepackage{xcolor}
@@ -10,10 +12,13 @@
 \usepackage{amsbsy}
 %\usepackage[framed,numbered]{matlab-prettifier}
 %\usepackage{filecontents}
-\usepackage[numbers,sort&compress,super,comma]{natbib}
+\usepackage[numbers,sort&compress,comma]{natbib}
 
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps,.eps,.ps}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 
 \newcommand*{\clapp}[1]{\hbox to 0pt{\hss#1\hss}}
 \newcommand*{\mat}[1]{\boldsymbol{\mathrm{#1}}}
@@ -298,9 +303,29 @@ Show that similar matrices have the same eigenvalues.
 \section{Continuous-time Linear Dynamical Systems}
 
 \section{Nonlinear systems that are really linear}
+\subsection{Linearization theorems}
+Much of the nonlinear dynamical systems can be understood piece by piece using our knowledge of linear dynamical systems.
+In particular, the dynamics around equilibria (fixed points) are topologically conjugate to that of the linearization.
+Let $\bar{x}$ be a fixed point of a (time-invariant and autonomous) nonlinear dynamical system $\dot{x} = f(x)$, that is, $f(\bar{x}) = 0$.
+Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}}$ be the Jacobian, i.e., linearization of the dynamics at $\bar{x}$.
+\begin{theorem}[Hartman-Grobman]
+    If $Df(\bar{x})$ has no zero or purely imaginary eigenvalues then there is a homeomorphism $h$ defined on some neighborhood $U$ of $\bar{x}$ in $\reals^n$ locally taking obits of the nonlinear flow $\phi_t$ to those of the linear flow.
+\end{theorem}
+As the theorem states, linearlization around the fixed point fails if there are eigenvalues with zero real part.
+They are typically rare in practice, but of great interest to nonlinear dynamics analysis and important for bifurcation theory.
+Fixed points that allows linearlization are called \textbf{hyperbolic} fixed points.
+For hyperbolic fixed points, the stability of nonlinear system is equivalent to that of the linearized system.
+
+Away from the fixed points, the flow of nonlinear dynamical system is just topologically conujugate to a boring constant flow:
+\begin{theorem}[Rectification]
+    If $p \in \reals^n$ and $f(p) \neq 0$, then there are open sets $U, V \in \reals^n$ with $p \in U$ and a diffiomorphism $g: U \to V$ such that the differential equation in the new coordinates, that is, the differential equation,
+    $$ \dot{y} = Dg(g\inv(y)) f(g\inv(y)), $$
+is given by $(\dot{y}_1, \ldots, \dot{y}_n) = (1, 0, 0, \ldots, 0)$.
+\end{theorem}
+See \citet[Lemma 1.120]{Chicone2006}.
+
 \subsection{Kernel methods}
 \subsection{Koopman operators}
-\subsection{Linearization theorems}
 
 \bibliographystyle{plainnat}
 \bibliography{refs}
