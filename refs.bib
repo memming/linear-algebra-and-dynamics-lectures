@@ -34,3 +34,77 @@
   language  = "en",
   isbn      = "9780387357942"
 }
+
+@INPROCEEDINGS{Linderman2017,
+  title     = "{Bayesian Learning and Inference in Recurrent Switching Linear
+               Dynamical Systems}",
+  booktitle = "Proceedings of the 20th International Conference on Artificial
+               Intelligence and Statistics",
+  author    = "Linderman, Scott and Johnson, Matthew and Miller, Andrew and
+               Adams, Ryan and Blei, David and Paninski, Liam",
+  editor    = "Singh, Aarti and Zhu, Jerry",
+  abstract  = "Many natural systems, such as neurons firing in the brain or
+               basketball teams traversing a court, give rise to time series
+               data with complex, nonlinear dynamics. We can gain insight into
+               these systems by decomposing the data into segments that are
+               each explained by simpler dynamic units. Building on switching
+               linear dynamical systems (SLDS), we develop a model class and
+               Bayesian inference algorithms that not only discover these
+               dynamical units but also, by learning how transition
+               probabilities depend on observations or continuous latent
+               states, explain their switching behavior. Our key innovation is
+               to design these recurrent SLDS models to enable recent
+               P{\'o}lya-gamma auxiliary variable techniques and thus make
+               approximate Bayesian learning and inference in these models
+               easy, fast, and scalable.",
+  publisher = "PMLR",
+  volume    =  54,
+  pages     = "914--922",
+  series    = "Proceedings of Machine Learning Research",
+  year      =  2017,
+  url       = "http://proceedings.mlr.press/v54/linderman17a.html",
+  address   = "Fort Lauderdale, FL, USA"
+}
+
+@InProceedings{Nassar2018b,
+  author        = {Josue Nassar and Scott W. Linderman and Monica Bugallo and Il Memming Park},
+  title         = {Tree-Structured Recurrent Switching Linear Dynamical Systems for Multi-Scale Modeling},
+  booktitle     = {International Conference on Learning Representations (ICLR)},
+  year          = {2019},
+  month         = nov,
+  abstract      = {Many real-world systems studied are governed by complex, nonlinear dynamics. By modeling these dynamics, we can gain insight into how these systems work, make predictions about how they will behave, and develop strategies for controlling them. While there are many methods for modeling nonlinear dynamical systems, existing techniques face a trade off between offering interpretable descriptions and making accurate predictions. Here, we develop a class of models that aims to achieve both simultaneously, smoothly interpolating between simple descriptions and more complex, yet also more accurate models. Our probabilistic model achieves this multi-scale property through a hierarchy of locally linear dynamics that jointly approximate global nonlinear dynamics. We call it the tree-structured recurrent switching linear dynamical system. To fit this model, we present a fully-Bayesian sampling procedure using Polya-Gamma data augmentation to allow for fast and conjugate Gibbs sampling. Through a variety of synthetic and real examples, we show how these models outperform existing methods in both interpretability and predictive capability.},
+  archiveprefix = {arXiv},
+  day           = {30},
+  eprint        = {1811.12386},
+  keywords      = {neural-dynamics, statistical-neuroscience},
+  url           = {https://openreview.net/forum?id=HkzRQhR9YX},
+  code          = {https://github.com/catniplab/tree_structured_rslds},
+}
+
+
+@InProceedings{Zhao2016d,
+  author        = {Zhao, Yuan and Park, Il Memming},
+  title         = {Interpretable Nonlinear Dynamic Modeling of Neural Trajectories},
+  booktitle     = {Advances in Neural Information Processing Systems (NIPS)},
+  year          = {2016},
+  abstract      = {A central challenge in neuroscience is understanding how neural system
+implements computation through its dynamics. We propose a nonlinear
+time series model aimed at characterizing interpretable dynamics
+from neural trajectories. Our model assumes low-dimensional continuous
+dynamics in a finite volume. It incorporates a prior assumption about
+globally contractional dynamics to avoid overly enthusiastic extrapolation
+outside of the support of observed trajectories. We show that our
+model can recover qualitative features of the phase portrait such
+as attractors, slow points, and bifurcations, while also producing
+reliable long-term future predictions in a variety of dynamical models
+and in real neural data.},
+  archiveprefix = {arXiv},
+  eprint        = {1608.06546},
+  keywords      = {autoregressive, bifurcation, chaos, continuous-attractor, dynamics, neural-dynamics, nips, oscillation, tensorflow},
+  primaryclass  = {q-bio.QM},
+  youtube	= {https://www.youtube.com/watch?v=7oWRZRpaq_I},
+  url = {https://papers.nips.cc/paper/6543-interpretable-nonlinear-dynamic-modeling-of-neural-trajectories},
+}
+
+
+% vim: paste

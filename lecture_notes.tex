@@ -310,8 +310,12 @@ Let us consider a (time-invariant and autonomous) nonlinear dynamical system:
 \end{align}
 where $x \in \reals^n$ and $f: \reals^n \to \reals^n$.
 Much of this nonlinear dynamical system can be understood piece by piece using our knowledge of linear dynamical systems.
-In particular, the dynamics around equilibria (fixed points) are topologically conjugate to that of the linearization.
 
+\begin{tcolorbox}[colback=black!1!,title=Linearize that beast!]
+    Most nonlinear dynamical systems are locally a linear dynamical system, but strange non-local things can happen.
+\end{tcolorbox}
+
+In particular, the dynamics around equilibria (fixed points) are topologically conjugate to that of the linearization.
 Let $\bar{x}$ be a fixed point of the dynamics that is, $f(\bar{x}) = 0$.
 Note that there are potentially many or infinitely many fixed points.
 Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}}$ be the Jacobian (matrix), i.e., linearization of the dynamics at $\bar{x}$:
@@ -336,7 +340,18 @@ is given by $(\dot{y}_1, \ldots, \dot{y}_n) = (1, 0, 0, \ldots, 0)$.
 \end{theorem}
 See \citet[Lemma 1.120]{Chicone2006}.
 
+Of course, a patchwork of linear dynamics can create some interesting systems.
+In neural data analysis, locally linear dynamical system model~\cite{Zhao2016d} and recurrent switching linear dynamical systems type models utilize this~\citep{Linderman2017,Nassar2018b}.
+
 \subsection{Kernel methods}
+When linear methods fail due to nonlinearity, you can always try linear methods applied to a nonlinearly mapped space.
+
+All you need is an inner product to implement many linear methods (least squares regression, PCA, CCA, k-means).
+
+\begin{tcolorbox}[colback=black!1!,title=Kernel Trick]
+You can implicitly map your data to an infinitely high-dimensional space by using a (positive semi-definite) \textbf{kernel}.
+\end{tcolorbox}
+
 \subsection{Koopman operators}
 
 \bibliographystyle{plainnat}
