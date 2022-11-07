@@ -301,6 +301,19 @@ Show that similar matrices have the same eigenvalues.
 \section{Discrete-time Linear Dynamical Systems}
 
 \section{Continuous-time Linear Dynamical Systems}
+\subsection{Companion form matrices}
+Consider an $N\text{-th}$ order polynomial of the form
+\begin{align}
+    p(x) = x^N + a_{N-1} x^{N-1} + \cdots + a_1 x + a_0
+\end{align}
+then, the matrix $F$ defined below is called a companion form matrix
+\begin{align}
+    F = \begin{pmatrix} 0 & 1 & 0 & \cdots & 0\\
+                        0 & 0 & 1 & \cdots & 0\\
+                        \vdots & \vdots & \vdots & \ddots & \vdots\\
+                        -a_0 & -a_1 & -a_2 & \cdots & -a_{N-1}\end{pmatrix}
+\end{align}
+and we have that the eigenvalues of $F$ coincide with the roots of the characteristic polynomial defined by $p(x)$.  That is, if $\det(\lambda I - F) = 0$, then $p(\lambda) = 0$.  
 
 \section{Nonlinear systems that are really linear}
 \subsection{Linearization theorems}
