@@ -127,6 +127,8 @@ This allows us to theoretically understand roughly what is going to happen in sy
 Of course, there are exceptions and limitations, however, there are extensions and generalizations that typically incorporates some form of linearity.
 
 \section{Discrete-time Linear Dynamical Systems}
+We will first dive into discrete-time systems.
+
 \subsection{Memory traces in dynamical systems}
 Consider a simple leaky membrane potential model
 \begin{align}\label{eq:dtlds:LIF:def}
@@ -177,6 +179,7 @@ Let's write this is matrix form. Define the vector $\vx(t)$ and the matrix $W$:
 		w_{n,1} & w_{n,2} & \cdots & w_{n,n}
 	    \end{bmatrix}
 \end{align}
+Note that $W \in \reals^{n \times n}$ is a square matrix.
 
 \question Write the matrix form difference equation for \eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.3}}
@@ -210,6 +213,22 @@ Note that matrix products don't commute, i.e., $AB \neq BA$.
 But what does \emph{matrix multiplication} do?
 Practicing with some special matrices will gives us an intuition.
 
+\textbf{Diagonal matrices} are non-zero only on the diagonal entries.
+\begin{align}\label{eq:LA:diag}
+    \diag(\lambda_1, \lambda_2, \ldots, \lambda_n)
+    =
+    \begin{bmatrix}
+	\lambda_1 & 0 & \cdots & 0 \\
+	0 & \lambda_2 & \cdots & 0 \\
+	\vdots & & \ddots & \vdots \\
+	%0 & \cdots & \lambda_{n-1} & 0\\
+	0 & \cdots & 0 & \lambda_n
+    \end{bmatrix}
+\end{align}
+
+\question If $W = \diag(\lambda_1, \ldots, \lambda_n)$, what is the general form for $\vx(t)$?
+\vspace{\stretch{0.3}}
+
 \textbf{Identity matrices} are \textbf{diagonal matrices} with ones on the diagonal (zero otherwise):
 \begin{align}\label{eq:LA:diag}
     I &=
@@ -222,18 +241,62 @@ Practicing with some special matrices will gives us an intuition.
     \end{bmatrix}
 \end{align}
 
-\question If $W = \diag(\lambda_1, \ldots, \lambda_n)$, what is the general form for $\vx(t)$?
-\vspace{\stretch{0.3}}
-
 \question If $W = I$, what is the general form for $\vx(t)$?
 \vspace{\stretch{0.3}}
 
+\textbf{Cross diagonal matrices} are non-zero only on the anti-diagonal entries.
+\begin{align}\label{eq:LA:cdiag}
+    C
+    =
+    \begin{bmatrix}
+	0 & \cdots & 0 & c_1
+	\vdots & & \ddots & \vdots \\
+	%0 & \cdots & c_{n-1} & 0\\
+	0 & c_{n-1} & \cdots & 0 \\
+	c_n & 0 & \cdots & 0 \\
+    \end{bmatrix}
+\end{align}
+
+\question What is the general form for $\vx(t)$ for the following cross-diagonal weight matrix?
+\begin{align}\label{eq:LA:cdiag:eg}
+    W
+    =
+    \begin{bmatrix}
+	0 & 0 & 1 \\
+	0 & 1 & 0\\
+	1 & 0 & 0
+    \end{bmatrix}
+\end{align}
+\vspace{\stretch{0.3}}
+
+\textbf{Strictly upper triangular matrices} have the following zero entry pattern ($X$ marks arbitrary value):
+\begin{align}\label{eq:LA:suppertri}
+    \begin{bmatrix}
+	0 & X & X \\
+	0 & 0 & X\\
+	0 & 0 & 0
+    \end{bmatrix}
+\end{align}
+
+\question What is the general form for $\vx(t)$ for the following cross-diagonal weight matrix?
+\begin{align}\label{eq:LA:cdiag}
+    W
+    =
+    \begin{bmatrix}
+	0 & 1 & 1 \\
+	0 & 0 & 1\\
+	0 & 0 & 0
+    \end{bmatrix}
+\end{align}
+\vspace{\stretch{0.3}}
+
+\newpage
 \begin{tcolorbox}
 \funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
 \end{tcolorbox}
 
 \begin{tcolorbox}
-    \funfact Transpose of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
+    \reca Transpose of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
 \end{tcolorbox}
 \begin{tcolorbox}
     \funfact Two vectors $\vu$ and $\vv$ are orthogonal if $\vu\trp \vv = 0$.
