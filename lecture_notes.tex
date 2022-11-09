@@ -147,7 +147,7 @@ The membrane potential time constant of a neuron is not very flexible; typically
 Having many independent neurons does not help with the situation of forgetful membrane.
 But maybe we can create a network of (non-spiking) neurons!
 
-Consider a network of $N$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time as,
+Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time as,
 \begin{align}\label{eq:dtlds:LDS}
 	x_i(t+1) &= w_{i,i} x_i(t) + \sum_{j} w_{i,j} x_j(t) + b_i I(t)
 \end{align}
@@ -155,11 +155,101 @@ where $w_{i,i}$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$
 Note that there is no synaptic dynamics in this super simplified model.
 Despite its simplicity, it is a very useful model of neural dynamics~\citep{Druckmann2012,Ganguli2008,Goldman2009}.
 
-\question Write the matrix form difference equation.
+Let's write this is matrix form. Define the vector $\vx(t)$ and the matrix $W$:
+\begin{align}
+	\vx(t) &= 
+	    \begin{bmatrix}
+		x_1(t)\\
+		x_2(t)\\
+		\vdots\\
+		x_n(t)
+	    \end{bmatrix}
+	\qquad
+	W =
+	    \begin{bmatrix}
+		w_{1,1} & w_{1,2} & \cdots & w_{1,n}
+		\\
+		w_{2,1} & w_{2,2} & \cdots & w_{2,n}
+		\\
+		\vdots & \vdots & \ddots & \vdots
+		\\
+		w_{n,1} & w_{n,2} & \cdots & w_{n,n}
+	    \end{bmatrix}
+\end{align}
+
+\question Write the matrix form difference equation for \eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.3}}
-\question Write out the general form for $x(t)$ using matrix power.
+\question Write out the general form for $\vx(t)$ using matrix power.
 \vspace{\stretch{0.3}}
 
+Sure, these are solutions, but we need more insights.
+First, let us recall some linear algebra to help us.
+
+\newpage
+\begin{tcolorbox}[colback=black!1!,title=Matrix multiplication]
+Let $A$ be an $n \times k$ matrix, and $B$ be an $k \times m$ matrix.
+The $i$-th row and $j$-th column of $A$ is denoted $A_{i,j}$.
+The matrix product $C = AB$ is $n \times m$, and its entries are given by,
+\begin{align}
+    \framebox[1.5cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat C$}}\subdims{-2.0cm} n m} =
+    \framebox[1.0cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat A$}}\subdims{-2.0cm} n k} \ 
+    \framebox[1.5cm]{\clapp{\raisebox{0mm}[4.5mm][2.5mm]{$\mat B$}}       \subdims{-8mm} k m}
+    \qquad
+    C_{i,j} = \left(
+    A
+    B
+    \right)_{i,j}
+    =
+    \sum_k A_{i,k} B_{k,j}
+    \label{eq:matmult}
+\end{align}
+\\[3mm]
+\noindent
+Note that matrix products don't commute, i.e., $AB \neq BA$.
+\end{tcolorbox}
+\begin{tcolorbox}
+    \funfact Transpose of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
+\end{tcolorbox}
+\begin{tcolorbox}
+    \funfact Two vectors $\vu$ and $\vv$ are orthogonal if $\vu\trp \vv = 0$.
+\end{tcolorbox}
+\begin{tcolorbox}
+\funfact $\vv \in \reals^{n \times 1}$ is a unit vector if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.
+\end{tcolorbox}
+But what does \emph{matrix multiplication} do?
+
+\begin{align}
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+	\\
+	\vu_1 & \cdots & \vu_n \\
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+	d_1 & & \\
+	    & \ddots & \\
+	    & & d_n
+    \end{bmatrix}
+    &=
+    \begin{bmatrix}
+\end{align}
+
+\question Let the column vectors of the square matrix 
+$V = \begin{bmatrix} \vv_1 & \vv_2 & \cdots & \vv_n \end{bmatrix}$
+form an \textit{orthonormal basis} of $\reals^n$, that is, 
+(1) any vector $\vx \in \reals^{n \times 1}$ can be expressed as $\vx = \sum_{i=1}^n \alpha_i \vv_i$ where $\alpha_i$ are scalar,
+(2) if $i \neq j$, then $\vv_i$ and $\vv_j$ are orthogonal,
+and
+(3) $\vv_i$ is a unit vector.
+
+\newpage
 \begin{proposition}
 Any \textbf{real symmetric matrix} can be \textit{eigendecomposed} (a.k.a.~diagonalization).
 In particular, any covariance matrix can be decomposed as
@@ -170,10 +260,6 @@ where
 $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
 is an orthonormal matrix, and $\Lambda$ is a diagonal matrix with non-negative real numbers.
 \end{proposition}
-
-\begin{tcolorbox}
-    \funfact Transpose of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
-\end{tcolorbox}
 
 
 \question
@@ -221,23 +307,6 @@ is an orthonormal matrix, and $\Lambda$ is a diagonal matrix with non-negative r
 \section{Linear Algebra}
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
 \textbf{Matrix multiplication}:
-Let $A$ be an $n \times k$ matrix, and $B$ be an $k \times m$ matrix.
-The $i$-th row and $j$-th column of $A$ is denoted $A_{i,j}$.
-The matrix product $C = AB$ is $n \times m$, and its entries are given by,
-\begin{align}
-    \framebox[1.5cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat C$}}\subdims{-2.0cm} n m} =
-    \framebox[1.0cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat A$}}\subdims{-2.0cm} n k} \ 
-    \framebox[1.5cm]{\clapp{\raisebox{0mm}[4.5mm][2.5mm]{$\mat B$}}       \subdims{-8mm} k m}
-    \qquad
-    C_{i,j} = \left(
-    A
-    B
-    \right)_{i,j}
-    =
-    \sum_k A_{i,k} B_{k,j}
-    \label{eq:matmult}
-\end{align}
-\\[3mm]
 \noindent
 Note that matrix products don't commute, i.e., $AB \neq BA$.\\[1mm]
 Vector inner product and outer products are special cases:
