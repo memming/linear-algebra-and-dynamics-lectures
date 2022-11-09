@@ -23,6 +23,7 @@
 - Motivation: most things are somewhat linear
 - Linear neural network model
 - Linear algebra: Matrix-vector products, unitary matrices, change of basis, SVD
+- Linear algebra: Fun special matrix forms
 - Linear algebra: Eigendecomposition
 - Solution for arbitrary time
 - Analysis: line attractor
