@@ -5,7 +5,7 @@
 ## Instructors
 
 - Il Memming Park (Group Leader, Champalimaud Centre for the Unknown)
-- Matthew Dowling (PhD student, Electrical and Computer Engineering, Stony Brook University)
+- Matthew Dowling (senior PhD student, Electrical and Computer Engineering, Stony Brook University)
 
 ## Logistics
 
@@ -76,6 +76,7 @@
 
 ## References
 ### Web resources
+- [Essence of linear algebra series by 3Blue1Brown](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) (Watch 1, 2, 3, 4, 5, 13, 14 (85 minutes total); other videos are optional
 - [Neuromatch Academy: Computational Neuroscience, Linear Algebra](https://compneuro.neuromatch.io/tutorials/W0D3_LinearAlgebra/chapter_title.html)
 - Petersen and Pedersen, [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 - [NYU CNS Mathematical Tools for Neural and Cognitive Science](http://www.cns.nyu.edu/~eero/math-tools/)
