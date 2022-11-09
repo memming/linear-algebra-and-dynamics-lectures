@@ -135,12 +135,25 @@ where $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant,
 
 \begin{questions}
 \question Given an initial condition $v(0)$ and the external current $I(t)$ for $t = 0, 1, \ldots $, write the general form of $v(t)$ using the summation notation (e.g. $\sum_{s=0}^t$). (Hint: try writing out $v(1), v(2), v(3)$ first and generalize.)
-\vspace{\stretch{0.5}}
+\vspace{\stretch{0.3}}
 \question Sketch the solution over time from $t=0$ to $t=10$ for $a = 0.9$, $a = 1$, and $a = 2$ given $v(0) = 0$, $I(2) = 1$, and $I(t) = 0$ otherwise. Which one resembles the behavior of a neuronal membrane?
 \vspace{\stretch{0.5}}
-\question For a typical neuron, the membrane time constant is around 10 to 100 milliseconds.
+\question What is the value of $a$ for an input pulse would decay to $10\%$ of it original magnitude in $10$ time steps?
+\vspace{\stretch{0.2}}
+
+\newpage
+As we shall see later when we go to continuous time, $0 < a < 1$ is tightly connected to the time constant.
+The membrane potential time constant of a neuron is not very flexible; typically in the order of $10$ milliseconds.
+Having many independent neurons does not help with the situation of forgetful membrane.
+But maybe we can create a network of (non-spiking) neurons!
+
+Consider a network of $N$ linear neurons where each neuron's membrane potential $v_i(t)$ evolves over time as,
+\begin{align}
+	v_i(t+1) &= w_{i,i} v_i(t) + \sum_{j} w_{i,j} v_j(t) + I_i(t)
+\end{align}
 
 \citep{Ganguli2008}
+\citep{Goldman2009}
 
 \section{Linear Algebra}
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
