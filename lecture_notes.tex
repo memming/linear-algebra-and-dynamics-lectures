@@ -231,7 +231,7 @@ Practicing with some special matrices will gives us an intuition.
 \vspace{\stretch{0.3}}
 
 \textbf{Identity matrices} are \textbf{diagonal matrices} with ones on the diagonal (zero otherwise):
-\begin{align}\label{eq:LA:diag}
+\begin{align}\label{eq:LA:diag:eg}
     I &=
 	\diag(1, 1, \ldots, 1)
     =
@@ -250,7 +250,7 @@ Practicing with some special matrices will gives us an intuition.
     C
     =
     \begin{bmatrix}
-	0 & \cdots & 0 & c_1
+	0 & \cdots & 0 & c_1\\
 	\vdots & & \ddots & \vdots \\
 	%0 & \cdots & c_{n-1} & 0\\
 	0 & c_{n-1} & \cdots & 0 \\
@@ -279,8 +279,8 @@ Practicing with some special matrices will gives us an intuition.
     \end{bmatrix}
 \end{align}
 
-\question What is the general form for $\vx(t)$ for the following cross-diagonal weight matrix?
-\begin{align}\label{eq:LA:cdiag}
+\question What is the general form for $\vx(t)$ for the following strictly upper triangular weight matrix?
+\begin{align}\label{eq:LA:suppertri:eg}
     W
     =
     \begin{bmatrix}
@@ -302,30 +302,7 @@ Practicing with some special matrices will gives us an intuition.
     $\vv \in \reals^{n \times 1}$ is a \text{unit vector} if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.
 \end{tcolorbox}
 
-\begin{align}
-    \begin{bmatrix}
-	\kern.3em\vline\kern.3em
-	&
-	&
-	\kern.3em\vline\kern.3em
-	\\
-	\vu_1 & \cdots & \vu_n \\
-	\kern.3em\vline\kern.3em
-	&
-	&
-	\kern.3em\vline\kern.3em
-    \end{bmatrix}
-    \cdot
-    \begin{bmatrix}
-	d_1 & & \\
-	    & \ddots & \\
-	    & & d_n
-    \end{bmatrix}
-    &=
-    \begin{bmatrix}
-\end{align}
-
-Let the collection of vectors $(\vu_1 & \vu_2 & \cdots & \vu_n)$ form an \textit{orthonormal basis} of $\reals^n$, that is,
+Let the collection of vectors $(\vu_1, \vu_2, \cdots, \vu_n)$ form an \textit{orthonormal basis} of $\reals^n$, that is,
 (1) any vector $\vx \in \reals^{n \times 1}$ can be expressed as $\vx = \sum_{i=1}^n \alpha_i \vu_i$ where $\alpha_i$ are scalar,
 (2) if $i \neq j$, then $\vu_i$ and $\vu_j$ are orthogonal,
 and
@@ -374,9 +351,9 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
     \end{bmatrix}
 \end{align}
 \begin{parts}
-\subpart Sketch out the general form of $\vx(t)$ when $I(t) = 0$ and $\theta = \pi/4$.
+\part Sketch out the general form of $\vx(t)$ when $I(t) = 0$ and $\theta = \pi/4$.
 \vspace{\stretch{0.3}}
-\subpart How is the dynamics qualitatively different when $\theta$ is a rational multiple of $\pi$ or not?
+\part How is the dynamics qualitatively different when $\theta$ is a rational multiple of $\pi$ or not?
 \vspace{\stretch{0.2}}
 \end{parts}
 
@@ -389,9 +366,9 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
     \end{bmatrix}
 \end{align}
 \begin{parts}
-\subpart Show that $W$ is unitary.
+\part Show that $W$ is unitary.
 \vspace{\stretch{0.1}}
-\subpart What is the general form of $\vx(t)$ when $I(t) = 0$?
+\part What is the general form of $\vx(t)$ when $I(t) = 0$?
 \vspace{\stretch{0.2}}
 \end{parts}
 
@@ -408,13 +385,13 @@ is an orthonormal matrix, and $\Lambda$ is a complex-valued diagonal matrix.
 
 \question Let the connectivity matrix $W$ be real symmetric. Use the eigendecomposition \eqref{eq:eig} to answer the following questions.
 \begin{parts}
-\subpart What is $WW$?
+\part What is $WW$?
 \vspace{\stretch{0.2}}
-\subpart What is $W^n$?
+\part What is $W^n$?
 \vspace{\stretch{0.2}}
-\subpart What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
+\part What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
-\subpart What is the general form of $\vx(t)$ with input?
+\part What is the general form of $\vx(t)$ with input?
 \vspace{\stretch{0.5}}
 \end{parts}
 
