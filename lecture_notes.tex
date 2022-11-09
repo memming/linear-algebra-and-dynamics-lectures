@@ -18,7 +18,8 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps,.eps,.ps}
 
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 
 \newcommand*{\clapp}[1]{\hbox to 0pt{\hss#1\hss}}
 \newcommand*{\mat}[1]{\boldsymbol{\mathrm{#1}}}
@@ -51,10 +52,12 @@
 
 \newcommand{\inv}{^{-1}}
 \newcommand{\trp}{{^\top}} % transpose
+\newcommand{\tp}[1]{\ensuremath{{#1}^\top}} % transpose
 \newcommand{\dm}[1]{\ensuremath{\mathrm{d}{#1}}} % dx dy dz dmu
 \newcommand{\RN}[2]{\frac{\dm{#1}}{\dm{#2}}} % (Radon-Nikodym) derivative
 \newcommand{\PD}[2]{\frac{\partial #1}{\partial #2}} % partial derivative
 \newcommand{\norm}[1]{\ensuremath{\Vert{#1}\Vert}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
 \newcommand{\field}[1]{\ensuremath{\mathbb{#1}}}
 \newcommand{\Kfield}{\field{K}}
 \newcommand{\reals}{\field{R}}
@@ -67,6 +70,8 @@
 \DeclareMathOperator*{\cov}{cov}
 \newcommand{\system}[2]{\mathcal{#1}\left[ #2 \right]}
 \DeclareMathOperator*{\tr}{tr} % trace
+\newcommand{\indicator}[1]{\mathbf{1}_{#1}} % indicator function
+\newcommand{\onehalf}{\frac{1}{2}}
 
 \newcommand{\iid}{{\it i.i.d.}\xspace}
 \newcommand{\iidsample}{\stackrel{iid}{\sim}}
@@ -80,7 +85,7 @@
 \runningheader{Nov 2022}{Linear Dynamics}{Il Memming Park}
 
 \title{Lecture notes on linear dynamical systems for neuroscience}
-\author{Il Memming Park}
+\author{Il Memming Park, Matthew Dowling, Ayesha Vermani, \'Abel S\'agodi}
 \begin{document}
 \maketitle
 \section{Motivation}
@@ -119,6 +124,23 @@ This allows us to theoretically understand roughly what is going to happen in sy
     Even complex nonlinear systems have a linear component.
 \end{tcolorbox}
 Of course, there are exceptions and limitations, however, there are extensions and generalizations that typically incorporates some form of linearity.
+
+\section{Discrete-time Linear Dynamical Systems}
+\subsection{Memory traces in dynamical systems}
+Consider a simple leaky membrane potential model
+\begin{align}\label{eq:dtlds:LIF:def}
+	v(t+1) &= a \cdot v(t) + I(t)
+\end{align}
+where $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant, and $I(t)$ is the externally current entering the neuron.
+
+\begin{questions}
+\question Given an initial condition $v(0)$ and the external current $I(t)$ for $t = 0, 1, \ldots $, write the general form of $v(t)$ using the summation notation (e.g. $\sum_{s=0}^t$). (Hint: try writing out $v(1), v(2), v(3)$ first and generalize.)
+\vspace{\stretch{0.5}}
+\question Sketch the solution over time from $t=0$ to $t=10$ for $a = 0.9$, $a = 1$, and $a = 2$ given $v(0) = 0$, $I(2) = 1$, and $I(t) = 0$ otherwise. Which one resembles the behavior of a neuronal membrane?
+\vspace{\stretch{0.5}}
+\question For a typical neuron, the membrane time constant is around 10 to 100 milliseconds.
+
+\citep{Ganguli2008}
 
 \section{Linear Algebra}
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
@@ -277,7 +299,6 @@ Matrix times diagonal matrix scales column vectors:
 Note that $IA = AI = A$ for any matrix $A$.
 \end{tcolorbox}
 
-\begin{questions}
 \question \textbf{Every linear transformation is a matrix}
 
 \question \textbf{Similarity transform and change of basis}
@@ -294,11 +315,72 @@ Show that similar matrices have the same eigenvalues.
 
 \question \textbf{Upper triangular matrix:}
 
-
-
 \end{questions}
 
-\section{Discrete-time Linear Dynamical Systems}
+Some further fun factoids for later.
+\subsection{Hadamard inequality}
+For any $n \times n$ positive definite matrix $A$,
+\begin{align}
+    \det{A} \leq A_{11} A_{22} \cdots A_{nn}
+\end{align}
+For any real-valued matrix $A$,
+\begin{align}
+    A = 
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+	\\
+	\vu_1 & \cdots & \vu_n \\
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+    \qquad
+    \abs{\det{A}} \leq \prod_{i=1}^n \norm{\vu_i}
+\end{align}
+This is a useful inequality for approximating marginal log-probabilities of multivariate Gaussians~\citep{Zhang2013a}.
+\subsection{Householder transform}
+Let $\vx \neq \vy \in \reals^n$ with $\norm{\vx} = \norm{\vy}$.
+There exists a vector $\vu \in \reals^n$ and $\norm{\vu} = 1$ such that, $P\vx = \vy$,
+where the Householder transform $P$ is defined by $P = (I - 2\vu\tp{\vu})$.
+The vector $\vu$ is uniquely provided up to sign by,
+\[
+    \vu = \pm \frac{x-y}{\norm{x-y}}.
+\]
+Note that $P^2 = I - 4\vu\tp{\vu} + 4\vu\tp{\vu}\vu\tp{\vu} = I$.
+Hence, $P = P\inv$, $Py = x$. Also, $P = \tp{P}$.
+
+\subsection{QR-decomposition}
+QR-decomposition is Gram-Schmidt orthogonalization on all columns of a matrix.
+Implementation using Householder transformation is numerically more stable.
+
+Let $A \in \reals^{m \times n}$, $m \geq n$.
+\[
+    A = QR,
+\]
+where $Q \in \reals{m \times n}$ is an orthogonal matrix with $\tp{Q}Q = I_n$,
+and $R \in \reals^{n \times n}$ is an upper triangular matrix.
+
+\subsection{Positive definite, positive semi-definite}
+\begin{proposition}
+    A matrix $A$ is positive semi-definite if and only if there is a positive semi-definite matrix square root, $B^2 = A$. This square root is unique.
+\end{proposition}
+
+\begin{theorem}[via Gabriel Peyr\'e's tweet]
+    Given two positive-definite matrices $A, B$. The unique solution of
+    \[
+	XAX=B
+    \]
+    for a positive definite $X$ is given by,
+    \[
+	X = A^{-\onehalf} \left( A^\onehalf B A^\onehalf \right)^\onehalf A^{-\onehalf}
+    \]
+\end{theorem}
+Proof is trivial. Useful for pushing forward Gaussian distribution with covariance $A$ to $B$.
+
 
 \section{Continuous-time Linear Dynamical Systems}
 \subsection{Companion form matrices}
