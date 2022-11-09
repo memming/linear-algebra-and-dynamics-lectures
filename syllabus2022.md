@@ -6,12 +6,14 @@
 
 - Il Memming Park (Group Leader, Champalimaud Centre for the Unknown)
 - Matthew Dowling (senior PhD student, Electrical and Computer Engineering, Stony Brook University)
+- Ayesha Vermani (PhD student, Champalimaud Centre for the Unknown)
+- Ábel Ságodi (PhD student, Champalimaud Centre for the Unknown)
 
 ## Logistics
 
 - 2022 November 14 -- November 18
--  9:30 - 12:00, lectures in classroom  (in person)
-- 14:00 - 16:00, exercises in classroom (in person)
+- Lectures:  9:30 - 12:00, in classroom (in person)
+- Exercise: 14:00 - 16:00, in classroom (in person)
 
 ## Outline
 
@@ -20,8 +22,8 @@
 - Motivation: intuition on high-dimensional spaces can be learned
 - Motivation: most things are somewhat linear
 - Linear neural network model
-- Matrix-vector products, unitary matrices, change of basis, SVD
-- Eigendecomposition
+- Linear algebra: Matrix-vector products, unitary matrices, change of basis, SVD
+- Linear algebra: Eigendecomposition
 - Solution for arbitrary time
 - Analysis: line attractor
 - Complex eigenvalues, spectrum plot, and stability
@@ -34,11 +36,11 @@
 ### Day 2: Discrete-time linear dynamical system: non-normal
 
 - Student presentation
-- Normal vs non-normal matrix
-- Shur decomposition
+- Linear algebra: Normal vs non-normal matrix
+- Linear algebra: Shur decomposition
 - Neuroscience: memory structures [^Goldman2009][^Ganguli2008]
-- Jordan form, QR, Cholesky
 - Discrete dynamics zoo
+- Convolution
 - Filtering: tap-delay-line, finite impulse response, infinite impulse response, frequency response
 - Adjoint matrix: zero-padding, finite difference operator, binning
 - Neuroscience: non-normal / transient amplification [^Murphy2009]
@@ -47,6 +49,7 @@
 
 - Books [^Brockett1970][^Chicone2006]
 - existence and uniqueness
+- Linear algebra: Jordan form
 - 1D system, stability, flow field
 - 2D system, visualization
 - invariant subspaces
@@ -81,14 +84,13 @@
 
 ---
 
-## References
-### Web resources
+## Web resources
 - [Essence of linear algebra series by 3Blue1Brown](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) (Watch 1, 2, 3, 4, 5, 13, 14 (85 minutes total); other videos are optional
 - [Neuromatch Academy: Computational Neuroscience, Linear Algebra](https://compneuro.neuromatch.io/tutorials/W0D3_LinearAlgebra/chapter_title.html)
 - Petersen and Pedersen, [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 - [NYU CNS Mathematical Tools for Neural and Cognitive Science](http://www.cns.nyu.edu/~eero/math-tools/)
 
-### Neuroscience papers
+## References
 
 [^Ganguli2008]: Ganguli, S., Huh, D., & Sompolinsky, H. (2008). Memory traces in dynamical systems. Proceedings of the National Academy of Sciences, 105(48), 18970–18975.
 
@@ -100,7 +102,6 @@
 
 [^Sumner2002]: Sumner, C. J., Enrique, O’Mard, L. P., & Meddis, R. (2002). A revised model of the inner-hair cell and auditory-nerve complex. The Journal of the Acoustical Society of America, 111(5), 2178–2188.
 
-### Text books
 
 [^Horn2012]: Horn, R. A., & Johnson, C. R. (2012). Matrix Analysis. Cambridge University Press.
 
