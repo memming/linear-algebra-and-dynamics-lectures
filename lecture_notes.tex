@@ -52,6 +52,7 @@
 
 \newcommand{\inv}{^{-1}}
 \newcommand{\trp}{{^\top}} % transpose
+\newcommand{\ctrp}{{^\dagger}} % transpose
 \newcommand{\tp}[1]{\ensuremath{{#1}^\top}} % transpose
 \newcommand{\dm}[1]{\ensuremath{\mathrm{d}{#1}}} % dx dy dz dmu
 \newcommand{\RN}[2]{\frac{\dm{#1}}{\dm{#2}}} % (Radon-Nikodym) derivative
@@ -267,9 +268,9 @@ Practicing with some special matrices will gives us an intuition.
 	1 & 0 & 0
     \end{bmatrix}
 \end{align}
-\vspace{\stretch{0.3}}
+\vspace{\stretch{0.6}}
 
-\textbf{Strictly upper triangular matrices} have the following zero entry pattern ($X$ marks arbitrary value):
+\textbf{Strictly upper triangular matrices} have the following zero entry pattern ($X$ marks arbitrary value, example only shown in $3 \times 3$):
 \begin{align}\label{eq:LA:suppertri}
     \begin{bmatrix}
 	0 & X & X \\
@@ -288,21 +289,17 @@ Practicing with some special matrices will gives us an intuition.
 	0 & 0 & 0
     \end{bmatrix}
 \end{align}
-\vspace{\stretch{0.3}}
+\vspace{\stretch{0.6}}
 
 \newpage
 \begin{tcolorbox}
-\funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
-\end{tcolorbox}
-
-\begin{tcolorbox}
-    \reca Transpose of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
+    \textbf{Transpose} of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
 \end{tcolorbox}
 \begin{tcolorbox}
-    \funfact Two vectors $\vu$ and $\vv$ are orthogonal if $\vu\trp \vv = 0$.
+    Two vectors $\vu$ and $\vv$ are \textbf{orthogonal} if $\vu\trp \vv = 0$.
 \end{tcolorbox}
 \begin{tcolorbox}
-\funfact $\vv \in \reals^{n \times 1}$ is a unit vector if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.
+    $\vv \in \reals^{n \times 1}$ is a \text{unit vector} if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.
 \end{tcolorbox}
 
 \begin{align}
@@ -328,15 +325,56 @@ Practicing with some special matrices will gives us an intuition.
     \begin{bmatrix}
 \end{align}
 
-\question Let the column vectors of the square matrix 
-$V = \begin{bmatrix} \vv_1 & \vv_2 & \cdots & \vv_n \end{bmatrix}$
-form an \textit{orthonormal basis} of $\reals^n$, that is, 
-(1) any vector $\vx \in \reals^{n \times 1}$ can be expressed as $\vx = \sum_{i=1}^n \alpha_i \vv_i$ where $\alpha_i$ are scalar,
-(2) if $i \neq j$, then $\vv_i$ and $\vv_j$ are orthogonal,
+Let the collection of vectors $(\vu_1 & \vu_2 & \cdots & \vu_n)$ form an \textit{orthonormal basis} of $\reals^n$, that is,
+(1) any vector $\vx \in \reals^{n \times 1}$ can be expressed as $\vx = \sum_{i=1}^n \alpha_i \vu_i$ where $\alpha_i$ are scalar,
+(2) if $i \neq j$, then $\vu_i$ and $\vu_j$ are orthogonal,
 and
-(3) $\vv_i$ is a unit vector.
+(3) $\vu_i$ is a unit vector.
 
-\newpage
+An \textbf{orthonormal matrix} is a real-valued square matrix where the collection of column vectors form an orthonormal basis.
+\begin{align}\label{eq:LA:orthonormal}
+U &=
+    \begin{bmatrix}
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+	\\
+	\vu_1 & \cdots & \vu_n \\
+	\kern.3em\vline\kern.3em
+	&
+	&
+	\kern.3em\vline\kern.3em
+    \end{bmatrix}
+\end{align}
+
+\question Show that $U \in \reals^{n \times n}$ is orthonormal if and only if $U U\trp = I$.
+\vspace{\stretch{0.5}}
+
+A complex valued square matrix $U \in \complex^{n \times n}$ is \textbf{unitary}, if $U U\ctrp = I$ where $\ctrp$ denotes conjugate transpose operation.
+
+\question Show that multiplying unitary matrix to a column vector preserves its norm, i.e., it is an isometric transformation.
+\vspace{\stretch{0.5}}
+
+\question In the absence of input, i.e., $I(t) = 0$, what can you say about $\vx(t)$ given $\vx(0)$? (geometrically)
+\vspace{\stretch{0.3}}
+
+A \textbf{permutation matrix} is a matrix where each row and column has a single unity and zero otherwise.
+
+\question Show that a permutation matrix is a unitary matrix.
+\vspace{\stretch{0.5}}
+
+\question The following rotation matrix is a unitary matrix. What is the general form of $\vx(t)$ when $I(t) = 0$?
+\begin{align}\label{eq:LA:rotation}
+    W &=
+    \begin{bmatrix}
+	\cos(\theta) & -\sin(\theta)\\
+	\sin(\theta) & cos(\theta)
+    \end{bmatrix}
+\end{align}
+\vspace{\stretch{0.5}}
+
+\clearpage
 \begin{proposition}
 Any \textbf{real symmetric matrix} can be \textit{eigendecomposed} (a.k.a.~diagonalization).
 In particular, any covariance matrix can be decomposed as
@@ -348,6 +386,10 @@ $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
 is an orthonormal matrix, and $\Lambda$ is a diagonal matrix with non-negative real numbers.
 \end{proposition}
 
+\begin{tcolorbox}
+\funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
+\end{tcolorbox}
+
 
 \question
     \begin{parts}
@@ -357,8 +399,6 @@ is an orthonormal matrix, and $\Lambda$ is a diagonal matrix with non-negative r
 	Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
 	    \vspace{\stretch{3}}
     \end{parts}
-
-\clearpage
 
 \begin{tcolorbox}
     \funfact if $\vu$ and $\vv$ are orthogonal, $\vu\trp \vv = 0$.
