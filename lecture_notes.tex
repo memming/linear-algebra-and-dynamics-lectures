@@ -68,6 +68,7 @@
 \DeclareMathOperator*{\E}{\mathbb{E}} % expectation
 \DeclareMathOperator*{\var}{var}
 \DeclareMathOperator*{\cov}{cov}
+\DeclareMathOperator*{\diag}{diag}
 \newcommand{\system}[2]{\mathcal{#1}\left[ #2 \right]}
 \DeclareMathOperator*{\tr}{tr} % trace
 \newcommand{\indicator}[1]{\mathbf{1}_{#1}} % indicator function
@@ -184,8 +185,6 @@ Let's write this is matrix form. Define the vector $\vx(t)$ and the matrix $W$:
 
 Sure, these are solutions, but we need more insights.
 First, let us recall some linear algebra to help us.
-
-\newpage
 \begin{tcolorbox}[colback=black!1!,title=Matrix multiplication]
 Let $A$ be an $n \times k$ matrix, and $B$ be an $k \times m$ matrix.
 The $i$-th row and $j$-th column of $A$ is denoted $A_{i,j}$.
@@ -207,6 +206,32 @@ The matrix product $C = AB$ is $n \times m$, and its entries are given by,
 \noindent
 Note that matrix products don't commute, i.e., $AB \neq BA$.
 \end{tcolorbox}
+\newpage
+But what does \emph{matrix multiplication} do?
+Practicing with some special matrices will gives us an intuition.
+
+\textbf{Identity matrices} are \textbf{diagonal matrices} with ones on the diagonal (zero otherwise):
+\begin{align}\label{eq:LA:diag}
+    I &=
+	\diag(1, 1, \ldots, 1)
+    =
+    \begin{bmatrix}
+	1 & & \\
+	& \ddots & \\
+	& & 1
+    \end{bmatrix}
+\end{align}
+
+\question If $W = \diag(\lambda_1, \ldots, \lambda_n)$, what is the general form for $\vx(t)$?
+\vspace{\stretch{0.3}}
+
+\question If $W = I$, what is the general form for $\vx(t)$?
+\vspace{\stretch{0.3}}
+
+\begin{tcolorbox}
+\funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
+\end{tcolorbox}
+
 \begin{tcolorbox}
     \funfact Transpose of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
 \end{tcolorbox}
@@ -216,7 +241,6 @@ Note that matrix products don't commute, i.e., $AB \neq BA$.
 \begin{tcolorbox}
 \funfact $\vv \in \reals^{n \times 1}$ is a unit vector if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.
 \end{tcolorbox}
-But what does \emph{matrix multiplication} do?
 
 \begin{align}
     \begin{bmatrix}
@@ -432,16 +456,6 @@ Matrix times diagonal matrix scales column vectors:
 	\horzbar d_n \vv_n \horzbar
     \end{bmatrix}
 \end{align}
-\textbf{Identity matrices} are diagonal matrices with ones on the diagonal (zero otherwise):
-\begin{align}
-    I =
-    \begin{bmatrix}
-	1 & & \\
-	    & \ddots & \\
-	    & & 1
-    \end{bmatrix}
-\end{align}
-Note that $IA = AI = A$ for any matrix $A$.
 \end{tcolorbox}
 
 \question \textbf{Every linear transformation is a matrix}

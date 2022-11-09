@@ -41,7 +41,7 @@
 - Linear algebra: Shur decomposition
 - Neuroscience: memory structures [^Goldman2009][^Ganguli2008]
 - Discrete dynamics zoo
-- Convolution
+- Linear time invariant systems, convolution
 - Filtering: tap-delay-line, finite impulse response, infinite impulse response, frequency response
 - Adjoint matrix: zero-padding, finite difference operator, binning
 - Neuroscience: non-normal / transient amplification [^Murphy2009]
@@ -55,7 +55,7 @@
 - 2D system, visualization
 - invariant subspaces
 - matrix fundamental solution
-- complete categorization
+- complete categorization of linear dynamics
 - Neuroscience: line attractor
 - Neuroscience: first-order approximation of hair cell activity [^Meddis1986]
 
