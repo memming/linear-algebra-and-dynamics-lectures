@@ -364,7 +364,8 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \question Show that a permutation matrix is a unitary matrix.
 \vspace{\stretch{0.5}}
 
-\question The following rotation matrix is a unitary matrix. What is the general form of $\vx(t)$ when $I(t) = 0$?
+\clearpage
+\question The following \textbf{rotation matrix} is a unitary matrix.
 \begin{align}\label{eq:LA:rotation}
     W &=
     \begin{bmatrix}
@@ -372,19 +373,54 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 	\sin(\theta) & cos(\theta)
     \end{bmatrix}
 \end{align}
+\begin{parts}
+\subpart Sketch out the general form of $\vx(t)$ when $I(t) = 0$ and $\theta = \pi/4$.
+\vspace{\stretch{0.3}}
+\subpart How is the dynamics qualitatively different when $\theta$ is a rational multiple of $\pi$ or not?
+\vspace{\stretch{0.2}}
+\end{parts}
+
+\question Orthonormal matrices can also ``flip'' or reflect vectors with respect to axes. Take the following $W$.
+\begin{align}\label{eq:LA:flip}
+    W &=
+    \begin{bmatrix}
+	-1 & 0\\
+	 0 & 1
+    \end{bmatrix}
+\end{align}
+\begin{parts}
+\subpart Show that $W$ is unitary.
+\vspace{\stretch{0.1}}
+\subpart What is the general form of $\vx(t)$ when $I(t) = 0$?
+\vspace{\stretch{0.2}}
+\end{parts}
+
+A matrix is \textbf{symmetric} if $A = A\trp$. A complex matrix is \textbf{Hermitian} (or self-adjoint) if $A = A\ctrp$.
+
+\begin{proposition}
+Any \textit{real symmetric square matrix} $A$ can be \textbf{eigendecomposed} into the following form,
+\begin{align}\label{eq:eig}
+    A = U \Lambda U\trp \qquad \text{(eigen-decomposition)}
+\end{align}
+where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
+is an orthonormal matrix, and $\Lambda$ is a complex-valued diagonal matrix.
+\end{proposition}
+
+\question Let the connectivity matrix $W$ be real symmetric. Use the eigendecomposition \eqref{eq:eig} to answer the following questions.
+\begin{parts}
+\subpart What is $WW$?
+\vspace{\stretch{0.2}}
+\subpart What is $W^n$?
+\vspace{\stretch{0.2}}
+\subpart What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
+\subpart What is the general form of $\vx(t)$ with input?
+\vspace{\stretch{0.5}}
+\end{parts}
+
+This is a.k.a.~diagonalization.
 
 \clearpage
-\begin{proposition}
-Any \textbf{real symmetric matrix} can be \textit{eigendecomposed} (a.k.a.~diagonalization).
-In particular, any covariance matrix can be decomposed as
-\begin{align}\label{eq:eig}
-    \Sigma = U \Lambda U\trp
-\end{align}
-where 
-$U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
-is an orthonormal matrix, and $\Lambda$ is a diagonal matrix with non-negative real numbers.
-\end{proposition}
 
 \begin{tcolorbox}
 \funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
