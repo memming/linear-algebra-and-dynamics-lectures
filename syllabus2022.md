@@ -22,25 +22,26 @@
 - Motivation: intuition on high-dimensional spaces can be learned
 - Motivation: most things are somewhat linear
 - Linear neural network model
-- Linear algebra: Matrix-vector products, unitary matrices, change of basis, SVD
+- Linear algebra: Matrix-vector products
 - Linear algebra: Fun special matrix forms
 - Linear algebra: Eigendecomposition
 - Solution for arbitrary time
 - Analysis: line attractor
 - Complex eigenvalues, spectrum plot, and stability
 - Higher-order linear difference equations and delay embedding
+- Singular value decomposition (SVD)
 - Books for linear algebra [^Strang2006] [^Horn2012]
 - 12:00-13:00 CISS seminars
 - Simulating discrete-time linear dynamics in 1D and 2D, line attractor
-- Reading assignment
+- Reading assignment [^Goldman2009]
 
 ### Day 2: Discrete-time linear dynamical system: non-normal
 
-- Student presentation
+- Student presentation and discussion
 - Linear algebra: Normal vs non-normal matrix
 - Linear algebra: Shur decomposition
-- Neuroscience: memory structures [^Goldman2009][^Ganguli2008]
 - Discrete dynamics zoo
+- Neuroscience: optimal memory structures [^Ganguli2008]
 - Linear time invariant systems, convolution
 - Filtering: tap-delay-line, finite impulse response, infinite impulse response, frequency response
 - Adjoint matrix: zero-padding, finite difference operator, binning
