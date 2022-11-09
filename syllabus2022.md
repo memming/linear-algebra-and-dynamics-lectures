@@ -15,25 +15,32 @@
 
 ## Outline
 
-### Day 1: Linear Algebra
+### Day 1: Discrete-time linear dynamical system: normal
 
 - Motivation: intuition on high-dimensional spaces can be learned
 - Motivation: most things are somewhat linear
-- Books [^Strang2006] [^Horn2012]
-- vector spaces, matrix-vector products, eigen-decomposition, SVD, Jordan form, QR, Cholesky, Shur decomposition
-- rotation, unitary matrices, change of basis
-- 12:00-13:00 CISS seminars
-
-### Day 2: Discrete-time linear dynamical system
-
-- Simulating discrete-time linear dynamics in 1D and 2D
+- Linear neural network model
+- Matrix-vector products, unitary matrices, change of basis, SVD
+- Eigendecomposition
 - Solution for arbitrary time
-- Discrete dynamics zoo
-- Filtering: finite impulse response, infinite impulse response, frequency response
-- Adjoint matrix: zero-padding, finite difference operator, binning
+- Analysis: line attractor
+- Complex eigenvalues, spectrum plot, and stability
+- Higher-order linear difference equations and delay embedding
+- Books for linear algebra [^Strang2006] [^Horn2012]
+- 12:00-13:00 CISS seminars
+- Simulating discrete-time linear dynamics in 1D and 2D, line attractor
+- Reading assignment
+
+### Day 2: Discrete-time linear dynamical system: non-normal
+
+- Student presentation
 - Normal vs non-normal matrix
-- Applications: deep linear network, tap-delay-line
+- Shur decomposition
 - Neuroscience: memory structures [^Goldman2009][^Ganguli2008]
+- Jordan form, QR, Cholesky
+- Discrete dynamics zoo
+- Filtering: tap-delay-line, finite impulse response, infinite impulse response, frequency response
+- Adjoint matrix: zero-padding, finite difference operator, binning
 - Neuroscience: non-normal / transient amplification [^Murphy2009]
 
 ### Day 3: Continuous-time linear dynamical system
