@@ -380,7 +380,7 @@ Any \textit{real symmetric square matrix} $A$ can be \textbf{eigendecomposed} in
     A = U \Lambda U\trp \qquad \text{(eigen-decomposition)}
 \end{align}
 where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
-is an orthonormal matrix, and $\Lambda$ is a complex-valued diagonal matrix.
+is an orthonormal matrix, and $\Lambda$ is a real-valued diagonal matrix.
 \end{proposition}
 
 \question Let the connectivity matrix $W$ be real symmetric. Use the eigendecomposition \eqref{eq:eig} to answer the following questions.
@@ -443,6 +443,34 @@ This is a.k.a.~diagonalization.
     where $\theta$ is the angle between the two vectors.
     \end{tcolorbox}
 \end{parts}
+
+\question \textbf{Every linear transformation is a matrix}
+
+\question \textbf{Similarity transform and change of basis}
+Let $M$ be any invertible matrix.
+Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
+A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
+Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
+($B$ is said to be \textit{``similar''} to $A$)
+\vspace{\stretch{0.5}}
+
+\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
+Show that similar matrices have the same eigenvalues.
+\vspace{\stretch{1}}
+
+If A is not a square matrix, eigendecomposition is not defined. 
+
+\begin{proposition}
+    More generally, any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
+    \begin{align}\label{eq:eig}
+        A = U \Sigma V\trp \qquad \text{(singular value decomposition)}
+    \end{align}
+    where $U\in \complex^{m \times m}$ is a unitary matrix, $\Sigma$ is a real-valued diagonal matrix and
+    $V\in \complex^{n \times n}$ is a unitary matrix.
+    .
+\end{proposition}
+
+The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
 
 \section{Linear Algebra}
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
@@ -573,20 +601,6 @@ Matrix times diagonal matrix scales column vectors:
     \end{bmatrix}
 \end{align}
 \end{tcolorbox}
-
-\question \textbf{Every linear transformation is a matrix}
-
-\question \textbf{Similarity transform and change of basis}
-Let $M$ be any invertible matrix.
-Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
-A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
-Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
-($B$ is said to be \textit{``similar''} to $A$)
-\vspace{\stretch{0.5}}
-
-\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
-Show that similar matrices have the same eigenvalues.
-\vspace{\stretch{1}}
 
 \question \textbf{Upper triangular matrix:}
 
