@@ -590,7 +590,6 @@ Show that similar matrices have the same eigenvalues.
 
 \question \textbf{Upper triangular matrix:}
 
-\end{questions}
 
 Some further fun factoids for later.
 \subsection{Hadamard inequality}
@@ -656,6 +655,17 @@ and $R \in \reals^{n \times n}$ is an upper triangular matrix.
 \end{theorem}
 Proof is trivial. Useful for pushing forward Gaussian distribution with covariance $A$ to $B$.
 
+\subsection{Reading assignment}
+Read~\citep{Goldman2009} with the following questions in mind:
+
+\question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
+\vspace{\stretch{0.5}}
+
+\question Take a unitary matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\vx(t)$? How does this relate to Fig 3C?
+\vspace{\stretch{0.5}}
+
+
+\subsection{Non-normal dynamical systems}
 
 \section{Continuous-time Linear Dynamical Systems}
 \subsection{Companion form matrices}
@@ -746,6 +756,8 @@ You can implicitly map your data to an infinitely high-dimensional space by usin
 \end{tcolorbox}
 
 \subsection{Koopman operators}
+
+\end{questions}
 
 \bibliographystyle{plainnat}
 \bibliography{refs}

@@ -1,7 +1,5 @@
 # Linear Dynamical Systems for Neuroscience
 
-
-
 ## Instructors
 
 - Il Memming Park (Group Leader, Champalimaud Centre for the Unknown)
