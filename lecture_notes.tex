@@ -736,6 +736,18 @@ See \citet[Lemma 1.120]{Chicone2006}.
 Of course, a patchwork of linear dynamics can create some interesting systems.
 In neural data analysis, locally linear dynamical system model~\cite{Zhao2016d} and recurrent switching linear dynamical systems type models utilize this~\citep{Linderman2017,Nassar2018b}.
 
+\begin{equation}\label{eq:cubicode}
+\dot x = x^3 + y\\
+\dot y = 3x \\
+\end{equation}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figs/linearization.pdf}
+    \caption{Linearization of the system described in Equation \ref{eq:cubicode}.}
+    \label{fig:linearization}
+\end{figure}
+
 \subsection{Kernel methods}
 When linear methods fail due to nonlinearity, you can always try linear methods applied to a nonlinearly mapped space.
 
