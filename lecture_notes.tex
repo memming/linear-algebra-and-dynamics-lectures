@@ -161,7 +161,7 @@ The membrane potential time constant of a neuron is not very flexible; typically
 Having many independent neurons does not help with the situation of forgetful membrane.
 But maybe we can create a network of (non-spiking) neurons!
 
-Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time as,
+Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time $t = 0, 1, 2, \ldots$ as,
 \begin{align}\label{eq:dtlds:LDS}
 	x_i(t+1) &= w_{i,i} x_i(t) + \sum_{j \neq i} w_{i,j} x_j(t) + b_i I(t)
 \end{align}
@@ -373,7 +373,7 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \vspace{\stretch{0.5}}
 
 \clearpage
-\question The following \textbf{rotation matrix} is a unitary matrix.
+\question The following \textbf{rotation matrix} is a unitary matrix. Multiplying vectors in $\reals^2$ results in a counter-clock rotation by $\theta$.
 \begin{align}\label{eq:LA:rotation}
     W &=
     \begin{bmatrix}
@@ -412,18 +412,21 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 
 \clearpage
 \subsection{Spectral theorem}
+Now we reach the first and arguably the most important matrix decomposition.
+
 A matrix is \textbf{symmetric} if $A = A\trp$. A complex matrix is \textbf{Hermitian} (or self-adjoint) if $A = A\ctrp$.
 
-\begin{proposition}
-Any \textit{real symmetric square matrix} $A$ can be \textbf{eigendecomposed} into the following form,
-\begin{align}\label{eq:eig}
-    A = U \Lambda U\trp \qquad \text{(eigen-decomposition)}
+\begin{tcolorbox}[colback=black!1!,title=Spectral theorem of linear algebra]
+Any \textit{real symmetric square matrix} $A$ can be decomposed into the following form,
+\begin{align}\label{eq:spectral}
+    A = U \Lambda U\trp \qquad \text{(spectral-decomposition)}
 \end{align}
 where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
 is an orthonormal matrix, and $\Lambda$ is a real-valued diagonal matrix.
-\end{proposition}
+\end{tcolorbox}
 
-\question Let the connectivity matrix $W$ be real symmetric. Use the eigendecomposition \eqref{eq:eig} to answer the following questions.
+\question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network influence each other with the same gain.
+Use the spectral decomposition \eqref{eq:spectral} to answer the following questions.
 \begin{parts}
 \part What is $WW$?
 \vspace{\stretch{0.2}}
