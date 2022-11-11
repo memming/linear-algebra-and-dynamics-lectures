@@ -413,17 +413,16 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \clearpage
 \subsection{Spectral theorem}
 Now we reach the first and arguably the most important matrix decomposition.
-Quick terminology:
-A matrix is \textbf{symmetric} if $A = A\trp$. A complex matrix is \textbf{Hermitian} (or \textbf{self-adjoint}) if $A = A\ctrp$.
+
+A matrix is \textbf{symmetric} if $A = A\trp$. A complex matrix is \textbf{Hermitian} (or self-adjoint) if $A = A\ctrp$.
 
 \begin{tcolorbox}[colback=black!1!,title=Spectral theorem of linear algebra]
-Any \textit{real symmetric matrix} $A$ can be decomposed into the following form,
+Any \textit{real symmetric square matrix} $A$ can be decomposed into the following form,
 \begin{align}\label{eq:spectral}
     A = U \Lambda U\trp \qquad \text{(spectral-decomposition)}
 \end{align}
 where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
 is an orthonormal matrix, and $\Lambda$ is a real-valued diagonal matrix.
-Similarly, every Hermitian matrix can be decomposed into $A = U \Lambda U\ctrp$ where $U$ is a unitary matrix and $\Lambda$ a complex-valued diagonal matrix.
 \end{tcolorbox}
 
 \question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network influence each other with the same gain.
@@ -433,47 +432,20 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
 \vspace{\stretch{0.2}}
 \part What is $W^n$?
 \vspace{\stretch{0.2}}
-\part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$)?
+\part What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
 \part What is the general form of $\vx(t)$ with input?
 \vspace{\stretch{0.5}}
 \end{parts}
 
-Note that $U$ and $\Lambda$ are related to eigenvalues and eigenvectors.
-\begin{tcolorbox}[colback=black!1!,title=Eigenvalues and eigenvectors]
-Given a matirx $A$, solutions to the following eigenvalue equation
-\begin{align}\label{eq:eigenvalue}
-	A \vx = \lambda_i \vx,
-\end{align}
-are called the eigenvectors ($\vx_i$) and their eigenvalues ($\lambda_i$) of $A$.
-\end{tcolorbox}
-
-\question Given a spectral decomposition of $A$, show that $\vu_i$ is an eigenvector with eigenvalue $\Lambda_{i,i}$ of $A$.
-\vspace{\stretch{0.3}}
-
-\clearpage
-As you have just seen, the spectral decomposition makes things easy.
-But are there other matrices that also allow such decomposition?
-\begin{tcolorbox}[colback=black!1!,title=Normal matrix]
-If a matrix $A$ commutes with $A\trp$ (or $A\ctrp$), it is called \textbf{normal}:
-\begin{align}\label{eq:normal}
-	A A\ctrp = A\ctrp A
-\end{align}
-Normal matrices are exactly those that have \emph{a complete set of orthonormal eigenvectors}.
-\end{tcolorbox}
-Normal matrices include symmetric, skew-symmetric, orthogonal, and more.
-
-\question Show that if $A$ is normal, so is $A + \sigma I$ for any $\sigma \in \reals$.
-\vspace{\stretch{0.3}}
-
-In some sense, linear dynamics with normal matrices are easy to understand now.
-In the following section, we will attempt to understand the other cases.
+This is a.k.a.~diagonalization.
 
 \clearpage
 
-%\begin{tcolorbox}
-%\funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
-%\end{tcolorbox}
+\begin{tcolorbox}
+\funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
+\end{tcolorbox}
+
 
 \question
     \begin{parts}
@@ -758,7 +730,7 @@ Read~\citep{Goldman2009} with the following questions in mind:
 \subsection{Scope}
 We want to study, in the most general way possible, differential equations that can be written as
 \begin{align}
-    f(x(t), x^{(1)}(t), \ldots, x^{(N)}(t)) = u(t)
+    f(x(t), x^{(1)}(t), \ldots, `x^{(N)}(t)) = u(t)
 \end{align}
 \subsection{Univariate linear differential equations}
 Consider the following first order linear ODE with constant coefficients
@@ -768,9 +740,10 @@ Consider the following first order linear ODE with constant coefficients
 \end{align}
 To solve the differential equation means to find the function $x(t)$ which passes through $c$ at time $t=0$ and has a derivative, which irregardless of time, is the function evaluation scaled by $a$.  Lets begin by making the formal rearrangement
 \begin{align}
-    \frac{dx}{x} &= a \, dt
+    &\frac{dx}{x} = a \, dt\\
+    \implies &x(t) = c_1 \exp(at)
 \end{align}
-If we were not given the initial condition, $x(0)=k$, this is as far as we could go in determining a solution.  Fortunately, we can solve for $c_2$ by using the initial condition, so that $c_2 = k$.  Thus, the full solution to the differential equation is just $x(t) = k \exp(at)$.  
+If we were not given the initial condition, $x(0)=k$, this is as far as we could go in determining a solution.  Fortunately, we can solve for $c_1$ by using the initial condition, so that $c_1 = k$.  Thus, the full solution to the differential equation is just $x(t) = k \exp(at)$.  
 
 \textbf{Remark}: The system this differential equation describes is not very interesting.  If $a > 0$ then the solution blows up in the limit, whereas if $a < 0$ then $x(t) \rightarrow 0$.
 
