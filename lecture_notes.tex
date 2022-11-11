@@ -123,12 +123,21 @@ It may be surprising that there are a finite categories of linear dynamical syst
 \end{tcolorbox}
 This allows us to theoretically understand roughly what is going to happen in systems at longer time scales thanks to powerful first-order approximation techniques.
 \begin{tcolorbox}[colback=black!1!,title=Linearize (locally)]
-    Even complex nonlinear systems have a linear component.
+    Even complex nonlinear systems usually have a meaningful linear component.
 \end{tcolorbox}
 Of course, there are exceptions and limitations, however, there are extensions and generalizations that typically incorporates some form of linearity.
 
 \section{Discrete-time Linear Dynamical Systems}
-We will first dive into discrete-time systems.
+In most aspects discrete-time and continuous-time linear dynamical systems are analogous.
+Continuous-time systems require more abstract mathematical skills, namely calculus and its friends, while discrete-time systems have lower barriers since solutions can be straightforwardly computed.
+Discrete-time systems can be implemented with simple loops on computers.
+A simple \emph{Euler integration} scheme tightly connects the two approaches, and allows most of the practical intuitions to be transferred.
+\begin{align}\label{eq:euler}
+\frac{\mathrm{d}x}{\mathrm{d}t} = f(x) \quad \Longleftrightarrow \quad
+x(t + \Delta) = x(t) + \Delta \cdot f(x)
+\end{align}
+for sufficiently small $\Delta$.
+Now, let us dive into discrete-time systems!
 
 \subsection{Memory traces in dynamical systems}
 Consider a simple leaky membrane potential model
