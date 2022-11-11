@@ -225,6 +225,7 @@ Note that matrix products don't commute, i.e., $AB \neq BA$.
 What does \emph{matrix multiplication} do?
 Practicing with some special matrices will gives us an intuition.
 
+\subsection{Some special matrices as connectivity}
 \textbf{Diagonal matrices} are non-zero only on the diagonal entries.
 \begin{align}\label{eq:LA:diag}
     \diag(\lambda_1, \lambda_2, \ldots, \lambda_n)
@@ -303,6 +304,20 @@ Practicing with some special matrices will gives us an intuition.
 \end{align}
 \vspace{\stretch{0.6}}
 
+\question Since \eqref{eq:dtlds:LDS} is causal $\vx(t)$ only depends on the past input, i.e., $I(s)$ for $s < t$.
+How much memory of the past does $\vx(t)$ have?
+\begin{parts}
+\part for \eqref{eq:LA:suppertri:eg}
+\vspace{\stretch{0.4}}
+\part for \eqref{eq:LA:diag:eg}
+\vspace{\stretch{0.4}}
+\end{parts}
+
+\subsection{Orthonormal and Unitary Matrices}
+Recall that the Euclidean vector space $\reals^n$ can be spanned by $n$ linearly independent basis vectors.
+In particular, one can choose a set of unit length vectors that are orthogonal to each other.
+We can write this in linear algebra terms.
+
 \begin{tcolorbox}
     \textbf{Transpose} of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
 \end{tcolorbox}
@@ -336,15 +351,20 @@ U &=
     \end{bmatrix}
 \end{align}
 
-\question Show that $U \in \reals^{n \times n}$ is orthonormal if and only if $U U\trp = I$.
-\vspace{\stretch{0.5}}
+\clearpage
+\question Show that $U$ is orthonormal if and only if $U U\trp = I$.
+\vspace{\stretch{0.3}}
+
+\question Show that if $U$ is orthonormal then $U\trp U = I$.
+\vspace{\stretch{0.3}}
 
 A complex valued square matrix $U \in \complex^{n \times n}$ is \textbf{unitary}, if $U U\ctrp = I$ where $\ctrp$ denotes conjugate transpose operation.
+Orthonormal matrices are unitary.
 
-\question Show that multiplying unitary matrix to a column vector preserves its norm, i.e., it is an isometric transformation.
+\question Show that multiplying a unitary matrix to a column vector preserves its norm, i.e., it is an \emph{isometric} transformation.
 \vspace{\stretch{0.5}}
 
-\question In the absence of input, i.e., $I(t) = 0$, what can you say about $\vx(t)$ given $\vx(0)$? (geometrically)
+\question Let $W$ in \eqref{eq:dtlds:LDS} be orthonormal. In the absence of input, i.e., $I(t) = 0$, what can you say about $\vx(t)$ given $\vx(0)$? (geometrically)
 \vspace{\stretch{0.3}}
 
 A \textbf{permutation matrix} is a matrix where each row and column has a single unity and zero otherwise.
@@ -358,7 +378,7 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
     W &=
     \begin{bmatrix}
 	\cos(\theta) & -\sin(\theta)\\
-	\sin(\theta) & cos(\theta)
+	\sin(\theta) & \cos(\theta)
     \end{bmatrix}
 \end{align}
 \begin{parts}
