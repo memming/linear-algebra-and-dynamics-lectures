@@ -76,6 +76,7 @@
 ### Day 5: Numerical analysis applications and programming exercises
 
 - Solving linear systems
+- Never numerically invert a matrix unless absolutely necessary!
 - Least squares is convex optimization
 - Approximating linear ODE as a discrete time system
 - PCA is linear
