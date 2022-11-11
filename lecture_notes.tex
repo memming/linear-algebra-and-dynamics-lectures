@@ -730,13 +730,13 @@ Read~\citep{Goldman2009} with the following questions in mind:
 \subsection{Scope}
 We want to study, in the most general way possible, differential equations that can be written as
 \begin{align}
-    f(x(t), x^{(1)}(t), \ldots, `x^{(N)}(t)) = u(t)
+    f(x(t), x^{(1)}(t), \ldots, x^{(N)}(t)) = u(t)
 \end{align}
 \subsection{Univariate linear differential equations}
-Consider the following first order linear ODE with constant coefficients
+Consider the following first order homogenuous linear ODE with constant coefficients
 \begin{align}
-    \dot{x}(t) &= a x(t)\\
-    x(0) &= k
+    &\dot{x}(t) - a x(t) = 0\\
+    &x(0) = k
 \end{align}
 To solve the differential equation means to find the function $x(t)$ which passes through $c$ at time $t=0$ and has a derivative, which irregardless of time, is the function evaluation scaled by $a$.  Lets begin by making the formal rearrangement
 \begin{align}
@@ -745,15 +745,29 @@ To solve the differential equation means to find the function $x(t)$ which passe
 \end{align}
 If we were not given the initial condition, $x(0)=k$, this is as far as we could go in determining a solution.  Fortunately, we can solve for $c_1$ by using the initial condition, so that $c_1 = k$.  Thus, the full solution to the differential equation is just $x(t) = k \exp(at)$.  
 
-\textbf{Remark}: The system this differential equation describes is not very interesting.  If $a > 0$ then the solution blows up in the limit, whereas if $a < 0$ then $x(t) \rightarrow 0$.
+\textbf{Remark}: The system this differential equation describes is not very interesting.  If $a > 0$ then $x(t) \rightarrow \infty$, whereas if $a < 0$ then $x(t) \rightarrow 0$.
 
 \subsection{Second order}
 Lets consider a more interesting example
 \begin{align}
-    \ddot{x}(t) &= a\dot{x}(t) + b x(t)\\
-    \dot{x}(0) &= k_1\\
-    x(0) &= k_2
+    &\ddot{x}(t) - a_1 \dot{x}(t) - a_2 x(t) = 0\\
+    &\dot{x}(0) = k_1\\
+    &x(0) = k_2
 \end{align}
+To solve this differential equation, we are going to make an \textit{ansatz}, i.e. we are going to assume the solution is of the form
+\begin{align}
+    x(t) = \exp(c t)
+\end{align}
+then of course, we have that
+\begin{align}
+    \dot{x}(t) &= c \exp(ct)\\
+    \ddot{x}(t) &= c^2 \exp(ct)
+\end{align}
+which would mean that
+\begin{align}
+    \exp(ct) \left(c^2 - c a_1 - a_2\right) = 0
+\end{align}
+Provided this ansatz is correct, we have to find $c$ such that $c^2 - ca_1 - a_2 = 0$, i.e. we have to find the roots of this polynomial.  Lets call the roots of this equation $c_1$ and $c_2$; there are three cases to examine: i) when $c_1$ and $c_2$ are real and distinct roots, ii) when $c_1$ and $c_2$ are complex conjugate, i.e. $c_1 = \alpha + j \beta$ and $c_2 = \alpha - j \beta$ and iii) when $c_1 = c_2$.  
 
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
