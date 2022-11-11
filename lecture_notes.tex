@@ -140,11 +140,11 @@ for sufficiently small $\Delta$.
 Now, let us dive into discrete-time systems!
 
 \subsection{Memory traces in dynamical systems}
-Consider a simple leaky membrane potential model
+Consider an abstract leaky membrane potential model:
 \begin{align}\label{eq:dtlds:LIF:def}
 	v(t+1) &= a \cdot v(t) + I(t)
 \end{align}
-where $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant, and $I(t)$ is the externally current entering the neuron.
+where $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant, and $I(t) \in \reals$ is a current entering the neuron.
 
 \begin{questions}
 \question Given an initial condition $v(0)$ and the external current $I(t)$ for $t = 0, 1, \ldots $, write the general form of $v(t)$ using the summation notation (e.g. $\sum_{s=0}^t$). (Hint: try writing out $v(1), v(2), v(3)$ first and generalize.)
@@ -155,6 +155,7 @@ where $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant,
 \vspace{\stretch{0.2}}
 
 \newpage
+\subsection{Linear network model}
 As we shall see later when we go to continuous time, $0 < a < 1$ is tightly connected to the time constant.
 The membrane potential time constant of a neuron is not very flexible; typically in the order of $10$ milliseconds.
 Having many independent neurons does not help with the situation of forgetful membrane.
@@ -162,13 +163,13 @@ But maybe we can create a network of (non-spiking) neurons!
 
 Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time as,
 \begin{align}\label{eq:dtlds:LDS}
-	x_i(t+1) &= w_{i,i} x_i(t) + \sum_{j} w_{i,j} x_j(t) + b_i I(t)
+	x_i(t+1) &= w_{i,i} x_i(t) + \sum_{j \neq i} w_{i,j} x_j(t) + b_i I(t)
 \end{align}
-where $w_{i,i}$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$ is the influence of $j$-th neuron's membrane potential directly onto $i$-th neuron's membrane potential.
+where $w_{i,i} \in \reals$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$ is the influence of $j$-th neuron's membrane potential directly onto $i$-th neuron's membrane potential.
 Note that there is no synaptic dynamics in this super simplified model.
 Despite its simplicity, it is a very useful model of neural dynamics~\citep{Druckmann2012,Ganguli2008,Goldman2009}.
 
-Let's write this is matrix form. Define the vector $\vx(t)$ and the matrix $W$:
+Let's write this is matrix form. Define the neural activity vector $\vx(t)$ and the connectivity matrix $W$:
 \begin{align}
 	\vx(t) &= 
 	    \begin{bmatrix}
@@ -196,7 +197,8 @@ Note that $W \in \reals^{n \times n}$ is a square matrix.
 \question Write out the general form for $\vx(t)$ using matrix power.
 \vspace{\stretch{0.3}}
 
-Sure, these are solutions, but we need more insights.
+Sure, these are solutions, but not in a very transparent form.
+We desire more insights!
 First, let us recall some linear algebra to help us.
 \begin{tcolorbox}[colback=black!1!,title=Matrix multiplication]
 Let $A$ be an $n \times k$ matrix, and $B$ be an $k \times m$ matrix.
@@ -220,7 +222,7 @@ The matrix product $C = AB$ is $n \times m$, and its entries are given by,
 Note that matrix products don't commute, i.e., $AB \neq BA$.
 \end{tcolorbox}
 \newpage
-But what does \emph{matrix multiplication} do?
+What does \emph{matrix multiplication} do?
 Practicing with some special matrices will gives us an intuition.
 
 \textbf{Diagonal matrices} are non-zero only on the diagonal entries.
@@ -279,6 +281,7 @@ Practicing with some special matrices will gives us an intuition.
 \end{align}
 \vspace{\stretch{0.6}}
 
+\clearpage
 \textbf{Strictly upper triangular matrices} have the following zero entry pattern ($X$ marks arbitrary value, example only shown in $3 \times 3$):
 \begin{align}\label{eq:LA:suppertri}
     \begin{bmatrix}
@@ -300,7 +303,6 @@ Practicing with some special matrices will gives us an intuition.
 \end{align}
 \vspace{\stretch{0.6}}
 
-\newpage
 \begin{tcolorbox}
     \textbf{Transpose} of a matrix (or vector) is defined as $(A\trp)_{i,j} = A_{j,i}$.
 \end{tcolorbox}
