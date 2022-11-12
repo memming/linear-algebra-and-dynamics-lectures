@@ -16,6 +16,7 @@
 
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.mps,.eps,.ps}
+\graphicspath{{figs/}}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -516,11 +517,10 @@ If A is not a square matrix, eigendecomposition is not defined.
 
 The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
 
-\section{Linear Algebra}
+\subsection{Matrix Algebra}
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
 \textbf{Matrix multiplication}:
 \noindent
-Note that matrix products don't commute, i.e., $AB \neq BA$.\\[1mm]
 Vector inner product and outer products are special cases:
 %Let $\vu$ and $\vv$ be column vectors,
 \begin{align}
@@ -646,74 +646,7 @@ Matrix times diagonal matrix scales column vectors:
 \end{align}
 \end{tcolorbox}
 
-\question \textbf{Upper triangular matrix:}
-
-
-Some further fun factoids for later.
-\subsection{Hadamard inequality}
-For any $n \times n$ positive definite matrix $A$,
-\begin{align}
-    \det{A} \leq A_{11} A_{22} \cdots A_{nn}
-\end{align}
-For any real-valued matrix $A$,
-\begin{align}
-    A = 
-    \begin{bmatrix}
-	\kern.3em\vline\kern.3em
-	&
-	&
-	\kern.3em\vline\kern.3em
-	\\
-	\vu_1 & \cdots & \vu_n \\
-	\kern.3em\vline\kern.3em
-	&
-	&
-	\kern.3em\vline\kern.3em
-    \end{bmatrix}
-    \qquad
-    \abs{\det{A}} \leq \prod_{i=1}^n \norm{\vu_i}
-\end{align}
-This is a useful inequality for approximating marginal log-probabilities of multivariate Gaussians~\citep{Zhang2013a}.
-\subsection{Householder transform}
-Let $\vx \neq \vy \in \reals^n$ with $\norm{\vx} = \norm{\vy}$.
-There exists a vector $\vu \in \reals^n$ and $\norm{\vu} = 1$ such that, $P\vx = \vy$,
-where the Householder transform $P$ is defined by $P = (I - 2\vu\tp{\vu})$.
-The vector $\vu$ is uniquely provided up to sign by,
-\[
-    \vu = \pm \frac{x-y}{\norm{x-y}}.
-\]
-Note that $P^2 = I - 4\vu\tp{\vu} + 4\vu\tp{\vu}\vu\tp{\vu} = I$.
-Hence, $P = P\inv$, $Py = x$. Also, $P = \tp{P}$.
-
-\subsection{QR-decomposition}
-QR-decomposition is Gram-Schmidt orthogonalization on all columns of a matrix.
-Implementation using Householder transformation is numerically more stable.
-
-Let $A \in \reals^{m \times n}$, $m \geq n$.
-\[
-    A = QR,
-\]
-where $Q \in \reals{m \times n}$ is an orthogonal matrix with $\tp{Q}Q = I_n$,
-and $R \in \reals^{n \times n}$ is an upper triangular matrix.
-
-\subsection{Positive definite, positive semi-definite}
-\begin{proposition}
-    A matrix $A$ is positive semi-definite if and only if there is a positive semi-definite matrix square root, $B^2 = A$. This square root is unique.
-\end{proposition}
-
-\begin{theorem}[via Gabriel Peyr\'e's tweet]
-    Given two positive-definite matrices $A, B$. The unique solution of
-    \[
-	XAX=B
-    \]
-    for a positive definite $X$ is given by,
-    \[
-	X = A^{-\onehalf} \left( A^\onehalf B A^\onehalf \right)^\onehalf A^{-\onehalf}
-    \]
-\end{theorem}
-Proof is trivial. Useful for pushing forward Gaussian distribution with covariance $A$ to $B$.
-
-\subsection{Reading assignment}
+\subsection{Reading assignment for Day 1}
 Read~\citep{Goldman2009} with the following questions in mind:
 
 \question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
@@ -725,7 +658,78 @@ Read~\citep{Goldman2009} with the following questions in mind:
 \question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
 \vspace{\stretch{0.5}}
 
-\subsection{Non-normal dynamical systems}
+\subsection{Diagonalization}
+\begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
+    $$W\trp W \neq W W\trp$$
+\end{tcolorbox}
+The spectral theorem is nice because it decouples each dimension, but can we extend such analysis to non-normal matrices?
+As long as a matrix has $n$ linearly independent eigenvectors, we can diagonalize them using its eigenvectors.
+\begin{align}\label{eq:eigendecomposition}
+A = S \Lambda S\inv  \qquad \text{(diagonalization)}
+\end{align}
+where $\Lambda$ is a diagonal matrix of complex numbers.
+\question Show that the columns of $S$ are (right) eigenvectors of $A$.
+\vspace{\stretch{0.2}}
+
+As long as the set of eigenvectors span the whole space, we can use \eqref{eq:eigendecomposition} in reverse to construct matrices with specific eigenvectors and eigenvalues.
+For example, take $\vv_1 = [1, 0]\trp$, $\vv_2 = [1, 1]\trp / \sqrt{2}$, $\lambda_1 = 1$, and $\lambda_2 = 2$.
+Let $S = [\vv_1, \vv_2]$ and $\Lambda = \diag(\lambda_1, \lambda_2)$.
+We get the following non-normal matrix:
+\begin{align}\label{eq:nnm:ex:a}
+W_a &= S \Lambda S\inv =
+\begin{bmatrix}
+1 & 1\\
+0 & 2
+\end{bmatrix}
+\end{align}
+
+
+Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors of $W$.
+\begin{align}
+	\vx(t) =
+	(S \Lambda S\inv)^k \vx(0) =
+	(S \Lambda S\inv) \cdots
+	(S \Lambda S\inv) \vx(0)
+	=
+	%S \Lambda^k S\inv \vx(0)
+	%=
+	S \begin{bmatrix}
+	\lambda_1^k & &\\
+	& \ddots & \\
+	& & \lambda_n^k
+	\end{bmatrix}
+	S\inv \vx(0)
+\end{align}
+\question Show that $\vx(t) = S\lambda_i^t$ if initialized at the eigenvector, i.e., $\vx(0) = \vv_i$.
+\vspace{\stretch{0.2}}
+
+This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
+They just need to be combined back with $S$.
+
+\subsection{Difference of exponentials is usually not an exponential}
+\question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch
+\begin{align}\label{eq:diff_ex:eg}
+    f(t) = e^{-t/\tau_1} - e^{-t/\tau_2}
+\end{align}
+\includegraphics[width=4in]{diff_exp_decay}
+
+\question Explain how two eigenmodes that independently exhibit exponential (geometric) decay can manifest in seemingly transient amplification in a different reference frame (e.g. a single neuron activity).
+\vspace{\stretch{0.5}}
+
+\subsection{Purely feedforward networks}
+
+
+\subsection{Other cases}
+Consider the following example permutation matrix:
+\begin{align}\label{eq:nnm:ex:b}
+W_b &=
+\begin{bmatrix}
+0 & 1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\end{bmatrix}
+\end{align}
+
 
 \section{Continuous-time Linear Dynamical Systems}
 \subsection{Scope}
@@ -949,7 +953,7 @@ In neural data analysis, locally linear dynamical system model~\cite{Zhao2016d} 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figs/linearization.pdf}
+    \includegraphics[width=\textwidth]{linearization}
     \caption{Linearization of the system described in Equation \ref{eq:cubicode}.}
     \label{fig:linearization}
 \end{figure}
