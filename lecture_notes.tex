@@ -812,6 +812,12 @@ then we can write that
 \begin{align}
     \dot{\fundamentalSolution}(t, 0) = F \fundamentalSolution(t, 0)
 \end{align}
+Now, if we were to make an \textit{ansatz} and guess that the solution is $\vx(t) = \fundamentalSolution(t, 0) \vx(0)$ then we can easily verify whether or not this is true
+\begin{align}
+    &\dot{\vx}(t) = F \vx(t)\\
+    \implies & \dot{\fundamentalSolution}(t, 0) \vx(0) = F \fundamentalSolution(t, 0) \vx(0)\\
+    \implies & F \fundamentalSolution(t, 0) \vx(0) = F \fundamentalSolution(t, 0) \vx(0)
+\end{align}
 % \begin{align}
 %     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
 %     0 & \phi_2(t, 0) & 0 & \cdots & 0\\
