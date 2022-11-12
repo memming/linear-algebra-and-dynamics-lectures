@@ -801,6 +801,17 @@ Lets begin by assuming that we can find the solution to Eq.~\eqref{eq::matrixDif
     & \qquad \qquad \qquad \qquad \vdots\\
     &a_0 \phi_N(t) + a_1 \phi_N^{(1)}(t) + \cdots + \phi_N^{(N)}(t) = 0
 \end{align}
+which if take $\Phi_i(t) = \begin{bmatrix} \phi_i(t) & \phi_i^{(1)}(t) & \cdots & \phi_i^{(N)}(t) \end{bmatrix}^\top$, and set 
+\begin{align}
+    \fundamentalSolution(t, 0) = \begin{pmatrix} \vline & \vline & & \vline\\
+        \Phi_1(t) & \Phi_2(t) & \cdots & \Phi_N(t)\\
+        \vline & \vline & & \vline
+    \end{pmatrix}
+\end{align}
+then we can write that
+\begin{align}
+    \dot{\fundamentalSolution}(t, 0) = F \fundamentalSolution(t, 0)
+\end{align}
 % \begin{align}
 %     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
 %     0 & \phi_2(t, 0) & 0 & \cdots & 0\\
