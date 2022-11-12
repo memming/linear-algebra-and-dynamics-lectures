@@ -42,6 +42,7 @@
     \edef\letter{\alph{ct}}
     \expandafter\defrv\letter
 }
+\newcommand{\fundamentalSolution}{\boldsymbol{\Phi}}
 \newcommand{\tvv}[1]{\mathbf{\tilde{#1}}} % tilde vectors
 \newcommand{\hvv}[1]{\mathbf{\hat{#1}}} % hat vectors
 
@@ -777,10 +778,11 @@ with $a_N = 1$.  If we define
 \end{align}
 then we can transform this $N$-th order equation into a first order one below
 \begin{align}\label{eq::matrixDifferential}
-    \dot{\vx}(t) &= F \vx(t)
+    &\dot{\vx}(t) = F \vx(t)\\
+    &\vx(0) = \vk
 \end{align}
 by overloading the differential operator so that $\dot{\vx}(t) = \begin{bmatrix} x^{(1)}(t) & x^{(2)}(t) & \cdots & x^{(N)}\end{bmatrix}^\top
-$, and
+$, and setting
 \begin{align}
     F = \begin{pmatrix} 0 & 1 & 0 & \cdots & 0 \\ 
                         0 & 0 & 1 & \cdots & 0 \\
@@ -792,7 +794,19 @@ $, and
 \subsection{Fundamental matrix solution}
 How can we actually solve this matrix differential equation? That is how can we find the vector that satisfies Eq.~\eqref{eq::matrixDifferential} and the associated initial condition? To answer this question, we have to take a slight detour and discuss the \textit{fundamental matrix solution}
 
-Lets begin by assuming that we can find the solution to Eq.~\eqref{eq::matrixDifferential}
+Lets begin by assuming that we can find the solution to Eq.~\eqref{eq::matrixDifferential}, then if we denote the $N$ solutions as $\phi_1(t), \phi_2(t), \ldots, \phi_N(t)$ then we can write
+\begin{align}
+    &a_0 \phi_1(t) + a_1 \phi_1^{(1)}(t) + \cdots + \phi_1^{(N)}(t) = 0\\
+    &a_0 \phi_2(t) + a_1 \phi_2^{(1)}(t) + \cdots + \phi_2^{(N)}(t) = 0\\
+    & \qquad \qquad \qquad \qquad \vdots\\
+    &a_0 \phi_N(t) + a_1 \phi_N^{(1)}(t) + \cdots + \phi_N^{(N)}(t) = 0
+\end{align}
+% \begin{align}
+%     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
+%     0 & \phi_2(t, 0) & 0 & \cdots & 0\\
+%     \vdots & \vdots & \vdots & \ddots & \vdots\\
+%     0 & 0 & 0 & \cdots & \phi_N(t, 0) \end{pmatrix}
+% \end{align}
 
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
