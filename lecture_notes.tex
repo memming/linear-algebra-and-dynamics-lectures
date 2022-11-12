@@ -776,7 +776,7 @@ Lets consider a more interesting example where we consider the solution to an $N
 % Unfortunately, in the case of $iii)$, the ansatz is wrong.  At this point, most introductory material on differential equations will posit the existence of a solution of the form $x(t) = v(t) \exp(ct)$ and try to find what $v(t)$ should be.  However, we are going to stick with what we know -- and that is the solution of the first order homogenuous equation with constant coefficients.
 
 % \section{Matrix form of an ODE}
-with $a_N = 1$.  If we define
+without loss of generality $a_N = 1$.  If we define
 \begin{align}
     \vx(t) &= \begin{bmatrix} x(t) & x^{(1)}(t) & \cdots & x^{(N-1)}\end{bmatrix}^\top
 \end{align}
@@ -836,8 +836,18 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
     \begin{align}
         \fundamentalSolution(t, 0) &= I + Ft + F^2 \frac{t^2}{2!} + F^3 \frac{t^3}{3!} + \cdots
     \end{align}
-    If $F$ were a scalar, then this would exactly be the series representation of $\exp(Ft)$.  In fact, this infinite series is exactly how we define the \texit{matrix exponential}.
+    If $F$ were a scalar, then this would exactly be the series representation of $\exp(Ft)$.  In fact, this infinite series is exactly how we define the \textit{matrix exponential}.
 \end{tcolorbox}
+
+\begin{tcolorbox}[colback=black!1!,title=Properties of the matrix exponential]
+    \textbf{Diagonal matrices}: If $D = \diag(d_1, d_2, \ldots, d_N)$ then $\exp(D) = \diag(e^{d_1}, e^{d_2}, \ldots, e^{d_N} )$.\newline
+
+    \textbf{Commuting matrices}: If $A$ and $B$ commute ($AB = BA$), then we have that $\exp(A + B) = \exp(A) \exp(B) = \exp(B) \exp(A)$.\newline
+
+    \textbf{Inverse}: $\exp(A) \exp(-A) = I$
+\end{tcolorbox}
+\question Prove that the matrix exponential of the sum of two matrices that commute is the product of their matrix exponentials.
+\vspace{\stretch{0.5}}
 
 In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
 \begin{align}
