@@ -818,7 +818,24 @@ Now, if we were to make an \textit{ansatz} and guess that the solution is $\vx(t
     \implies & \dot{\fundamentalSolution}(t, 0) \vx(0) = F \fundamentalSolution(t, 0) \vx(0)\\
     \implies & F \fundamentalSolution(t, 0) \vx(0) = F \fundamentalSolution(t, 0) \vx(0)
 \end{align}
-this also implies that $\fundamentalSolution(0, 0) = I$.  In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
+which also implies that $\fundamentalSolution(0, 0) = I$.  
+\begin{tcolorbox}[colback=black!1!,title=Fundamental Solution]
+    \begin{theorem}[Series representation of fundamental solution]
+        The series of matrices, $M_0, M_1, M_2, \ldots$, defined recursively as
+        \begin{align}
+            &M_0 = I\\
+            &M_k = I + F \int_0^t M_{k-1}(\sigma) d\sigma
+        \end{align}
+        converges uniformly to $\Phi(t, 0)$
+    \end{theorem}
+    If we expand the recursion above (which we could do with the aid of induction), we see something interesting
+    \begin{align}
+        \fundamentalSolution(t, 0) &= I + Ft + F^2 \frac{t^2}{2!} + F^3 \frac{t^3}{3!} + \cdots
+    \end{align}
+    If $F$ were a scalar, then this would exactly be the series representation of $\exp(Ft)$.  In fact, this infinite series is exactly how we define the \texit{matrix exponential}.
+\end{tcolorbox}
+
+In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
 \begin{align}
     \fundamentalSolution(t, 0) = \exp(F t)
 \end{align}
@@ -827,6 +844,15 @@ which we can verify satisfies both $\fundamentalSolution(0, 0) = I$ as well as
     \frac{d}{dt} \exp(Ft) &= \frac{d}{dt} \left(I + Ft + F^2 \frac{t^2}{2!} + F^3 \frac{t^3}{3!}\cdots  \right)\\
     &= F + F^2 t + F^3 \frac{t^2}{2!} + \cdots\\
     &= F \exp(F t)
+\end{align}
+\subsection{Jordan form}
+Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.  For this, we have to introduce the concept of a \textit{Jordan matrix}.  A Jordan matrix takes the form
+\begin{align}
+    J = \begin{pmatrix} \lambda & 1 & 0 & 0 & \cdots & 0\\
+        0 & \lambda & 1 & 0 & \cdots & 0\\
+        \vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & 0 & 0 & \cdots & \lambda
+    \end{pmatrix}
 \end{align}
 % \begin{align}
 %     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
