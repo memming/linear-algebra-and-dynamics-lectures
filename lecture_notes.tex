@@ -659,13 +659,52 @@ Read~\citep{Goldman2009} with the following questions in mind:
 \vspace{\stretch{0.5}}
 
 \subsection{Diagonalization}
-The spectral theorem is nice because it decouples each dimension, but can we extend such analysis to more matrices?
-For all normal matrices, we can diagonalize them using their eigenvectors, as long as there are $n$ linearly independent eigenvectors.
+\begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
+    $$W\trp W \neq W W\trp$$
+\end{tcolorbox}
+The spectral theorem is nice because it decouples each dimension, but can we extend such analysis to non-normal matrices?
+As long as a matrix has $n$ linearly independent eigenvectors, we can diagonalize them using its eigenvectors.
 \begin{align}\label{eq:eigendecomposition}
-A = S \Lambda S\inv
+A = S \Lambda S\inv  \qquad \text{(diagonalization)}
+\end{align}
+where $\Lambda$ is a diagonal matrix of complex numbers.
+\question Show that the columns of $S$ are (right) eigenvectors of $A$.
+\vspace{\stretch{0.2}}
+
+As long as the set of eigenvectors span the whole space, we can use \eqref{eq:eigendecomposition} in reverse to construct matrices with specific eigenvectors and eigenvalues.
+For example, take $\vv_1 = [1, 0]\trp$, $\vv_2 = [1, 1]\trp / \sqrt{2}$, $\lambda_1 = 1$, and $\lambda_2 = 2$.
+Let $S = [\vv_1, \vv_2]$ and $\Lambda = \diag(\lambda_1, \lambda_2)$.
+We get the following non-normal matrix:
+\begin{align}\label{eq:nnm:ex:a}
+W_a &= S \Lambda S\inv =
+\begin{bmatrix}
+1 & 1\\
+0 & 2
+\end{bmatrix}
 \end{align}
 
-Dynamics decomposed onto the eigenmodes behave independently!
+
+Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors of $W$.
+\begin{align}
+	\vx(t) =
+	(S \Lambda S\inv)^k \vx(0) =
+	(S \Lambda S\inv) \cdots
+	(S \Lambda S\inv) \vx(0)
+	=
+	%S \Lambda^k S\inv \vx(0)
+	%=
+	S \begin{bmatrix}
+	\lambda_1^k & &\\
+	& \ddots & \\
+	& & \lambda_n^k
+	\end{bmatrix}
+	S\inv \vx(0)
+\end{align}
+\question Show that $\vx(t) = S\lambda_i^t$ if initialized at the eigenvector, i.e., $\vx(0) = \vv_i$.
+\vspace{\stretch{0.2}}
+
+This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
+They just need to be combined back with $S$.
 
 \subsection{Difference of exponentials is usually not an exponential}
 \question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch
@@ -674,33 +713,13 @@ Dynamics decomposed onto the eigenmodes behave independently!
 \end{align}
 \includegraphics[width=4in]{diff_exp_decay}
 
-\question Explain how two eigenmodes that independently exhibit exponential (geometric) decay can manifest in seemingly transient amplification in a different reference frame.
+\question Explain how two eigenmodes that independently exhibit exponential (geometric) decay can manifest in seemingly transient amplification in a different reference frame (e.g. a single neuron activity).
 \vspace{\stretch{0.5}}
 
-\subsection{Asymptotic behavior}
-\begin{align}
-\lim_{k\to\infty} \lambda^k
-\end{align}
-
-\subsection{Non-normal matrix}
-Recall that non-normal matrices do not have a complete set of orthonormal eigenvectors.
-Take two (column) vectors, $\vv_1$ and $\vv_2$ that are independent (not a scalar multiple of each other).
-Let $S = [\vv_1, \vv_2]$ and $\Lambda = \diag(\lambda_1, \lambda_2)$.
-\question Show that $\vv_1$ and $\vv_2$ are the eigenvectors of $A = S \Lambda S\inv$ with corresponding eigenvalues $\lambda_1$ and $\lambda_2$.
-\vspace{\stretch{0.5}}
-
-As long as the set of eigenvectors span the whole space, the above construction works.
-For example, take $\vv_1 = [1, 0]\trp$, $\vv_2 = [1, 1]\trp / \sqrt{2}$, $\lambda_1 = 1$, and $\lambda_2 = 2$.
-We get the following non-normal matrix:
-\begin{align}\label{eq:nnm:ex:a}
-W_a &=
-\begin{bmatrix}
-1 & 1\\
-0 & 2
-\end{bmatrix}
-\end{align}
+\subsection{Purely feedforward networks}
 
 
+\subsection{Other cases}
 Consider the following example permutation matrix:
 \begin{align}\label{eq:nnm:ex:b}
 W_b &=
