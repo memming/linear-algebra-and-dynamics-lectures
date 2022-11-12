@@ -818,6 +818,16 @@ Now, if we were to make an \textit{ansatz} and guess that the solution is $\vx(t
     \implies & \dot{\fundamentalSolution}(t, 0) \vx(0) = F \fundamentalSolution(t, 0) \vx(0)\\
     \implies & F \fundamentalSolution(t, 0) \vx(0) = F \fundamentalSolution(t, 0) \vx(0)
 \end{align}
+this also implies that $\fundamentalSolution(0, 0) = I$.  In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
+\begin{align}
+    \fundamentalSolution(t, 0) = \exp(F t)
+\end{align}
+which we can verify satisfies both $\fundamentalSolution(0, 0) = I$ as well as
+\begin{align}
+    \frac{d}{dt} \exp(Ft) &= \frac{d}{dt} \left(I + Ft + F^2 \frac{t^2}{2!} + F^3 \frac{t^3}{3!}\cdots  \right)\\
+    &= F + F^2 t + F^3 \frac{t^2}{2!} + \cdots\\
+    &= F \exp(F t)
+\end{align}
 % \begin{align}
 %     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
 %     0 & \phi_2(t, 0) & 0 & \cdots & 0\\
