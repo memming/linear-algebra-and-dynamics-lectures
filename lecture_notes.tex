@@ -747,12 +747,11 @@ If we were not given the initial condition, $x(0)=k$, this is as far as we could
 
 \textbf{Remark}: The system this differential equation describes is not very interesting.  If $a < 0$ then $x(t) \rightarrow \infty$, whereas if $a > 0$ then $x(t) \rightarrow 0$.
 
-\subsection{Higher order}
-Lets consider a more interesting example
+\subsection{$N$-th order linear differential equations}
+Lets consider a more interesting example where we consider the solution to an $N$-th order linear differential equation with constant coefficients given by
 \begin{align}
-    &\ddot{x}(t) + a_1 \dot{x}(t) + a_2 x(t) = 0\\
-    &\dot{x}(0) = k_1\\
-    &x(0) = k_2
+    &\sum_{i=0}^N a_i x^{(i)}(t) = 0\\
+    &x^{(i)}(0) = k_i \qquad i = 0, \ldots, N-1
 \end{align}
 % To solve this differential equation, we are going to make an \textit{ansatz}, i.e. we are going to assume the solution is of the form
 % \begin{align}
@@ -772,21 +771,28 @@ Lets consider a more interesting example
 % Unfortunately, in the case of $iii)$, the ansatz is wrong.  At this point, most introductory material on differential equations will posit the existence of a solution of the form $x(t) = v(t) \exp(ct)$ and try to find what $v(t)$ should be.  However, we are going to stick with what we know -- and that is the solution of the first order homogenuous equation with constant coefficients.
 
 % \section{Matrix form of an ODE}
-If we define
+with $a_N = 1$.  If we define
 \begin{align}
-    \vx(t) &= \begin{bmatrix} x(t) & x^{(1)}(t) \end{bmatrix}
+    \vx(t) &= \begin{bmatrix} x(t) & x^{(1)}(t) & \cdots & x^{(N-1)}\end{bmatrix}^\top
 \end{align}
-then we can transform the second order equation into
-\begin{align}
+then we can transform this $N$-th order equation into a first order one below
+\begin{align}\label{eq::matrixDifferential}
     \dot{\vx}(t) &= F \vx(t)
 \end{align}
-by overloading the differential operator so that $\dot{\vx}(t) = \begin{bmatrix} \dot{x}(t) & \ddot{x}(t) \end{bmatrix}^\top$, and
+by overloading the differential operator so that $\dot{\vx}(t) = \begin{bmatrix} x^{(1)}(t) & x^{(2)}(t) & \cdots & x^{(N)}\end{bmatrix}^\top
+$, and
 \begin{align}
-    F = \begin{pmatrix} 0 & 1 \\ -a_1 & -a_2 \end{pmatrix}
+    F = \begin{pmatrix} 0 & 1 & 0 & \cdots & 0 \\ 
+                        0 & 0 & 1 & \cdots & 0 \\
+                        \vdots & \vdots & \vdots & \ddots & \vdots\\
+                        -a_1 & -a_2 & -a_3 & \cdots & -a_{N-1} \end{pmatrix}
 \end{align}
 \textbf{Remark}: A matrix in this form is said to be a companion form matrix.  They arise when we transform an $N$-th order differential equation into a first order system as we did above.
 
 \subsection{Fundamental matrix solution}
+How can we actually solve this matrix differential equation? That is how can we find the vector that satisfies Eq.~\eqref{eq::matrixDifferential} and the associated initial condition? To answer this question, we have to take a slight detour and discuss the \textit{fundamental matrix solution}
+
+Lets begin by assuming that we can find the solution to Eq.~\eqref{eq::matrixDifferential}
 
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
