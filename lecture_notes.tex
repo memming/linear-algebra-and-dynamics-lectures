@@ -846,7 +846,7 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
 
     \textbf{Inverse}: $\exp(A) \exp(-A) = I$
 \end{tcolorbox}
-\question Prove that the matrix exponential of the sum of two matrices that commute is the product of their matrix exponentials.
+\question {Prove the property about commuting matrices.}
 \vspace{\stretch{0.5}}
 
 In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
@@ -860,7 +860,7 @@ which we can verify satisfies both $\fundamentalSolution(0, 0) = I$ as well as
     &= F \exp(F t)
 \end{align}
 \subsection{Jordan form}
-Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.  For this, we have to introduce the concept of a \textit{Jordan matrix}.  A Jordan matrix takes the form
+Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.  For this, we have to introduce the concept of a \textit{Jordan matrix}.  A matrix $J \in \reals^{M\times M}$ is said to be a Jordan matrix if it takes the form
 \begin{align}
     J = \begin{pmatrix} \lambda & 1 & 0 & 0 & \cdots & 0\\
         0 & \lambda & 1 & 0 & \cdots & 0\\
@@ -868,12 +868,37 @@ Since the matrix exponential is defined in terms of an infinite series, we are l
         0 & 0 & 0 & 0 & \cdots & \lambda
     \end{pmatrix}
 \end{align}
-% \begin{align}
-%     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
-%     0 & \phi_2(t, 0) & 0 & \cdots & 0\\
-%     \vdots & \vdots & \vdots & \ddots & \vdots\\
-%     0 & 0 & 0 & \cdots & \phi_N(t, 0) \end{pmatrix}
-% \end{align}
+which means we could write that $J = \lambda I + N$; this matrix $N$ is said to be nilpotent. 
+
+\begin{tcolorbox}[colback=black!1!,title=Nilpotent matrices]
+    A matrix $N$ is said to be nilpotent if there exists an integer $k$ such that $N^k = 0$
+\end{tcolorbox}
+
+\question Is the following matrix nilpotent? Support your claim either way.
+\begin{align}
+    Q = \begin{pmatrix} 0 & 1 & 0\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+\end{pmatrix}
+\end{align}
+\vspace{\stretch{0.5}}
+
+% \question{Can you generalize this claim to general off diagonal matrices $N \in \reals^{M \times M}$.}
+% \vspace{\stretch{0.5}}
+
+As we have shown, $N$ and $\lambda I$ commute.  Combining the first two properties of the matrix exponential, this allows us to write that $    \exp(J t) = \exp(\lambda t) \exp(N t)$.  However, we still have more work to do as we have not yet computed $\exp(Nt)$.  Recalling that $N$ is nilpotent, we can write
+\begin{align}
+    \exp(Nt) &= \sum_{i=0}^{\infty} N^i \frac{t^i}{i!}\\
+    &= \sum_{i=0}^{M-1} N^i \frac{t^i}{i!}\\
+    &= \begin{pmatrix} 1 & t & \frac{t^2}{2!} & \frac{t^3}{3!} & \cdots & \frac{t^{M-1}}{(M-1)!}\\
+        0 & 1 & t & \frac{t^2}{2!} & \cdots & \frac{t^{M-2}}{(M-2)!}\\
+        \vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & 0 & 0 & \cdots & 1
+    \end{pmatrix}
+\end{align}
+Great! Now we have the ability to easily calculate the matrix exponential of any Jordan form matrix.  Now we may ask, what about the matrix exponential of more general matrices? As it turns out, any matrix can be written in Jordan canonical form.
+\begin{tcolorbox}[colback=black!1!,title=Jordan normal form]
+\end{tcolorbox}
 
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
