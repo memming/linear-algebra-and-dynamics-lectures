@@ -141,7 +141,7 @@ x(t + \Delta) = x(t) + \Delta \cdot f(x)
 for sufficiently small $\Delta$.
 Now, let us dive into discrete-time systems!
 
-\subsection{Memory traces in dynamical systems}
+\subsection{Memory traces in a 1-dimensional linear dynamical system}
 Consider an abstract leaky membrane potential model:
 \begin{align}\label{eq:dtlds:LIF:def}
 	v(t+1) &= a \cdot v(t) + I(t)
@@ -450,60 +450,21 @@ This is a.k.a.~diagonalization.
 
 
 \question
-    \begin{parts}
-	\part Show that $\Sigma \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
-	    \vspace{\stretch{1}}
-	\part Order the eigenvalues in decreasing order $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$.
-	Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
-	    \vspace{\stretch{3}}
-    \end{parts}
-
-\begin{tcolorbox}
-    \funfact if $\vu$ and $\vv$ are orthogonal, $\vu\trp \vv = 0$.
-\end{tcolorbox}
-
-\begin{tcolorbox}\funfact $\vv \in \reals^{n \times 1}$ is a unit vector if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.\end{tcolorbox}
 \begin{parts}
-    \part What's $V\trp V$?
-    \vspace{\stretch{1}}
-    \part
-    What's $V V\trp$?
-    \begin{tcolorbox}
-	\funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
-	$B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
-	(They are inverses of each other.)
-    \end{tcolorbox}
-    \vspace{\stretch{1}}
-    \part Let $\vw = V\trp \vu$. Show that $\vw$ is a representation of $\vu$ in a new basis system.
-    In other words, as a linear combination of the column vectors of $V$, or equivalently $V \vw = \vu$.
-    %Let $\vv$ be a unit vector.
-%Inner product of an arbitrary vector $\vu \in \reals^{n \times 1}$ with $\vv$ is the length of the projection of $\vu$ to $\vv$:
-%Let $V$ be an orthonormal basis matrix, that is, $V\trp V = I$.
-\vspace{\stretch{1}}
-    \begin{tcolorbox}\funfact
-	Given two vectors $\vu$ and $\vv$, their inner product is,
-    \begin{align}\label{eq:proj1}
-	\vu\trp \vv = \norm{\vu} \cdot \norm{\vv} \cos(\theta)
-    \end{align}
-    where $\theta$ is the angle between the two vectors.
-    \end{tcolorbox}
+    \part Show that $\Sigma \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
+	\vspace{\stretch{1}}
+    \part Order the eigenvalues in decreasing order $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$.
+    Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
+	\vspace{\stretch{3}}
 \end{parts}
 
-\question \textbf{Every linear transformation is a matrix}
-
-\question \textbf{Similarity transform and change of basis}
-Let $M$ be any invertible matrix.
-Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
-A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
-Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
-($B$ is said to be \textit{``similar''} to $A$)
-\vspace{\stretch{0.5}}
-
-\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
-Show that similar matrices have the same eigenvalues.
+\begin{tcolorbox}
+    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
+    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
+    (They are inverses of each other.)
+\end{tcolorbox}
+\question Verify that $U\trp$ is inverse of a unitary matrix $U$.
 \vspace{\stretch{1}}
-
-If A is not a square matrix, eigendecomposition is not defined. 
 
 \begin{proposition}
     More generally, any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
@@ -518,6 +479,10 @@ If A is not a square matrix, eigendecomposition is not defined.
 The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
 
 \subsection{Matrix Algebra}
+\begin{tcolorbox}
+\funfact Every linear transformation is a matrix multiplication.
+\end{tcolorbox}
+
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
 \textbf{Matrix multiplication}:
 \noindent
@@ -660,19 +625,11 @@ Read~\citet{Goldman2009} with the following questions in mind:
 
 \clearpage
 \section{Non-normal Linear Time Invariant System}
+Let us continue to develop more intuition on the memory properties of linear ``recurrent'' neural networks of the form \eqref{eq:dtlds:LDS}.
 As discussed in \citet{Goldman2009}, some linear network models can be viewed as feedforward, while others can be feedback.
-
-\subsection{Purely feedforward networks}
-If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least internally).
-Let us call such neural circuits \textbf{purely feedforward}.
-
-\question Consider a network of 3 neurons where neuron 1 excites neuron 2 and neuron 2 excites neuron 3? Draw the neural circuit graph.
-What is the corresponding connectivity matrix?
-\vspace{\stretch{0.5}}
-
-\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons).
-\vspace{\stretch{0.5}}
-
+This distinction is very important for the memory properties of the system.
+The traditional tool for analyzing memory traces in a neural system is use the eigenvalues (also known as spectra).
+In this section, we will stick with discrete time.
 
 \subsection{Diagonalization}
 \begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
@@ -699,7 +656,6 @@ W_a &= S \Lambda S\inv =
 \end{bmatrix}
 \end{align}
 
-
 Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors of $W$.
 \begin{align}
 	\vx(t) =
@@ -722,6 +678,19 @@ Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors o
 This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
 They just need to be combined back with $S$.
 
+\question \textbf{Similarity transform and change of basis}
+Let $M$ be any invertible matrix.
+Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
+A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
+Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
+($B$ is said to be \textit{``similar''} to $A$)
+\vspace{\stretch{0.5}}
+
+\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
+Show that similar matrices $A$ and $B$ have the same eigenvalues.
+\vspace{\stretch{1}}
+
+
 \subsection{Difference of exponentials is usually not an exponential}
 \question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch
 \begin{align}\label{eq:diff_ex:eg}
@@ -731,6 +700,23 @@ They just need to be combined back with $S$.
 
 \question Explain how two eigenmodes that independently exhibit exponential (geometric) decay can manifest in seemingly transient amplification in a different reference frame (e.g. a single neuron activity).
 \vspace{\stretch{0.5}}
+
+\subsection{Purely feedforward networks}
+If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least internally).
+Let us call such neural circuits \textbf{purely feedforward}.
+
+\question Consider a network of 3 neurons where neuron 1 excites neuron 2 and neuron 2 excites neuron 3? Draw the neural circuit graph.
+What is the corresponding connectivity matrix?
+\vspace{\stretch{0.5}}
+
+\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons).
+\vspace{\stretch{0.5}}
+
+
+\subsection{Neural computation as filtering}
+Given an input signal $x(t)$, a \textbf{filter} outputs a corresponding output signal $y(t)$ through a causal mechanism.
+This captures the essence of biophysical computation at various scales--a transformation of a signal over time.
+This transformation may also depend on the internal state of the neural system in general.
 
 \subsection{Linear time invariant system}
 
