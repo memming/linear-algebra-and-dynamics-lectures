@@ -443,17 +443,27 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
 \vspace{\stretch{0.2}}
 \part What is $W^n$?
 \vspace{\stretch{0.2}}
+\part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$) and with initial condition $\vx(0) = \vu_i\trp$?
 \part What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
+\part Can linear neural networks with symmetric weight matrices oscillate without input?
+\vspace{\stretch{0.2}}
 \part What is the general form of $\vx(t)$ with input?
 \vspace{\stretch{0.5}}
-\part Can linear neural networks with symmetric matrices oscillate?
-\vspace{\stretch{0.2}}
 \end{parts}
 
 \clearpage
-\begin{tcolorbox}[colback=black!1!,title=Eigenvalues and Eigenvectors]
+Note that $U$ and $\Lambda$ are related to eigenvalues and eigenvectors.
+\begin{tcolorbox}[colback=black!1!,title=Eigenvalues and eigenvectors]
+Given a matirx $A$, solutions to the following eigenvalue equation
+\begin{align}\label{eq:eigenvalue}
+	A \vx = \lambda_i \vx,
+\end{align}
+are called the eigenvectors ($\vx_i$) and their eigenvalues ($\lambda_i$) of $A$.
 \end{tcolorbox}
+
+\question Given a spectral decomposition of $A$, show that $\vu_i$ is an eigenvector with eigenvalue $\Lambda_{i,i}$ of $A$.
+\vspace{\stretch{0.3}}
 
 \question Con
 \begin{parts}
@@ -463,6 +473,21 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
     Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
 	\vspace{\stretch{3}}
 \end{parts}
+Note that $U$ and $\Lambda$ are related to eigenvalues and eigenvectors.
+\begin{tcolorbox}[colback=black!1!,title=Eigenvalues and eigenvectors]
+Given a matirx $A$, solutions to the following eigenvalue equation
+\begin{align}\label{eq:eigenvalue}
+	A \vx = \lambda_i \vx,
+\end{align}
+are called the eigenvectors ($\vx_i$) and their eigenvalues ($\lambda_i$) of $A$.
+\end{tcolorbox}
+
+\question Given a spectral decomposition of $A$, show that $\vu_i$ is an eigenvector with eigenvalue $\Lambda_{i,i}$ of $A$.
+\vspace{\stretch{0.3}}
+
+\clearpage
+As you have just seen, the spectral decomposition makes things easy.
+But are there other matrices that also allow such decomposition?
 
 \begin{tcolorbox}[colback=black!1!,title=Normal matrices]
     A matrix $W$ is called \textbf{normal}, if it commutes with its (conjugate)-transpose.
@@ -493,7 +518,8 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
 \end{parts}
 
 The class of normal matrices is pretty big, and includes diagonal, unitary, symmetric, and skew-symmetric ($A = -A\trp$) matrices.
-More generally, the spectral theorem extends to the class of normal matrices, but the eigenvalues may be complex-valued.
+Normal matrices are exactly those that have \emph{a complete set of \emph{orthonormal} eigenvectors}.
+The spectral theorem extends to the class of normal matrices, but the eigenvalues may be complex-valued.
 \begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Normal matrices]
 Any \textit{normal matrix} $A$ can be decomposed into the following form,
 \begin{align}\label{eq:spectral}
@@ -502,6 +528,11 @@ Any \textit{normal matrix} $A$ can be decomposed into the following form,
 where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal matrix.
 \end{tcolorbox}
 
+\question Show that if $A$ is normal, so is $A + \sigma I$ for any $\sigma \in \complex$.
+\vspace{\stretch{0.3}}
+
+In some sense, linear dynamics with normal matrices are easy to understand now.
+In the following section, we will attempt to understand the other cases.
 \clearpage
 
 %\begin{tcolorbox}
