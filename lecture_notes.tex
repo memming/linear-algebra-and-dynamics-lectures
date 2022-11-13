@@ -417,11 +417,11 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \vspace{\stretch{0.2}}
 
 \begin{tcolorbox}[colback=black!1!,title=Unitary Matrix]
-    It can rotate, permute, and flip vectors while keeping their norm and inner product structure.
+    It can rotate, permute, and reflect vectors while keeping their norm and inner product structure.
 \end{tcolorbox}
 
 \clearpage
-\subsection{Spectral theorem}
+\subsection{Spectral Decomposition}
 Now we reach the first and arguably one of the most important matrix decompositions.
 
 A matrix is \textbf{symmetric} if $A = A\trp$. A complex matrix is \textbf{Hermitian} (or self-adjoint) if $A = A\ctrp$.
@@ -444,6 +444,7 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
 \part What is $W^n$?
 \vspace{\stretch{0.2}}
 \part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$) and with initial condition $\vx(0) = \vu_i\trp$?
+\vspace{\stretch{0.5}}
 \part What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
 \part Can linear neural networks with symmetric weight matrices oscillate without input?
@@ -453,39 +454,17 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
 \end{parts}
 
 \clearpage
-Note that $U$ and $\Lambda$ are related to eigenvalues and eigenvectors.
 \begin{tcolorbox}[colback=black!1!,title=Eigenvalues and eigenvectors]
 Given a matirx $A$, solutions to the following eigenvalue equation
 \begin{align}\label{eq:eigenvalue}
-	A \vx = \lambda_i \vx,
+	A \vx_i = \lambda_i \vx_i,
 \end{align}
-are called the eigenvectors ($\vx_i$) and their eigenvalues ($\lambda_i$) of $A$.
+are called the (right) eigenvectors ($\vx_i$) and eigenvalues ($\lambda_i$) of $A$.
 \end{tcolorbox}
 
-\question Given a spectral decomposition of $A$, show that $\vu_i$ is an eigenvector with eigenvalue $\Lambda_{i,i}$ of $A$.
+\question Given a spectral decomposition of $A = U\Lambda U\trp$, show that $\vu_i$ is an eigenvector with corresponding eigenvalue $\Lambda_{i,i}$ of $A$.
 \vspace{\stretch{0.3}}
 
-\question Con
-\begin{parts}
-    \part Show that $W \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
-	\vspace{\stretch{1}}
-    \part Order the eigenvalues in decreasing order $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$.
-    Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
-	\vspace{\stretch{3}}
-\end{parts}
-Note that $U$ and $\Lambda$ are related to eigenvalues and eigenvectors.
-\begin{tcolorbox}[colback=black!1!,title=Eigenvalues and eigenvectors]
-Given a matirx $A$, solutions to the following eigenvalue equation
-\begin{align}\label{eq:eigenvalue}
-	A \vx = \lambda_i \vx,
-\end{align}
-are called the eigenvectors ($\vx_i$) and their eigenvalues ($\lambda_i$) of $A$.
-\end{tcolorbox}
-
-\question Given a spectral decomposition of $A$, show that $\vu_i$ is an eigenvector with eigenvalue $\Lambda_{i,i}$ of $A$.
-\vspace{\stretch{0.3}}
-
-\clearpage
 As you have just seen, the spectral decomposition makes things easy.
 But are there other matrices that also allow such decomposition?
 
@@ -504,7 +483,6 @@ But are there other matrices that also allow such decomposition?
     \end{bmatrix}
     &
 \end{flalign}
-\vspace{\stretch{0.1}}
     \part
 \begin{flalign}
     &
@@ -514,7 +492,6 @@ But are there other matrices that also allow such decomposition?
     \end{bmatrix}
     &
 \end{flalign}
-\vspace{\stretch{0.1}}
 \end{parts}
 
 The class of normal matrices is pretty big, and includes diagonal, unitary, symmetric, and skew-symmetric ($A = -A\trp$) matrices.
@@ -528,12 +505,37 @@ Any \textit{normal matrix} $A$ can be decomposed into the following form,
 where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal matrix.
 \end{tcolorbox}
 
-\question Show that if $A$ is normal, so is $A + \sigma I$ for any $\sigma \in \complex$.
+\question Show that if a normal matrix $W$ is real-valued, then its complex eigenvalues come in complex conjugate pairs.
 \vspace{\stretch{0.3}}
+
+\clearpage
+\question Show that the eigenvalues of a rotation matrix are of the form $e^{\pm i\theta}$.
+\begin{flalign}
+    &
+    W_\theta =
+    \begin{bmatrix}
+	\cos(\theta) & -\sin(\theta)\\
+	\sin(\theta) & \cos(\theta)
+    \end{bmatrix}
+    \quad
+    U
+    =
+    \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+	  1 &  1 \\
+	  i & -i
+    \end{bmatrix}
+    &
+\end{flalign}
+\vspace{\stretch{2}}
+
+\question Show that if $A$ is normal, so is $A + \sigma I$ for any $\sigma \in \complex$.
+\vspace{\stretch{0.5}}
 
 In some sense, linear dynamics with normal matrices are easy to understand now.
 In the following section, we will attempt to understand the other cases.
 \clearpage
+\subsection{Singular Value Decomposition}
 
 %\begin{tcolorbox}
 %\funfact Diagonal matrices commute, i.e., $DA = AD$ for any matrix $A$.
@@ -831,6 +833,8 @@ If we were not given the initial condition, $x(0)=k$, this is as far as we could
 
 \textbf{Remark}: The system this differential equation describes is not very interesting.  If $a < 0$ then $x(t) \rightarrow \infty$, whereas if $a > 0$ then $x(t) \rightarrow 0$.
 
+\question {Draw the phase portrait for this first order system.}
+\vspace{\stretch{0.5}}
 \subsection{$N$-th order linear differential equations}
 Lets consider a more interesting example where we consider the solution to an $N$-th order linear differential equation with constant coefficients given by
 \begin{align}
@@ -875,7 +879,7 @@ $, and setting
 \textbf{Remark}: A matrix in this form is said to be a companion form matrix.  They arise when we transform an $N$-th order differential equation into a first order system as we did above.
 
 \subsection{Fundamental matrix solution}
-How can we actually solve this matrix differential equation? That is how can we find the vector that satisfies Eq.~\eqref{eq::matrixDifferential} and the associated initial condition? To answer this question, we have to take a slight detour and discuss the \textit{fundamental matrix solution}
+How can we actually solve this matrix differential equation? That is, how can we find the vector that satisfies Eq.~\eqref{eq::matrixDifferential} and the associated initial condition? To answer this question, we have to take a slight detour and discuss the \textit{fundamental matrix solution}
 
 Lets begin by assuming that we can find the solution to Eq.~\eqref{eq::matrixDifferential}, then if we denote the $N$ solutions as $\phi_1(t), \phi_2(t), \ldots, \phi_N(t)$ then we can write
 \begin{align}
@@ -977,6 +981,20 @@ As we have shown, $N$ and $\lambda I$ commute.  Combining the first two properti
 \end{align}
 Great! Now we have the ability to easily calculate the matrix exponential of any Jordan form matrix.  Now we may ask, what about the matrix exponential of more general matrices? As it turns out, any matrix can be written in Jordan canonical form.
 \begin{tcolorbox}[colback=black!1!,title=Jordan normal form]
+    \textbf{Definition of Jordan Normal Form}: We say a matrix $J \in \reals^{N \times N}$ is in Jordan normal form if it can be written as follows:
+    \begin{align}
+        J = \begin{pmatrix} J_1 & 0 & \cdots & 0\\
+        0 & J_2 & \cdots & 0\\
+        0 & 0 & \cdots & J_K\end{pmatrix}
+    \end{align}
+    where each $J_i$ is a Jordan block matrix, i.e.
+    \begin{align}
+        J_i = \begin{pmatrix} \lambda_i & 1 & 0 & \cdots & 0\\
+            0 & \lambda_i & 1 & \cdots & 0\\
+            \vdots & \vdots & \vdots & \ddots & \vdots\\
+            0 & 0 & 0 & \cdots & \lambda_i
+        \end{pmatrix}
+    \end{align}
 \end{tcolorbox}
 
 \subsection{Companion form matrices}
