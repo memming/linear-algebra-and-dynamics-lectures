@@ -129,7 +129,7 @@ This allows us to theoretically understand roughly what is going to happen in sy
 \end{tcolorbox}
 Of course, there are exceptions and limitations, however, there are extensions and generalizations that typically incorporates some form of linearity.
 
-\section{Discrete-time Linear Dynamical Systems}
+\section{Discrete-time Linear Dynamical System}
 In most aspects discrete-time and continuous-time linear dynamical systems are analogous.
 Continuous-time systems require more abstract mathematical skills, namely calculus and its friends, while discrete-time systems have lower barriers since solutions can be straightforwardly computed.
 Discrete-time systems can be implemented with simple loops on computers.
@@ -647,7 +647,7 @@ Matrix times diagonal matrix scales column vectors:
 \end{tcolorbox}
 
 \subsection{Reading assignment for Day 1}
-Read~\citep{Goldman2009} with the following questions in mind:
+Read~\citet{Goldman2009} with the following questions in mind:
 
 \question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.5}}
@@ -657,6 +657,22 @@ Read~\citep{Goldman2009} with the following questions in mind:
 
 \question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
 \vspace{\stretch{0.5}}
+
+\clearpage
+\section{Non-normal Linear Time Invariant System}
+As discussed in \citet{Goldman2009}, some linear network models can be viewed as feedforward, while others can be feedback.
+
+\subsection{Purely feedforward networks}
+If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least internally).
+Let us call such neural circuits \textbf{purely feedforward}.
+
+\question Consider a network of 3 neurons where neuron 1 excites neuron 2 and neuron 2 excites neuron 3? Draw the neural circuit graph.
+What is the corresponding connectivity matrix?
+\vspace{\stretch{0.5}}
+
+\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons).
+\vspace{\stretch{0.5}}
+
 
 \subsection{Diagonalization}
 \begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
@@ -716,7 +732,11 @@ They just need to be combined back with $S$.
 \question Explain how two eigenmodes that independently exhibit exponential (geometric) decay can manifest in seemingly transient amplification in a different reference frame (e.g. a single neuron activity).
 \vspace{\stretch{0.5}}
 
-\subsection{Purely feedforward networks}
+\subsection{Linear time invariant system}
+
+\subsection{Finite impulse response}
+
+\subsection{Rotated feedforward networks}
 
 
 \subsection{Other cases}
