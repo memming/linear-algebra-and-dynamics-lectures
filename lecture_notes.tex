@@ -129,7 +129,7 @@ This allows us to theoretically understand roughly what is going to happen in sy
 \end{tcolorbox}
 Of course, there are exceptions and limitations, however, there are extensions and generalizations that typically incorporates some form of linearity.
 
-\section{Discrete-time Linear Dynamical Systems}
+\section{Discrete-time Linear Dynamical System}
 In most aspects discrete-time and continuous-time linear dynamical systems are analogous.
 Continuous-time systems require more abstract mathematical skills, namely calculus and its friends, while discrete-time systems have lower barriers since solutions can be straightforwardly computed.
 Discrete-time systems can be implemented with simple loops on computers.
@@ -141,7 +141,7 @@ x(t + \Delta) = x(t) + \Delta \cdot f(x)
 for sufficiently small $\Delta$.
 Now, let us dive into discrete-time systems!
 
-\subsection{Memory traces in dynamical systems}
+\subsection{Memory traces in a 1-dimensional linear dynamical system}
 Consider an abstract leaky membrane potential model:
 \begin{align}\label{eq:dtlds:LIF:def}
 	v(t+1) &= a \cdot v(t) + I(t)
@@ -450,60 +450,21 @@ This is a.k.a.~diagonalization.
 
 
 \question
-    \begin{parts}
-	\part Show that $\Sigma \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
-	    \vspace{\stretch{1}}
-	\part Order the eigenvalues in decreasing order $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$.
-	Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
-	    \vspace{\stretch{3}}
-    \end{parts}
-
-\begin{tcolorbox}
-    \funfact if $\vu$ and $\vv$ are orthogonal, $\vu\trp \vv = 0$.
-\end{tcolorbox}
-
-\begin{tcolorbox}\funfact $\vv \in \reals^{n \times 1}$ is a unit vector if $\norm{\vv} = \sqrt{\vv\trp \vv} = 1$, i.e., it is of unit length.\end{tcolorbox}
 \begin{parts}
-    \part What's $V\trp V$?
-    \vspace{\stretch{1}}
-    \part
-    What's $V V\trp$?
-    \begin{tcolorbox}
-	\funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
-	$B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
-	(They are inverses of each other.)
-    \end{tcolorbox}
-    \vspace{\stretch{1}}
-    \part Let $\vw = V\trp \vu$. Show that $\vw$ is a representation of $\vu$ in a new basis system.
-    In other words, as a linear combination of the column vectors of $V$, or equivalently $V \vw = \vu$.
-    %Let $\vv$ be a unit vector.
-%Inner product of an arbitrary vector $\vu \in \reals^{n \times 1}$ with $\vv$ is the length of the projection of $\vu$ to $\vv$:
-%Let $V$ be an orthonormal basis matrix, that is, $V\trp V = I$.
-\vspace{\stretch{1}}
-    \begin{tcolorbox}\funfact
-	Given two vectors $\vu$ and $\vv$, their inner product is,
-    \begin{align}\label{eq:proj1}
-	\vu\trp \vv = \norm{\vu} \cdot \norm{\vv} \cos(\theta)
-    \end{align}
-    where $\theta$ is the angle between the two vectors.
-    \end{tcolorbox}
+    \part Show that $\Sigma \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
+	\vspace{\stretch{1}}
+    \part Order the eigenvalues in decreasing order $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$.
+    Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
+	\vspace{\stretch{3}}
 \end{parts}
 
-\question \textbf{Every linear transformation is a matrix}
-
-\question \textbf{Similarity transform and change of basis}
-Let $M$ be any invertible matrix.
-Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
-A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
-Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
-($B$ is said to be \textit{``similar''} to $A$)
-\vspace{\stretch{0.5}}
-
-\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
-Show that similar matrices have the same eigenvalues.
+\begin{tcolorbox}
+    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
+    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
+    (They are inverses of each other.)
+\end{tcolorbox}
+\question Verify that $U\trp$ is inverse of a unitary matrix $U$.
 \vspace{\stretch{1}}
-
-If A is not a square matrix, eigendecomposition is not defined. 
 
 \begin{proposition}
     More generally, any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
@@ -518,6 +479,10 @@ If A is not a square matrix, eigendecomposition is not defined.
 The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
 
 \subsection{Matrix Algebra}
+\begin{tcolorbox}
+\funfact Every linear transformation is a matrix multiplication.
+\end{tcolorbox}
+
 \begin{tcolorbox}[colback=black!1!,title=Matrix Fun Facts]
 \textbf{Matrix multiplication}:
 \noindent
@@ -647,7 +612,7 @@ Matrix times diagonal matrix scales column vectors:
 \end{tcolorbox}
 
 \subsection{Reading assignment for Day 1}
-Read~\citep{Goldman2009} with the following questions in mind:
+Read~\citet{Goldman2009} with the following questions in mind:
 
 \question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.5}}
@@ -657,6 +622,14 @@ Read~\citep{Goldman2009} with the following questions in mind:
 
 \question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
 \vspace{\stretch{0.5}}
+
+\clearpage
+\section{Non-normal Linear Time Invariant System}
+Let us continue to develop more intuition on the memory properties of linear ``recurrent'' neural networks of the form \eqref{eq:dtlds:LDS}.
+As discussed in \citet{Goldman2009}, some linear network models can be viewed as feedforward, while others can be feedback.
+This distinction is very important for the memory properties of the system.
+The traditional tool for analyzing memory traces in a neural system is use the eigenvalues (also known as spectra).
+In this section, we will stick with discrete time.
 
 \subsection{Diagonalization}
 \begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
@@ -683,7 +656,6 @@ W_a &= S \Lambda S\inv =
 \end{bmatrix}
 \end{align}
 
-
 Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors of $W$.
 \begin{align}
 	\vx(t) =
@@ -706,6 +678,19 @@ Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors o
 This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
 They just need to be combined back with $S$.
 
+\question \textbf{Similarity transform and change of basis}
+Let $M$ be any invertible matrix.
+Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
+A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
+Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
+($B$ is said to be \textit{``similar''} to $A$)
+\vspace{\stretch{0.5}}
+
+\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
+Show that similar matrices $A$ and $B$ have the same eigenvalues.
+\vspace{\stretch{1}}
+
+
 \subsection{Difference of exponentials is usually not an exponential}
 \question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch
 \begin{align}\label{eq:diff_ex:eg}
@@ -717,6 +702,27 @@ They just need to be combined back with $S$.
 \vspace{\stretch{0.5}}
 
 \subsection{Purely feedforward networks}
+If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least internally).
+Let us call such neural circuits \textbf{purely feedforward}.
+
+\question Consider a network of 3 neurons where neuron 1 excites neuron 2 and neuron 2 excites neuron 3? Draw the neural circuit graph.
+What is the corresponding connectivity matrix?
+\vspace{\stretch{0.5}}
+
+\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons).
+\vspace{\stretch{0.5}}
+
+
+\subsection{Neural computation as filtering}
+Given an input signal $x(t)$, a \textbf{filter} outputs a corresponding output signal $y(t)$ through a causal mechanism.
+This captures the essence of biophysical computation at various scales--a transformation of a signal over time.
+This transformation may also depend on the internal state of the neural system in general.
+
+\subsection{Linear time invariant system}
+
+\subsection{Finite impulse response}
+
+\subsection{Rotated feedforward networks}
 
 
 \subsection{Other cases}
@@ -846,7 +852,7 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
 
     \textbf{Inverse}: $\exp(A) \exp(-A) = I$
 \end{tcolorbox}
-\question Prove that the matrix exponential of the sum of two matrices that commute is the product of their matrix exponentials.
+\question {Prove the property about commuting matrices.}
 \vspace{\stretch{0.5}}
 
 In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
@@ -860,7 +866,7 @@ which we can verify satisfies both $\fundamentalSolution(0, 0) = I$ as well as
     &= F \exp(F t)
 \end{align}
 \subsection{Jordan form}
-Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.  For this, we have to introduce the concept of a \textit{Jordan matrix}.  A Jordan matrix takes the form
+Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.  For this, we have to introduce the concept of a \textit{Jordan matrix}.  A matrix $J \in \reals^{M\times M}$ is said to be a Jordan matrix if it takes the form
 \begin{align}
     J = \begin{pmatrix} \lambda & 1 & 0 & 0 & \cdots & 0\\
         0 & \lambda & 1 & 0 & \cdots & 0\\
@@ -868,12 +874,37 @@ Since the matrix exponential is defined in terms of an infinite series, we are l
         0 & 0 & 0 & 0 & \cdots & \lambda
     \end{pmatrix}
 \end{align}
-% \begin{align}
-%     \fundamentalSolution(t, 0) = \begin{pmatrix} \phi_1(t, 0) & 0 & 0 & \cdots & 0 \\
-%     0 & \phi_2(t, 0) & 0 & \cdots & 0\\
-%     \vdots & \vdots & \vdots & \ddots & \vdots\\
-%     0 & 0 & 0 & \cdots & \phi_N(t, 0) \end{pmatrix}
-% \end{align}
+which means we could write that $J = \lambda I + N$; this matrix $N$ is said to be nilpotent. 
+
+\begin{tcolorbox}[colback=black!1!,title=Nilpotent matrices]
+    A matrix $N$ is said to be nilpotent if there exists an integer $k$ such that $N^k = 0$
+\end{tcolorbox}
+
+\question Is the following matrix nilpotent? Support your claim either way.
+\begin{align}
+    Q = \begin{pmatrix} 0 & 1 & 0\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+\end{pmatrix}
+\end{align}
+\vspace{\stretch{0.5}}
+
+% \question{Can you generalize this claim to general off diagonal matrices $N \in \reals^{M \times M}$.}
+% \vspace{\stretch{0.5}}
+
+As we have shown, $N$ and $\lambda I$ commute.  Combining the first two properties of the matrix exponential, this allows us to write that $    \exp(J t) = \exp(\lambda t) \exp(N t)$.  However, we still have more work to do as we have not yet computed $\exp(Nt)$.  Recalling that $N$ is nilpotent, we can write
+\begin{align}
+    \exp(Nt) &= \sum_{i=0}^{\infty} N^i \frac{t^i}{i!}\\
+    &= \sum_{i=0}^{M-1} N^i \frac{t^i}{i!}\\
+    &= \begin{pmatrix} 1 & t & \frac{t^2}{2!} & \frac{t^3}{3!} & \cdots & \frac{t^{M-1}}{(M-1)!}\\
+        0 & 1 & t & \frac{t^2}{2!} & \cdots & \frac{t^{M-2}}{(M-2)!}\\
+        \vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & 0 & 0 & \cdots & 1
+    \end{pmatrix}
+\end{align}
+Great! Now we have the ability to easily calculate the matrix exponential of any Jordan form matrix.  Now we may ask, what about the matrix exponential of more general matrices? As it turns out, any matrix can be written in Jordan canonical form.
+\begin{tcolorbox}[colback=black!1!,title=Jordan normal form]
+\end{tcolorbox}
 
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
