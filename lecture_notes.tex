@@ -360,7 +360,7 @@ U &=
 \question Show that if $U$ is orthonormal then $U\trp U = I$.
 \vspace{\stretch{0.3}}
 
-A complex valued square matrix $U \in \complex^{n \times n}$ is \textbf{unitary}, if $U U\ctrp = I$ where $\ctrp$ denotes conjugate transpose operation.
+A complex-valued square matrix $U \in \complex^{n \times n}$ is \textbf{unitary}, if $U U\ctrp = I$ where $\ctrp$ denotes conjugate transpose operation.
 Orthonormal matrices are unitary.
 
 \question Show that multiplying a unitary matrix to a column vector preserves its norm, i.e., it is an \emph{isometric} transformation.
@@ -373,6 +373,14 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 
 \question Show that a permutation matrix is a unitary matrix.
 \vspace{\stretch{0.5}}
+
+\begin{tcolorbox}
+    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
+    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
+    (They are inverses of each other.)
+\end{tcolorbox}
+\question Note that $U\ctrp$ is inverse of a unitary matrix $U$, i.e., $U\inv = U\ctrp$.
+\vspace{\stretch{0.3}}
 
 \clearpage
 \question The following \textbf{rotation matrix} is a unitary matrix. Multiplying vectors in $\reals^2$ results in a counter-clock rotation by $\theta$.
@@ -414,17 +422,18 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 
 \clearpage
 \subsection{Spectral theorem}
-Now we reach the first and arguably the most important matrix decomposition.
+Now we reach the first and arguably one of the most important matrix decompositions.
 
 A matrix is \textbf{symmetric} if $A = A\trp$. A complex matrix is \textbf{Hermitian} (or self-adjoint) if $A = A\ctrp$.
+Note that only square matrices can be symmetric or Hermitian.
 
-\begin{tcolorbox}[colback=black!1!,title=Spectral theorem of linear algebra]
-Any \textit{real symmetric square matrix} $A$ can be decomposed into the following form,
+\begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Hermitian matrices]
+Any \textit{real symmetric square (or Hermitian) matrix} $A$ can be decomposed into the following form,
 \begin{align}\label{eq:spectral}
-    A = U \Lambda U\trp \qquad \text{(spectral-decomposition)}
+    A = U \Lambda U\ctrp \qquad \text{(spectral decomposition)}
 \end{align}
 where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
-is an orthonormal matrix, and $\Lambda$ is a real-valued diagonal matrix.
+is an orthonormal (or unitary) matrix, and $\Lambda$ is a \emph{real}-valued diagonal matrix.
 \end{tcolorbox}
 
 \question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network influence each other with the same gain.
@@ -438,33 +447,66 @@ Use the spectral decomposition \eqref{eq:spectral} to answer the following quest
 \vspace{\stretch{0.5}}
 \part What is the general form of $\vx(t)$ with input?
 \vspace{\stretch{0.5}}
+\part Can linear neural networks with symmetric matrices oscillate?
+\vspace{\stretch{0.2}}
 \end{parts}
 
-This is a.k.a.~diagonalization.
-
 \clearpage
-
-\begin{tcolorbox}
-\funfact Diagonal matrices commute, i.e., $IA = AI = A$ for any matrix $A$.
+\begin{tcolorbox}[colback=black!1!,title=Eigenvalues and Eigenvectors]
 \end{tcolorbox}
 
-
-\question
+\question Con
 \begin{parts}
-    \part Show that $\Sigma \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
+    \part Show that $W \vu_i = \lambda_i \vu_i$, that is, columns of $U$ correspond to right eigenvectors with corresponding eigenvalues as the diagonal elements of $\Lambda$.
 	\vspace{\stretch{1}}
     \part Order the eigenvalues in decreasing order $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$.
     Show that $\lambda_1$ corresponds to the effective ``time constant'' of the network.
 	\vspace{\stretch{3}}
 \end{parts}
 
-\begin{tcolorbox}
-    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
-    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
-    (They are inverses of each other.)
+\begin{tcolorbox}[colback=black!1!,title=Normal matrices]
+    A matrix $W$ is called \textbf{normal}, if it commutes with its (conjugate)-transpose.
+    $$W\ctrp W = W W\ctrp$$
 \end{tcolorbox}
-\question Verify that $U\trp$ is inverse of a unitary matrix $U$.
-\vspace{\stretch{1}}
+\question Determine if the following non-symmetric matrices are normal.
+\begin{parts}
+    \part
+\begin{flalign}
+    &
+    \begin{bmatrix}
+	 0 & 2\\
+	-2 & 0
+    \end{bmatrix}
+    &
+\end{flalign}
+\vspace{\stretch{0.1}}
+    \part
+\begin{flalign}
+    &
+    \begin{bmatrix}
+	 2 & 1\\
+	-1 & 0
+    \end{bmatrix}
+    &
+\end{flalign}
+\vspace{\stretch{0.1}}
+\end{parts}
+
+The class of normal matrices is pretty big, and includes diagonal, unitary, symmetric, and skew-symmetric ($A = -A\trp$) matrices.
+More generally, the spectral theorem extends to the class of normal matrices, but the eigenvalues may be complex-valued.
+\begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Normal matrices]
+Any \textit{normal matrix} $A$ can be decomposed into the following form,
+\begin{align}\label{eq:spectral}
+    A = U \Lambda U\ctrp \qquad \text{(spectral decomposition)}
+\end{align}
+where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal matrix.
+\end{tcolorbox}
+
+\clearpage
+
+%\begin{tcolorbox}
+%\funfact Diagonal matrices commute, i.e., $DA = AD$ for any matrix $A$.
+%\end{tcolorbox}
 
 \begin{proposition}
     More generally, any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
