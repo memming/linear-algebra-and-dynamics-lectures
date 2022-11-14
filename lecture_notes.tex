@@ -472,7 +472,7 @@ Given a matirx $A$, solutions to the following eigenvalue equation
 are called the (right) eigenvectors ($\vx_i$) and eigenvalues ($\lambda_i$) of $A$.
 \end{tcolorbox}
 
-\question Given a spectral decomposition of $A = U\Lambda U\trp$, show that $\vu_i$ is an eigenvector with corresponding eigenvalue $\Lambda_{i,i}$ of $A$.
+\question Given a spectral decomposition of $A = U\Lambda U\ctrp$, show that $\vu_i$ is an eigenvector with corresponding eigenvalue $\Lambda_{i,i}$ of $A$.
 \vspace{\stretch{0.3}}
 
 As you have just seen, the spectral decomposition makes things easy.
@@ -546,35 +546,148 @@ In some sense, linear dynamics with normal matrices are easy to understand now.
 In the following section, we will attempt to understand the other cases.
 
 \subsection{Singular Value Decomposition}
+Another very powerful matrix decomposition that applies to any matrix is the SVD.
 %\begin{tcolorbox}
 %\funfact Diagonal matrices commute, i.e., $DA = AD$ for any matrix $A$.
 %\end{tcolorbox}
-\begin{proposition}
+\begin{tcolorbox}[colback=black!1!,title=SVD]
     Any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
     \begin{align}\label{eq:eig}
-        A = U \Sigma V\trp \qquad \text{(singular value decomposition)}
+        A = U \Sigma V\ctrp \qquad \text{(singular value decomposition)}
     \end{align}
     where $U\in \complex^{m \times m}$ is a unitary matrix,
     $\Sigma \in \reals^{m \times n}$ is diagonal matrix with non-negative values and
     $V\in \complex^{n \times n}$ is a unitary matrix.
-    .
-\end{proposition}
+\end{tcolorbox}
 
-The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
+The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A, and the columns of $U$ and $V$ are called the left and right singular vectors.
+SVD provides a nice interpretation of matrix multiplication in general as a sequence of unitary transformation, scaling, and another (potentially different) unitary transformation.
 
-\question Show the relationship between singular vectors and singular values of $A$ and the eigenvectors of a square matrix $AA\ctrp$ and $A\ctrp A$.
 
-\question Find a singular value decomposition of the following matrix
-\begin{align}\label{eq:svd:ex:s}
-W_s &=
+\question Show the relationship between singular vectors and singular values of $A$ and the eigenvectors of the square matrices $AA\ctrp$ and $A\ctrp A$.
+\vspace{\stretch{2}}
+
+\question Find a singular value decomposition of the following square matrix:
+\begin{flalign}\label{eq:svd:ex:s}
+&
+W_s =
 \begin{bmatrix}
 0 & -1 & 0\\
 0 & 0 & 1\\
 1 & 0 & 0
 \end{bmatrix}
-\end{align}
+&
+\end{flalign}
+\vspace{\stretch{2}}
 
-\subsection{Matrix Algebra}
+\clearpage
+\textbf{Rank} of a matrix is the number of non-zero singular values.
+\question Consider a rank-1 neural network with $W = \vu \vv\trp$.
+\begin{flalign}
+&
+    \vu =
+    \begin{bmatrix}
+	1\\ 1\\ 0\\ 0
+    \end{bmatrix}
+    \qquad
+    \vv =
+    \begin{bmatrix}
+	0\\ 1\\ 1\\ 1
+    \end{bmatrix}
+&
+\end{flalign}
+Describe its time evolution $\vx(t)$.
+
+\begin{tcolorbox}
+    \textbf{Low-rank approximation (Eckart--Young) theorem (practical):}
+    The best low-rank approximation of a matrix (in terms of Frobenius norm) is given by dropping the smallest singular values.
+\end{tcolorbox}
+
+\question 
+According to Eckart-Young theorem, replacing the smallest singular values with $0$ is a good way to achieve low-rank approximation of a matrix.
+For example, SVD of the following matrix shows two rank-1 components.
+\begin{align}\label{eq:svd:eg:c}
+    W_c =
+    \begin{bmatrix}
+	2 & 2 & 0
+	\\
+	2 & 2 & 0
+	\\
+	0 & 0 & 0.5
+    \end{bmatrix}
+    &=
+    4
+    \begin{bmatrix}
+	1/\sqrt{2}
+	\\
+	1/\sqrt{2}
+	\\
+	0
+    \end{bmatrix}
+    \begin{bmatrix}
+	\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0
+    \end{bmatrix}
+    +
+    \frac{1}{2}
+    \begin{bmatrix}
+	0
+	\\
+	0
+	\\
+	1
+    \end{bmatrix}
+    \begin{bmatrix}
+	0 & 0 & 1
+    \end{bmatrix}
+    \\
+    &=
+    4
+    \begin{bmatrix}
+	1/2 & 1/2 & 0
+	\\
+	1/2 & 1/2 & 0
+	\\
+	0 & 0 & 0
+    \end{bmatrix}
+    +
+    \frac{1}{2}
+    \begin{bmatrix}
+	0 & 0 & 0
+	\\
+	0 & 0 & 0
+	\\
+	0 & 0 & 1
+    \end{bmatrix}
+\end{align}
+The best rank-1 approximation is the component with singular value 4.
+\begin{flalign}
+    &
+    \tilde{W}_c =
+    \begin{bmatrix}
+	2 & 2 & 0
+	\\
+	2 & 2 & 0
+	\\
+	0 & 0 & 0
+    \end{bmatrix}
+    &
+\end{flalign}
+\vspace{\stretch{0.2}}
+Compare the two linear neural networks with weight matrix $W_c$ and $\tilde{W}_c$, correspondingly.
+
+\subsection{Reading assignment for Day 1}
+Read~\citet{Goldman2009} with the following questions in mind:
+
+\question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
+\vspace{\stretch{0.5}}
+
+\question Take a unitary matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\vx(t)$? How does this relate to Fig 3C?
+\vspace{\stretch{0.5}}
+
+\question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
+\vspace{\stretch{0.5}}
+
+\subsection{Matrix Algebra Cheatsheet}
 \begin{tcolorbox}
 \funfact Every linear transformation is a matrix multiplication.
 \end{tcolorbox}
@@ -707,17 +820,6 @@ Matrix times diagonal matrix scales column vectors:
 \end{align}
 \end{tcolorbox}
 
-\subsection{Reading assignment for Day 1}
-Read~\citet{Goldman2009} with the following questions in mind:
-
-\question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
-\vspace{\stretch{0.5}}
-
-\question Take a unitary matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\vx(t)$? How does this relate to Fig 3C?
-\vspace{\stretch{0.5}}
-
-\question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
-\vspace{\stretch{0.5}}
 
 \clearpage
 \section{Non-normal Linear Time Invariant System}
@@ -774,7 +876,7 @@ Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors o
 This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
 They just need to be combined back with $S$.
 
-\question \textbf{Similarity transform and change of basis}
+\question \textbf{Similarity transform and change of basis}:
 Let $M$ be any invertible matrix.
 Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
 A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
