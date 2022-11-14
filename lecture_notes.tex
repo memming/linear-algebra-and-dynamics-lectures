@@ -159,20 +159,20 @@ where $t = 0, 1, \ldots $ represents discrete time steps, $v(t) \in \reals$ is t
 
 \newpage
 \subsection{Linear network model}
-As we shall see later when we go to continuous time, $0 < a < 1$ is tightly connected to the time constant.
+As we shall see later when we go to continuous time, $0 < a < 1$ is related to the time constant.
 The membrane potential time constant of a neuron is not very flexible; typically in the order of $10$ milliseconds.
 Having many independent neurons does not help with the situation of forgetful membrane.
-But maybe we can create a network of (non-spiking) neurons!
+But maybe we can create a network of (non-spiking) neurons that has more memory!
 
-Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time $t = 0, 1, 2, \ldots$ as,
+Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential or firing rate) $x_i(t)$ evolves over time $t = 0, 1, 2, \ldots$ as,
 \begin{align}\label{eq:dtlds:LDS}
 	x_i(t+1) &= w_{i,i} x_i(t) + \sum_{j \neq i} w_{i,j} x_j(t) + b_i I(t)
 \end{align}
-where $w_{i,i} \in \reals$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$ is the influence of $j$-th neuron's membrane potential directly onto $i$-th neuron's membrane potential.
+where $w_{i,i} \in \reals$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$ is the influence of $j$-th neuron's activity directly onto $i$-th neuron's activity.
 Note that there is no synaptic dynamics in this super simplified model.
-Despite its simplicity, it is a very useful model of neural dynamics~\citep{Druckmann2012,Ganguli2008,Goldman2009}.
+Despite its simplicity, it is no doubt a very useful theoretical model of neural dynamics~\citep{Druckmann2012,Ganguli2008,Goldman2009}.
 
-Let's write this in matrix form. Define the neural activity vector $\vx(t)$ and the connectivity matrix $W$:
+Let's write this in matrix form. Define the neural activity vector $\vx(t)$, the connectivity matrix $W$, and the input gain vector $\vb$.
 \begin{align}
 	\vx(t) &= 
 	    \begin{bmatrix}
@@ -192,8 +192,16 @@ Let's write this in matrix form. Define the neural activity vector $\vx(t)$ and 
 		\\
 		w_{n,1} & w_{n,2} & \cdots & w_{n,n}
 	    \end{bmatrix}
+	\qquad
+	\vb =
+	    \begin{bmatrix}
+		b_1\\
+		b_2\\
+		\vdots\\
+		b_n
+	    \end{bmatrix}
 \end{align}
-Note that $W \in \reals^{n \times n}$ is a square matrix.
+Note that $W \in \reals^{n \times n}$ is a square matrix, and $\vx(t), \vb \in \reals^{n \times 1}$ are column vectors.
 
 \question Write the matrix form difference equation for \eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.3}}
@@ -226,7 +234,7 @@ Note that matrix products don't commute, i.e., $AB \neq BA$.
 \end{tcolorbox}
 \newpage
 What does \emph{matrix multiplication} do?
-Practicing with some special matrices will gives us an intuition.
+Let us try out with some special matrices.
 
 \subsection{Some special matrices as connectivity}
 \textbf{Diagonal matrices} are non-zero only on the diagonal entries.
@@ -352,13 +360,19 @@ U &=
 	&
 	\kern.3em\vline\kern.3em
     \end{bmatrix}
+    \in \reals^{n \times n}
 \end{align}
 
 \clearpage
-\question Show that $U$ is orthonormal if and only if $U U\trp = I$.
+\question Show that if $U$ is orthonormal then $U\trp U = I$.
 \vspace{\stretch{0.3}}
 
-\question Show that if $U$ is orthonormal then $U\trp U = I$.
+\begin{tcolorbox}
+    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
+    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
+    (They are inverses of each other.)
+\end{tcolorbox}
+\question Show that if $U$ is orthonormal then $U U\trp = I$.
 \vspace{\stretch{0.3}}
 
 A complex-valued square matrix $U \in \complex^{n \times n}$ is \textbf{unitary}, if $U U\ctrp = I$ where $\ctrp$ denotes conjugate transpose operation.
@@ -370,18 +384,13 @@ Orthonormal matrices are unitary.
 \question Let $W$ in \eqref{eq:dtlds:LDS} be orthonormal. In the absence of input, i.e., $I(t) = 0$, what can you say about $\vx(t)$ given $\vx(0)$? (geometrically)
 \vspace{\stretch{0.3}}
 
-A \textbf{permutation matrix} is a matrix where each row and column has a single unity and zero otherwise.
+A \textbf{permutation matrix} is a matrix where each row and column has a single unity and zero otherwise. (Why is it called a permutation matrix?)
 
 \question Show that a permutation matrix is a unitary matrix.
 \vspace{\stretch{0.5}}
 
-\begin{tcolorbox}
-    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
-    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
-    (They are inverses of each other.)
-\end{tcolorbox}
-\question Note that $U\ctrp$ is inverse of a unitary matrix $U$, i.e., $U\inv = U\ctrp$.
-\vspace{\stretch{0.3}}
+%\question Note that $U\ctrp$ is inverse of a unitary matrix $U$, i.e., $U\inv = U\ctrp$.
+%\vspace{\stretch{0.3}}
 
 \clearpage
 \question The following \textbf{rotation matrix} is a unitary matrix. Multiplying vectors in $\reals^2$ results in a counter-clock rotation by $\theta$.
@@ -399,13 +408,13 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \vspace{\stretch{0.2}}
 \end{parts}
 
-\question Orthonormal matrices can also ``flip'' or reflect vectors with respect to axes. Take the following $W$.
+\question Orthonormal matrices can also ``flip'' or reflect vectors with respect to axes. Consider
 \begin{align}\label{eq:LA:flip}
     W &=
     \begin{bmatrix}
 	-1 & 0\\
 	 0 & 1
-    \end{bmatrix}
+    \end{bmatrix}.
 \end{align}
 \begin{parts}
 \part Show that $W$ is unitary.
@@ -417,8 +426,8 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \question Let $U$ be a unitary matrix. Show that unitary matrix preserves the inner product structure, i.e., $\vx\trp \vy = (U \vx)\trp (U\vy)$.
 \vspace{\stretch{0.2}}
 
-\begin{tcolorbox}[colback=black!1!,title=Unitary Matrix]
-    It can rotate, permute, and reflect vectors while keeping their norm and inner product structure.
+\begin{tcolorbox}[colback=black!1!,title=Unitary or Orthonormal Matrix]
+    It can rotate, permute, and reflect vectors while preserving their norm and inner product structure.
 \end{tcolorbox}
 
 \clearpage
@@ -437,14 +446,14 @@ where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
 is an orthonormal (or unitary) matrix, and $\Lambda$ is a \emph{real}-valued diagonal matrix.
 \end{tcolorbox}
 
-\question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network influence each other with the same gain.
+\question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network reciprocally activates each other with the same strength.
 Use the spectral decomposition \eqref{eq:spectral} to answer the following questions.
 \begin{parts}
 \part What is $WW$?
 \vspace{\stretch{0.2}}
 \part What is $W^n$?
 \vspace{\stretch{0.2}}
-\part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$) and with initial condition $\vx(0) = \vu_i\trp$?
+\part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$) and with initial condition $\vx(0) = \vu_i$?
 \vspace{\stretch{0.5}}
 \part What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
