@@ -24,13 +24,11 @@
 - Linear algebra: Fun special matrix forms
 - Linear algebra: Eigendecomposition
 - Solution for arbitrary time
-- Analysis: line attractor
-- Complex eigenvalues, spectrum plot, and stability
-- Higher-order linear difference equations and delay embedding
 - Singular value decomposition (SVD)
 - Books for linear algebra [^Strang2006] [^Horn2012]
 - 12:00-13:00 CISS seminars
 - Simulating discrete-time linear dynamics in 1D and 2D, line attractor
+- Complex eigenvalues, spectrum plot, and stability
 - Reading assignment [^Goldman2009]
 
 ### Day 2: Discrete-time linear dynamical system: non-normal
@@ -38,6 +36,7 @@
 - Student presentation and discussion
 - Linear algebra: Normal vs non-normal matrix
 - Linear algebra: Shur decomposition
+- Higher-order linear difference equations and delay embedding
 - Discrete dynamics zoo
 - Neuroscience: optimal memory structures [^Ganguli2008]
 - Linear time invariant systems, convolution
@@ -76,6 +75,7 @@
 ### Day 5: Numerical analysis applications and programming exercises
 
 - Solving linear systems
+- Condition number of a matrix
 - Never numerically invert a matrix unless absolutely necessary!
 - Least squares is convex optimization
 - Approximating linear ODE as a discrete time system
