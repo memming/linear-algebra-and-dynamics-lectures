@@ -943,18 +943,45 @@ This transformation may also depend on the internal state of the neural system i
 However, for the simplicity of the argument let us first consider a system without an internal state.
 
 A system is said to be \textbf{time-invariant} if its response to a certain signal does not depend on time.
+\begin{align}
+    H(u(t + \tau)) = y(t + \tau)
+\end{align}
 A system is said to be \textbf{linear}, if.
 \begin{align}
     H(a \cdot u_1(t) + b \cdot u_2(t)) = a \cdot y_1(t) + b \cdot y_2(t)
 \end{align}
 where $y_i(t) = H(u_i(t))$ for $i = 1, 2$.
 
-A causal linear time-invariant system is fully characterized by its \emph{impuse response}.
+A linear time-invariant (LTI) system is fully characterized by its \emph{impuse response}, defined by the output to a unit pulse input at time $t = 0$.
 
+\question What is the impuse response of the system $y(t) = x(t-1)$?
+\vspace{\stretch{1}}
+
+Output of an LTI system is a convolution of input with the impulse response.
 
 \subsection{Finite impulse response}
+When a system's impulse response is restricted to a finite number of non-zero elements, it is said to have a finite impulse response (FIR).
 
-\subsection{Rotated feedforward networks}
+\question Show that a purely feedforward network produces a finite impulse response.
+\vspace{\stretch{1}}
+
+Filters are signal processing tools often used for smoothing, denoising, sharpening, removing line noise, and isolating signals in a particular frequency bands.
+They are implemented as LTI.
+
+\question Moving average is a simple linear low-pass filter. What is its impulse response?
+
+\question Design an FIR high-pass filter.
+
+A little bit of adaptive filtering.
+
+\question Delay line and TDNN
+
+\subsection{Coordinate transformed feedforward networks}
+
+
+\subsection{Infinite impulse response}
+
+\subsection{Schur decomposition}
 
 
 \subsection{Other cases}
