@@ -581,8 +581,12 @@ W_s =
 \vspace{\stretch{2}}
 
 \clearpage
+\question Write the general form of $\vx(t)$ in the absence of input using the SVD of $W$.
+Do the dynamics decouple into nice independent modes?
+\vspace{\stretch{1}}
+
 \textbf{Rank} of a matrix is the number of non-zero singular values.
-\question Consider a rank-1 neural network with $W = \vu \vv\trp$.
+\question Consider a rank-1 neural network with $W = \vu \vv\trp$. (Why is it rank-1?)
 \begin{flalign}
 &
     \vu =
@@ -594,17 +598,22 @@ W_s =
     \begin{bmatrix}
 	0\\ 1\\ 1\\ 1
     \end{bmatrix}
+    \qquad
+    W =
 &
 \end{flalign}
 Describe its time evolution $\vx(t)$.
+\vspace{\stretch{1}}
+
+\textbf{Frobenius norm} of a matrix $A$ is defined as $\norm{A}_F = \sqrt{\sum_{i,j} \abs{A_{i,j}}^2}$.
 
 \begin{tcolorbox}
     \textbf{Low-rank approximation (Eckart--Young) theorem (practical):}
     The best low-rank approximation of a matrix (in terms of Frobenius norm) is given by dropping the smallest singular values.
 \end{tcolorbox}
 
-\question 
-According to Eckart-Young theorem, replacing the smallest singular values with $0$ is a good way to achieve low-rank approximation of a matrix.
+\question
+According to the Eckart--Young theorem, replacing the smallest singular values with $0$ is a good way to achieve low-rank approximation of a matrix.
 For example, SVD of the following matrix shows two rank-1 components.
 \begin{align}\label{eq:svd:eg:c}
     W_c =
@@ -672,16 +681,17 @@ The best rank-1 approximation is the component with singular value 4.
     \end{bmatrix}
     &
 \end{flalign}
-\vspace{\stretch{0.2}}
 Compare the two linear neural networks with weight matrix $W_c$ and $\tilde{W}_c$, correspondingly.
+\vspace{\stretch{2}}
 
+\clearpage
 \subsection{Reading assignment for Day 1}
 Read~\citet{Goldman2009} with the following questions in mind:
 
 \question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.5}}
 
-\question Take a unitary matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\vx(t)$? How does this relate to Fig 3C?
+\question Take an orthonormal matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\trp\vx(t)$? How does this relate to Fig 3C?
 \vspace{\stretch{0.5}}
 
 \question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
@@ -818,6 +828,10 @@ Matrix times diagonal matrix scales column vectors:
 	\horzbar d_n \vv_n \horzbar
     \end{bmatrix}
 \end{align}
+\end{tcolorbox}
+
+\begin{tcolorbox}
+    \funfact $(AB)\trp = B\trp A\trp$.
 \end{tcolorbox}
 
 
