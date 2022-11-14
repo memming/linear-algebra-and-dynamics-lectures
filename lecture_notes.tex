@@ -439,7 +439,7 @@ Note that only square matrices can be symmetric or Hermitian.
 
 \begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Hermitian matrices]
 Any \textit{real symmetric square (or Hermitian) matrix} $A$ can be decomposed into the following form,
-\begin{align}\label{eq:spectral}
+\begin{align}\label{eq:spectral:real}
     A = U \Lambda U\ctrp \qquad \text{(spectral decomposition)}
 \end{align}
 where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
@@ -447,7 +447,7 @@ is an orthonormal (or unitary) matrix, and $\Lambda$ is a \emph{real}-valued dia
 \end{tcolorbox}
 
 \question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network reciprocally activates each other with the same strength.
-Use the spectral decomposition \eqref{eq:spectral} to answer the following questions.
+Use the spectral decomposition \eqref{eq:spectral:real} to answer the following questions.
 \begin{parts}
 \part What is $WW$?
 \vspace{\stretch{0.2}}
@@ -509,7 +509,7 @@ Normal matrices are exactly those that have \emph{a complete set of \emph{orthon
 The spectral theorem extends to the class of normal matrices, but the eigenvalues may be complex-valued.
 \begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Normal matrices]
 Any \textit{normal matrix} $A$ can be decomposed into the following form,
-\begin{align}\label{eq:spectral}
+\begin{align}\label{eq:spectral:complex}
     A = U \Lambda U\ctrp \qquad \text{(spectral decomposition)}
 \end{align}
 where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal matrix.
@@ -834,26 +834,42 @@ Matrix times diagonal matrix scales column vectors:
     \funfact $(AB)\trp = B\trp A\trp$.
 \end{tcolorbox}
 
-
 \clearpage
+%===    DAY 2    ===============================================%
 \section{Non-normal Linear Time Invariant System}
 Let us continue to develop more intuition on the memory properties of linear ``recurrent'' neural networks of the form \eqref{eq:dtlds:LDS}.
 As discussed in \citet{Goldman2009}, some linear network models can be viewed as feedforward, while others can be feedback.
 This distinction is very important for the memory properties of the system.
-The traditional tool for analyzing memory traces in a neural system is to use the eigenvalues (also known as spectra).
-In this section, we will stick with discrete time.
+The traditional tool for analyzing memory traces in a neural system is to use the eigenvalues (also known as eigenspectrum).
+In this section, we will still stick with discrete time.
+
+\question \textbf{Similarity transform and change of basis}:
+Let $M$ be any invertible matrix.
+Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
+A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
+Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
+($B$ is said to be \textit{``similar''} to $A$)
+\vspace{\stretch{0.5}}
+
+\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
+Show that similar matrices $A$ and $B$ have the same eigenvalues.
+\vspace{\stretch{1}}
+
 
 \subsection{Diagonalization}
 \begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
     $$W\trp W \neq W W\trp$$
 \end{tcolorbox}
 The spectral theorem is nice because it decouples each dimension, but can we extend such analysis to non-normal matrices?
-As long as a matrix has $n$ linearly independent (not necessarily orthogonal) eigenvectors, we can diagonalize them using its eigenvectors.
+\begin{tcolorbox}[colback=black!1!,title=Diagonalization]
+If a square matrix has $n$ linearly independent (not necessarily orthogonal) eigenvectors, we can diagonalize them using its eigenvectors.
 \begin{align}\label{eq:eigendecomposition}
 A = S \Lambda S\inv  \qquad \text{(diagonalization)}
 \end{align}
 where $\Lambda$ is a diagonal matrix of complex numbers.
-\question Show that the columns of $S$ are (right) eigenvectors of $A$.
+\end{tcolorbox}
+
+\question Verify that the columns of $S$ are (right) eigenvectors of $A$.
 \vspace{\stretch{0.2}}
 
 As long as the set of eigenvectors span the whole space, we can use \eqref{eq:eigendecomposition} in reverse to construct matrices with specific eigenvectors and eigenvalues.
@@ -884,23 +900,14 @@ Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors o
 	\end{bmatrix}
 	S\inv \vx(0)
 \end{align}
+
+\clearpage
 \question Show that $\vx(t) = S\lambda_i^t$ if initialized at the eigenvector, i.e., $\vx(0) = \vv_i$.
-\vspace{\stretch{0.2}}
-
-This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
-They just need to be combined back with $S$.
-
-\question \textbf{Similarity transform and change of basis}:
-Let $M$ be any invertible matrix.
-Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
-A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
-Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
-($B$ is said to be \textit{``similar''} to $A$)
-\vspace{\stretch{0.5}}
-
-\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
-Show that similar matrices $A$ and $B$ have the same eigenvalues.
 \vspace{\stretch{1}}
+
+This means dynamics decomposed onto the eigenmodes (spanned by $\vv_i$) behave independently and geometrically.
+This is almost as nice as the spectrally decomposed normal matrix case.
+They just need to be combined back with $S$ which is not an \emph{orthnormal} basis.
 
 
 \subsection{Difference of exponentials is usually not an exponential}
