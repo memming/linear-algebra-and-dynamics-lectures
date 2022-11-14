@@ -932,17 +932,25 @@ What is the corresponding connectivity matrix?
 \vspace{\stretch{0.5}}
 
 
-\subsection{Neural computation as filtering}
-Given an input signal $x(t)$, a \textbf{filter} outputs a corresponding output signal $y(t)$ through a causal mechanism.
-This captures the essence of biophysical computation at various scales--a transformation of a signal over time.
+\subsection{Neural computation as a system}
+Given an input signal $u(t)$, a \textbf{system} outputs a corresponding output signal $y(t)$ through a causal mechanism.
+\begin{align}
+    [y(s), s = 0, 1, \ldots, t] = H(u(s), s = 0, 1, \ldots, t)
+\end{align}
+Note that this is not necessarily an instantaneous mapping, but rather maps a time series to a time series.
+A system can capture the essence of biophysical computation at various scales--a transformation of signals over time.
 This transformation may also depend on the internal state of the neural system in general.
-Here, we consider an operator of that transforms 
-$y(t) = L(x(t))$
+However, for the simplicity of the argument let us first consider a system without an internal state.
 
-\subsection{Linear time invariant system}
-\begin{enumerate}
-    \item 
-\end{enumerate}
+A system is said to be \textbf{time-invariant} if its response to a certain signal does not depend on time.
+A system is said to be \textbf{linear}, if.
+\begin{align}
+    H(a \cdot u_1(t) + b \cdot u_2(t)) = a \cdot y_1(t) + b \cdot y_2(t)
+\end{align}
+where $y_i(t) = H(u_i(t))$ for $i = 1, 2$.
+
+A causal linear time-invariant system is fully characterized by its \emph{impuse response}.
+
 
 \subsection{Finite impulse response}
 
