@@ -1,7 +1,7 @@
 \documentclass[a4paper,11pt]{exam}
 
 \usepackage[T1]{fontenc}
-\usepackage[top=2cm, bottom=2cm, left=3cm, right=3cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=2.5cm, right=2.5cm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{amsthm}
 \usepackage{hyperref}
@@ -86,23 +86,23 @@
 
 \pagestyle{headandfoot}
 \runningheadrule
-\runningheader{Nov 2022}{Linear Dynamics}{Il Memming Park}
+\runningheader{Nov 2022}{Linear Dynamics}{Park \& Dowling}
 
 \title{Lecture notes on linear dynamical systems for neuroscience\footnote{Available online: \url{https://github.com/memming/linear-algebra-and-dynamics-lectures}}}
-\author{Il Memming Park, Matthew Dowling, Ayesha Vermani, \'Abel S\'agodi}
+\author{Il Memming Park and Matthew Dowling} %, Ayesha Vermani, \'Abel S\'agodi}
 \begin{document}
 \maketitle
 \section{Motivation}
-Our aim is to understand complex spatio-temporal phenomena that involves the nervous system.
-In the physical space, there are many neurons, multiple subregions of a single neuron, multiple brain areas, and even multiple brains that are socially interacting.
+Our aim is to understand complex spatio-temporal phenomena that involve the nervous system.
+In the physical space, interaction among entities generates collective phenomena: there are many neurons, multiple subregions of a single neuron, multiple brain areas, and even multiple brains that are socially interacting.
 Various measurement technologies allow access to many pixels/voxels imaged, many electrodes that record electrical activities, and many magnetic field sensors.
-In the physical time, neural activity of interest in neuroscience span time scales from microseconds to years.
+In the time domain, neural activity of interest in neuroscience span time scales from microseconds to years.
 Only through time, the neural systems can process information, store information, adapt to new context, learn, and generate meaningful behavior.
-Both for the practical data analysis, and for the theoretical study of neural system, we often face the grand challenge of making sense of high-dimensional spatio-temporal dynamics.
+Both for the practical data analysis, and for the theoretical study of the neural system, we often face the grand challenge of making sense of high-dimensional spatio-temporal dynamics.
 If we want to ``understand'' how the brain works, we need some intuition on high-dimensional spatio-temporal dynamics.
 
 This may seem daunting at first, but we can stand on the shoulders of giants who developed various conceptual tools.
-In addition, fortunately, any one can learn the mathematical intuition for making precise statements on those concepts.
+In addition, fortunately, anyone can learn the mathematical intuition for making precise statements on those concepts.
 In this week, we will learn versatile and extremely useful framework of linear dynamical systems.
 There are two key intuitions covered within two subjects in mathematics.
 \begin{tcolorbox}[colback=black!1!,title=Learning Objective 1]
@@ -133,12 +133,13 @@ Of course, there are exceptions and limitations, however, there are extensions a
 In most aspects discrete-time and continuous-time linear dynamical systems are analogous.
 Continuous-time systems require more abstract mathematical skills, namely calculus and its friends, while discrete-time systems have lower barriers since solutions can be straightforwardly computed.
 Discrete-time systems can be implemented with simple loops on computers.
-A simple \emph{Euler integration} scheme tightly connects the two approaches, and allows most of the practical intuitions to be transferred.
+A simple \emph{Euler integration} scheme ``tightly'' connects the two approaches, and allows most of the practical intuitions to be transferred.
 \begin{align}\label{eq:euler}
 \frac{\mathrm{d}x}{\mathrm{d}t} = f(x) \quad \Longleftrightarrow \quad
 x(t + \Delta) = x(t) + \Delta \cdot f(x)
 \end{align}
 for sufficiently small $\Delta$.
+We will implicitly take discrete time steps of size $\Delta$.
 Now, let us dive into discrete-time systems!
 
 \subsection{Memory traces in a 1-dimensional linear dynamical system}
@@ -146,32 +147,32 @@ Consider an abstract leaky membrane potential model:
 \begin{align}\label{eq:dtlds:LIF:def}
 	v(t+1) &= a \cdot v(t) + I(t)
 \end{align}
-where $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant, and $I(t) \in \reals$ is a current entering the neuron.
+where $t = 0, 1, \ldots $ represents discrete time steps, $v(t) \in \reals$ is the membrane potential, $a \in \reals$ is a constant, and $I(t) \in \reals$ is a current entering the neuron.
 
 \begin{questions}
 \question Given an initial condition $v(0)$ and the external current $I(t)$ for $t = 0, 1, \ldots $, write the general form of $v(t)$ using the summation notation (e.g. $\sum_{s=0}^t$). (Hint: try writing out $v(1), v(2), v(3)$ first and generalize.)
 \vspace{\stretch{0.3}}
 \question Sketch the solution over time from $t=0$ to $t=10$ for $a = 0.9$, $a = 1$, and $a = 2$ given $v(0) = 0$, $I(2) = 1$, and $I(t) = 0$ otherwise. Which one resembles the behavior of a neuronal membrane?
 \vspace{\stretch{0.5}}
-\question What is the value of $a$ for an input pulse would decay to $10\%$ of it original magnitude in $10$ time steps?
+\question What is the value of $a$ for an input pulse $I(0) \neq 0$ to decay to $10\%$ of it original magnitude in $10$ time steps (assume $v(0) = 0$ and $I(t > 0) = 0$)?
 \vspace{\stretch{0.2}}
 
 \newpage
 \subsection{Linear network model}
-As we shall see later when we go to continuous time, $0 < a < 1$ is tightly connected to the time constant.
+As we shall see later when we go to continuous time, $0 < a < 1$ is related to the time constant.
 The membrane potential time constant of a neuron is not very flexible; typically in the order of $10$ milliseconds.
 Having many independent neurons does not help with the situation of forgetful membrane.
-But maybe we can create a network of (non-spiking) neurons!
+But maybe we can create a network of (non-spiking) neurons that has more memory!
 
-Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential) $x_i(t)$ evolves over time $t = 0, 1, 2, \ldots$ as,
+Consider a network of $n$ linear neurons where each neuron's activity (analogous to membrane potential or firing rate) $x_i(t)$ evolves over time $t = 0, 1, 2, \ldots$ as,
 \begin{align}\label{eq:dtlds:LDS}
 	x_i(t+1) &= w_{i,i} x_i(t) + \sum_{j \neq i} w_{i,j} x_j(t) + b_i I(t)
 \end{align}
-where $w_{i,i} \in \reals$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$ is the influence of $j$-th neuron's membrane potential directly onto $i$-th neuron's membrane potential.
+where $w_{i,i} \in \reals$ plays the role of $a$ in \eqref{eq:dtlds:LIF:def}, and $w_{i,j}$ is the influence of $j$-th neuron's activity directly onto $i$-th neuron's activity.
 Note that there is no synaptic dynamics in this super simplified model.
-Despite its simplicity, it is a very useful model of neural dynamics~\citep{Druckmann2012,Ganguli2008,Goldman2009}.
+Despite its simplicity, it is no doubt a very useful theoretical model of neural dynamics~\citep{Druckmann2012,Ganguli2008,Goldman2009}.
 
-Let's write this is matrix form. Define the neural activity vector $\vx(t)$ and the connectivity matrix $W$:
+Let's write this in matrix form. Define the neural activity vector $\vx(t)$, the connectivity matrix $W$, and the input gain vector $\vb$.
 \begin{align}
 	\vx(t) &= 
 	    \begin{bmatrix}
@@ -191,8 +192,16 @@ Let's write this is matrix form. Define the neural activity vector $\vx(t)$ and 
 		\\
 		w_{n,1} & w_{n,2} & \cdots & w_{n,n}
 	    \end{bmatrix}
+	\qquad
+	\vb =
+	    \begin{bmatrix}
+		b_1\\
+		b_2\\
+		\vdots\\
+		b_n
+	    \end{bmatrix}
 \end{align}
-Note that $W \in \reals^{n \times n}$ is a square matrix.
+Note that $W \in \reals^{n \times n}$ is a square matrix, and $\vx(t), \vb \in \reals^{n \times 1}$ are column vectors.
 
 \question Write the matrix form difference equation for \eqref{eq:dtlds:LDS}.
 \vspace{\stretch{0.3}}
@@ -225,7 +234,7 @@ Note that matrix products don't commute, i.e., $AB \neq BA$.
 \end{tcolorbox}
 \newpage
 What does \emph{matrix multiplication} do?
-Practicing with some special matrices will gives us an intuition.
+Let us try out with some special matrices.
 
 \subsection{Some special matrices as connectivity}
 \textbf{Diagonal matrices} are non-zero only on the diagonal entries.
@@ -351,13 +360,19 @@ U &=
 	&
 	\kern.3em\vline\kern.3em
     \end{bmatrix}
+    \in \reals^{n \times n}
 \end{align}
 
 \clearpage
-\question Show that $U$ is orthonormal if and only if $U U\trp = I$.
+\question Show that if $U$ is orthonormal then $U\trp U = I$.
 \vspace{\stretch{0.3}}
 
-\question Show that if $U$ is orthonormal then $U\trp U = I$.
+\begin{tcolorbox}
+    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
+    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
+    (They are inverses of each other.)
+\end{tcolorbox}
+\question Show that if $U$ is orthonormal then $U U\trp = I$.
 \vspace{\stretch{0.3}}
 
 A complex-valued square matrix $U \in \complex^{n \times n}$ is \textbf{unitary}, if $U U\ctrp = I$ where $\ctrp$ denotes conjugate transpose operation.
@@ -369,18 +384,13 @@ Orthonormal matrices are unitary.
 \question Let $W$ in \eqref{eq:dtlds:LDS} be orthonormal. In the absence of input, i.e., $I(t) = 0$, what can you say about $\vx(t)$ given $\vx(0)$? (geometrically)
 \vspace{\stretch{0.3}}
 
-A \textbf{permutation matrix} is a matrix where each row and column has a single unity and zero otherwise.
+A \textbf{permutation matrix} is a matrix where each row and column has a single unity and zero otherwise. (Why is it called a permutation matrix?)
 
 \question Show that a permutation matrix is a unitary matrix.
 \vspace{\stretch{0.5}}
 
-\begin{tcolorbox}
-    \funfact For square matrices $A$ and $B$, if $AB=I$ then $BA=I$.
-    $B$ is the \textit{matrix inverse} of $A$, that is, $B = A\inv$.
-    (They are inverses of each other.)
-\end{tcolorbox}
-\question Note that $U\ctrp$ is inverse of a unitary matrix $U$, i.e., $U\inv = U\ctrp$.
-\vspace{\stretch{0.3}}
+%\question Note that $U\ctrp$ is inverse of a unitary matrix $U$, i.e., $U\inv = U\ctrp$.
+%\vspace{\stretch{0.3}}
 
 \clearpage
 \question The following \textbf{rotation matrix} is a unitary matrix. Multiplying vectors in $\reals^2$ results in a counter-clock rotation by $\theta$.
@@ -398,13 +408,13 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \vspace{\stretch{0.2}}
 \end{parts}
 
-\question Orthonormal matrices can also ``flip'' or reflect vectors with respect to axes. Take the following $W$.
+\question Orthonormal matrices can also ``flip'' or reflect vectors with respect to axes. Consider
 \begin{align}\label{eq:LA:flip}
     W &=
     \begin{bmatrix}
 	-1 & 0\\
 	 0 & 1
-    \end{bmatrix}
+    \end{bmatrix}.
 \end{align}
 \begin{parts}
 \part Show that $W$ is unitary.
@@ -416,8 +426,8 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \question Let $U$ be a unitary matrix. Show that unitary matrix preserves the inner product structure, i.e., $\vx\trp \vy = (U \vx)\trp (U\vy)$.
 \vspace{\stretch{0.2}}
 
-\begin{tcolorbox}[colback=black!1!,title=Unitary Matrix]
-    It can rotate, permute, and reflect vectors while keeping their norm and inner product structure.
+\begin{tcolorbox}[colback=black!1!,title=Unitary or Orthonormal Matrix]
+    It can rotate, permute, and reflect vectors while preserving their norm and inner product structure.
 \end{tcolorbox}
 
 \clearpage
@@ -436,14 +446,14 @@ where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
 is an orthonormal (or unitary) matrix, and $\Lambda$ is a \emph{real}-valued diagonal matrix.
 \end{tcolorbox}
 
-\question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network influence each other with the same gain.
+\question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network reciprocally activates each other with the same strength.
 Use the spectral decomposition \eqref{eq:spectral} to answer the following questions.
 \begin{parts}
 \part What is $WW$?
 \vspace{\stretch{0.2}}
 \part What is $W^n$?
 \vspace{\stretch{0.2}}
-\part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$) and with initial condition $\vx(0) = \vu_i\trp$?
+\part What is the general form of $\vu_i\trp \vx(t)$ in the absence of input ($I(t) = 0$) and with initial condition $\vx(0) = \vu_i$?
 \vspace{\stretch{0.5}}
 \part What is the general form of $\vx(t)$ in the absence of input ($I(t) = 0$)?
 \vspace{\stretch{0.5}}
@@ -462,7 +472,7 @@ Given a matirx $A$, solutions to the following eigenvalue equation
 are called the (right) eigenvectors ($\vx_i$) and eigenvalues ($\lambda_i$) of $A$.
 \end{tcolorbox}
 
-\question Given a spectral decomposition of $A = U\Lambda U\trp$, show that $\vu_i$ is an eigenvector with corresponding eigenvalue $\Lambda_{i,i}$ of $A$.
+\question Given a spectral decomposition of $A = U\Lambda U\ctrp$, show that $\vu_i$ is an eigenvector with corresponding eigenvalue $\Lambda_{i,i}$ of $A$.
 \vspace{\stretch{0.3}}
 
 As you have just seen, the spectral decomposition makes things easy.
@@ -509,7 +519,7 @@ where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal
 \vspace{\stretch{0.3}}
 
 \clearpage
-\question Show that the eigenvalues of a rotation matrix are of the form $e^{\pm i\theta}$.
+\question Show that the eigenvalues of a rotation matrix are of the form $e^{\pm i\theta} = \cos(\theta) \pm i \sin(\theta)$.
 \begin{flalign}
     &
     W_\theta =
@@ -534,26 +544,160 @@ where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal
 
 In some sense, linear dynamics with normal matrices are easy to understand now.
 In the following section, we will attempt to understand the other cases.
-\clearpage
-\subsection{Singular Value Decomposition}
 
+\subsection{Singular Value Decomposition}
+Another very powerful matrix decomposition that applies to any matrix is the SVD.
 %\begin{tcolorbox}
 %\funfact Diagonal matrices commute, i.e., $DA = AD$ for any matrix $A$.
 %\end{tcolorbox}
-
-\begin{proposition}
-    More generally, any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
+\begin{tcolorbox}[colback=black!1!,title=SVD]
+    Any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
     \begin{align}\label{eq:eig}
-        A = U \Sigma V\trp \qquad \text{(singular value decomposition)}
+        A = U \Sigma V\ctrp \qquad \text{(singular value decomposition)}
     \end{align}
-    where $U\in \complex^{m \times m}$ is a unitary matrix, $\Sigma$ is a real-valued diagonal matrix and
+    where $U\in \complex^{m \times m}$ is a unitary matrix,
+    $\Sigma \in \reals^{m \times n}$ is diagonal matrix with non-negative values and
     $V\in \complex^{n \times n}$ is a unitary matrix.
-    .
-\end{proposition}
+\end{tcolorbox}
 
-The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
+The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A, and the columns of $U$ and $V$ are called the left and right singular vectors.
+SVD provides a nice interpretation of matrix multiplication in general as a sequence of unitary transformation, scaling, and another (potentially different) unitary transformation.
 
-\subsection{Matrix Algebra}
+
+\question Show the relationship between singular vectors and singular values of $A$ and the eigenvectors of the square matrices $AA\ctrp$ and $A\ctrp A$.
+\vspace{\stretch{2}}
+
+\question Find a singular value decomposition of the following square matrix:
+\begin{flalign}\label{eq:svd:ex:s}
+&
+W_s =
+\begin{bmatrix}
+0 & -1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\end{bmatrix}
+&
+\end{flalign}
+\vspace{\stretch{2}}
+
+\clearpage
+\question Write the general form of $\vx(t)$ in the absence of input using the SVD of $W$.
+Do the dynamics decouple into nice independent modes?
+\vspace{\stretch{1}}
+
+\textbf{Rank} of a matrix is the number of non-zero singular values.
+\question Consider a rank-1 neural network with $W = \vu \vv\trp$. (Why is it rank-1?)
+\begin{flalign}
+&
+    \vu =
+    \begin{bmatrix}
+	1\\ 1\\ 0\\ 0
+    \end{bmatrix}
+    \qquad
+    \vv =
+    \begin{bmatrix}
+	0\\ 1\\ 1\\ 1
+    \end{bmatrix}
+    \qquad
+    W =
+&
+\end{flalign}
+Describe its time evolution $\vx(t)$.
+\vspace{\stretch{1}}
+
+\textbf{Frobenius norm} of a matrix $A$ is defined as $\norm{A}_F = \sqrt{\sum_{i,j} \abs{A_{i,j}}^2}$.
+
+\begin{tcolorbox}
+    \textbf{Low-rank approximation (Eckart--Young) theorem (practical):}
+    The best low-rank approximation of a matrix (in terms of Frobenius norm) is given by dropping the smallest singular values.
+\end{tcolorbox}
+
+\question
+According to the Eckart--Young theorem, replacing the smallest singular values with $0$ is a good way to achieve low-rank approximation of a matrix.
+For example, SVD of the following matrix shows two rank-1 components.
+\begin{align}\label{eq:svd:eg:c}
+    W_c =
+    \begin{bmatrix}
+	2 & 2 & 0
+	\\
+	2 & 2 & 0
+	\\
+	0 & 0 & 0.5
+    \end{bmatrix}
+    &=
+    4
+    \begin{bmatrix}
+	1/\sqrt{2}
+	\\
+	1/\sqrt{2}
+	\\
+	0
+    \end{bmatrix}
+    \begin{bmatrix}
+	\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0
+    \end{bmatrix}
+    +
+    \frac{1}{2}
+    \begin{bmatrix}
+	0
+	\\
+	0
+	\\
+	1
+    \end{bmatrix}
+    \begin{bmatrix}
+	0 & 0 & 1
+    \end{bmatrix}
+    \\
+    &=
+    4
+    \begin{bmatrix}
+	1/2 & 1/2 & 0
+	\\
+	1/2 & 1/2 & 0
+	\\
+	0 & 0 & 0
+    \end{bmatrix}
+    +
+    \frac{1}{2}
+    \begin{bmatrix}
+	0 & 0 & 0
+	\\
+	0 & 0 & 0
+	\\
+	0 & 0 & 1
+    \end{bmatrix}
+\end{align}
+The best rank-1 approximation is the component with singular value 4.
+\begin{flalign}
+    &
+    \tilde{W}_c =
+    \begin{bmatrix}
+	2 & 2 & 0
+	\\
+	2 & 2 & 0
+	\\
+	0 & 0 & 0
+    \end{bmatrix}
+    &
+\end{flalign}
+Compare the two linear neural networks with weight matrix $W_c$ and $\tilde{W}_c$, correspondingly.
+\vspace{\stretch{2}}
+
+\clearpage
+\subsection{Reading assignment for Day 1}
+Read~\citet{Goldman2009} with the following questions in mind:
+
+\question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
+\vspace{\stretch{0.5}}
+
+\question Take an orthonormal matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\trp\vx(t)$? How does this relate to Fig 3C?
+\vspace{\stretch{0.5}}
+
+\question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
+\vspace{\stretch{0.5}}
+
+\subsection{Matrix Algebra Cheatsheet}
 \begin{tcolorbox}
 \funfact Every linear transformation is a matrix multiplication.
 \end{tcolorbox}
@@ -686,17 +830,10 @@ Matrix times diagonal matrix scales column vectors:
 \end{align}
 \end{tcolorbox}
 
-\subsection{Reading assignment for Day 1}
-Read~\citet{Goldman2009} with the following questions in mind:
+\begin{tcolorbox}
+    \funfact $(AB)\trp = B\trp A\trp$.
+\end{tcolorbox}
 
-\question What is the form of recurrent weight matrix corresponding to the sequential activation network in Fig 1? Consider the problem in discrete time~\eqref{eq:dtlds:LDS}.
-\vspace{\stretch{0.5}}
-
-\question Take a unitary matrix $U$ and left multiply to the weight matrix obtained from above. Can you rewrite the dynamics equation in a new coordiate system $\vy(t) = U\vx(t)$? How does this relate to Fig 3C?
-\vspace{\stretch{0.5}}
-
-\question How does the eigenvector represent feedback only onto themselves and do not interact with each other?
-\vspace{\stretch{0.5}}
 
 \clearpage
 \section{Non-normal Linear Time Invariant System}
@@ -753,7 +890,7 @@ Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors o
 This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
 They just need to be combined back with $S$.
 
-\question \textbf{Similarity transform and change of basis}
+\question \textbf{Similarity transform and change of basis}:
 Let $M$ be any invertible matrix.
 Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
 A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
@@ -913,7 +1050,7 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
             &M_0 = I\\
             &M_k = I + F \int_0^t M_{k-1}(\sigma) d\sigma
         \end{align}
-        converges uniformly to $\Phi(t, 0)$. See proof in~\cite{brockett2015finite}
+        converges uniformly to $\Phi(t, 0)$
     \end{theorem}
     If we expand the recursion above (which we could do with the aid of induction), we see something interesting
     \begin{align}
@@ -1054,6 +1191,7 @@ It so happens that if $p(x)$ is the characteristic polynomial of $A$, then $p(A)
         \chi(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)^3
     \end{align}
 \end{tcolorbox}
+
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
 \begin{align}
@@ -1122,7 +1260,7 @@ They are typically rare in practice, but of great interest to nonlinear dynamics
 Fixed points that allows linearlization are called \textbf{hyperbolic} fixed points.
 For hyperbolic fixed points, the stability of nonlinear system is equivalent to that of the linearized system.
 
-Away from the fixed points, the flow of nonlinear dynamical system is just topologically conujugate to a boring constant flow:
+Away from the fixed points, the flow of nonlinear dynamical system is topologically conujugate to a boring constant flow:
 \begin{theorem}[Rectification]
     If $p \in \reals^n$ and $f(p) \neq 0$, then there are open sets $U, V \in \reals^n$ with $p \in U$ and a diffiomorphism $g: U \to V$ such that the differential equation in the new coordinates, that is, the differential equation,
     $$ \dot{y} = Dg(g\inv(y)) f(g\inv(y)), $$
@@ -1159,6 +1297,10 @@ You can implicitly map your data to an infinitely high-dimensional space by usin
 \subsection{Koopman operators}
 
 \end{questions}
+
+\newpage
+\section*{Acknowledgements}
+Special thanks to Ayesha Vermani and \'Abel S\'agodi.
 
 \bibliographystyle{plainnat}
 \bibliography{refs}
