@@ -539,18 +539,30 @@ In the following section, we will attempt to understand the other cases.
 %\begin{tcolorbox}
 %\funfact Diagonal matrices commute, i.e., $DA = AD$ for any matrix $A$.
 %\end{tcolorbox}
-
 \begin{proposition}
-    More generally, any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
+    Any rectangular matrix $A \in \complex^{m \times n}$ can be factored into the following form,
     \begin{align}\label{eq:eig}
         A = U \Sigma V\trp \qquad \text{(singular value decomposition)}
     \end{align}
-    where $U\in \complex^{m \times m}$ is a unitary matrix, $\Sigma$ is a real-valued diagonal matrix and
+    where $U\in \complex^{m \times m}$ is a unitary matrix,
+    $\Sigma \in \reals^{m \times n}$ is diagonal matrix with non-negative values and
     $V\in \complex^{n \times n}$ is a unitary matrix.
     .
 \end{proposition}
 
 The diagonal entries in $\Sigma$ are called the \textbf{singular values} of A.
+
+\question Show the relationship between singular vectors and singular values of $A$ and the eigenvectors of a square matrix $AA\ctrp$ and $A\ctrp A$.
+
+\question Find a singular value decomposition of the following matrix
+\begin{align}\label{eq:svd:ex:s}
+W_s &=
+\begin{bmatrix}
+0 & -1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\end{bmatrix}
+\end{align}
 
 \subsection{Matrix Algebra}
 \begin{tcolorbox}
