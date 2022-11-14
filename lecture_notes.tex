@@ -999,11 +999,61 @@ Great! Now we have the ability to easily calculate the matrix exponential of any
     \begin{align}
         A = T J T^{-1}
     \end{align}
-    where $J$ is in Jordan normal form, and $T$ contains the generalized eigenvectors of $A$.
+    where $J$ is in Jordan normal form, and the columns of $T$ contain the generalized eigenvectors of $A$.
 \end{tcolorbox}
 
 \subsection{Algebraic and geometric multiplicity}
-The \textbf{algebraic multiplicity} of an eigenvalue is the numbe
+The \textbf{characteristic polynomial} of a matrix, $A$, is defined as
+\begin{align}
+    p_A(x) = \det (xI - A)
+\end{align}
+If $A$ is non-singular, with eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_s$, and associated multiplicities $m_1, m_2, \ldots, m_s$, then its characterisitc polynomial will be of the form
+\begin{align}
+    p_A(x) = (x - \lambda_1)^{m_1} (x - \lambda_2)^{m_2} \cdots (x - \lambda_s)^{m_s}
+\end{align}
+if we have already converted our matrix into Jordan form then finding the characteristic polynomial is a rudimentary excercise.  The best way to see this is through a motivating example
+\begin{tcolorbox}[colback=black!1!,title=From Jordan form to characteristic polynomial]
+    \textbf{Ex.1} Say we have a matrix $A$ and we have factorized it into its Jordan decomposition $T J T^{-1}$ where $J = \diag(J_1, J_2, J_3)$ which we may sometimes write as $J = J_1 \bigoplus J_2 \bigoplus J_3$
+    \begin{align}
+        J_1 = \begin{pmatrix} \lambda_1 & 1\\0 & \lambda_1 \end{pmatrix} & \qquad\quad
+        J_2 = \begin{pmatrix} \lambda_2 \end{pmatrix} &  
+        J_3 = \begin{pmatrix} \lambda_3 & 1 & 0 \\ 0 & \lambda_3 & 1 \\ 0 & 0 & \lambda_3 \end{pmatrix}
+    \end{align}
+    then the characteristic polynomail of $A$ will be
+    \begin{align}
+        p_A(x) = (x - \lambda_1)^2 (x - \lambda_2) (x - \lambda_3)^3
+    \end{align}
+
+    \textbf{Ex.2} Take a matrix $A$ again, and let its Jordan decomposition be $J =  J_1 \bigoplus J_2 \bigoplus J_3 \bigoplus J_4$ where
+    \begin{align}
+        J_1 = \begin{pmatrix} \lambda_1 \end{pmatrix} & \qquad\quad
+        J_2 = \begin{pmatrix} \lambda_1 \end{pmatrix} &
+        J_3 = \begin{pmatrix} \lambda_2 \end{pmatrix} &  \qquad
+        J_4 = \begin{pmatrix} \lambda_3 & 1 & 0 \\ 0 & \lambda_3 & 1 \\ 0 & 0 & \lambda_3 \end{pmatrix}
+    \end{align}
+    in which case the characteristic polynomial is
+    \begin{align}
+        p_A(x) = (x - \lambda_1)^2 (x - \lambda_2) (x - \lambda_3)^3
+    \end{align}
+    Although the two matrices we looked at have different Jordan decompositions, they have the same characteristic polynomial. 
+\end{tcolorbox}
+Lets overload notation as we have already done where we take the polynomial expression before i.e.
+\begin{align}
+    p(x) = \sum c_i x^i
+\end{align}
+so that if we \textit{plug} a matrix into the argument then we would write
+\begin{align}
+    p(A) = \sum c_i A^i
+\end{align}
+It so happens that if $p(x)$ is the characteristic polynomial of $A$, then $p(A) = 0$~\cite{hirsch1974differential}.  Is there a polynomial of lesser order than the characteristic polynomial, lets call it $\chi(x)$, that $\chi(A) = 0$? If there is, we call this polynomial the \textbf{minimal polynomial}.  
+\begin{tcolorbox}[colback=black!1!,title=Minimal polynomials]
+    Looking at $\textbf{Ex.1}$ from earlier, we have that the minimal polynomial is just the characteristic polynomial, so that $p(x) = \chi(x)$.\newline
+
+    However, the matrix from $\textbf{Ex.2}$ has a minimal polynomial that does not coincide with its characteristic polynomial.  In fact, its minimal polynomial is
+    \begin{align}
+        \chi(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)^3
+    \end{align}
+\end{tcolorbox}
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
 \begin{align}
