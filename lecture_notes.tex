@@ -423,7 +423,7 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \vspace{\stretch{0.2}}
 \end{parts}
 
-\question Let $U$ be a unitary matrix. Show that unitary matrix preserves the inner product structure, i.e., $\vx\trp \vy = (U \vx)\trp (U\vy)$.
+\question Let $U$ be a unitary matrix. Show that unitary matrix preserves the inner product structure, i.e., $\vx\ctrp \vy = (U \vx)\ctrp (U\vy)$.
 \vspace{\stretch{0.2}}
 
 \begin{tcolorbox}[colback=black!1!,title=Unitary or Orthonormal Matrix]
@@ -439,7 +439,7 @@ Note that only square matrices can be symmetric or Hermitian.
 
 \begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Hermitian matrices]
 Any \textit{real symmetric square (or Hermitian) matrix} $A$ can be decomposed into the following form,
-\begin{align}\label{eq:spectral}
+\begin{align}\label{eq:spectral:real}
     A = U \Lambda U\ctrp \qquad \text{(spectral decomposition)}
 \end{align}
 where $U = \begin{bmatrix}\vu_1 & \cdots & \vu_n \end{bmatrix}$
@@ -447,7 +447,7 @@ is an orthonormal (or unitary) matrix, and $\Lambda$ is a \emph{real}-valued dia
 \end{tcolorbox}
 
 \question Let the connectivity matrix $W$ be real symmetric. This means every pair of neurons in the network reciprocally activates each other with the same strength.
-Use the spectral decomposition \eqref{eq:spectral} to answer the following questions.
+Use the spectral decomposition \eqref{eq:spectral:real} to answer the following questions.
 \begin{parts}
 \part What is $WW$?
 \vspace{\stretch{0.2}}
@@ -509,7 +509,7 @@ Normal matrices are exactly those that have \emph{a complete set of \emph{orthon
 The spectral theorem extends to the class of normal matrices, but the eigenvalues may be complex-valued.
 \begin{tcolorbox}[colback=black!1!,title=Spectral theorem for Normal matrices]
 Any \textit{normal matrix} $A$ can be decomposed into the following form,
-\begin{align}\label{eq:spectral}
+\begin{align}\label{eq:spectral:complex}
     A = U \Lambda U\ctrp \qquad \text{(spectral decomposition)}
 \end{align}
 where $U$ is a unitary matrix, and $\Lambda$ is a \emph{complex}-valued diagonal matrix.
@@ -834,26 +834,42 @@ Matrix times diagonal matrix scales column vectors:
     \funfact $(AB)\trp = B\trp A\trp$.
 \end{tcolorbox}
 
-
 \clearpage
+%===    DAY 2    ===============================================%
 \section{Non-normal Linear Time Invariant System}
 Let us continue to develop more intuition on the memory properties of linear ``recurrent'' neural networks of the form \eqref{eq:dtlds:LDS}.
 As discussed in \citet{Goldman2009}, some linear network models can be viewed as feedforward, while others can be feedback.
 This distinction is very important for the memory properties of the system.
-The traditional tool for analyzing memory traces in a neural system is use the eigenvalues (also known as spectra).
-In this section, we will stick with discrete time.
+The traditional tool for analyzing memory traces in a neural system is to use the eigenvalues (also known as eigenspectrum).
+In this section, we will still stick with discrete time.
+
+\question \textbf{Similarity transform and change of basis}:
+Let $M$ be any invertible matrix.
+Consider a linear system over discrete time, $\vx_{t+1} = A\vx_t$.
+A change of variable $\vy_t = M\vx_t$ is a linear trnasformation, or a change of basis.
+Show that $B = M\inv A M$ is the new dynamics matrix for $\vy_t$.
+($B$ is said to be \textit{``similar''} to $A$)
+\vspace{\stretch{0.5}}
+
+\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
+Show that similar matrices $A$ and $B$ have the same eigenvalues.
+\vspace{\stretch{1}}
+
 
 \subsection{Diagonalization}
 \begin{tcolorbox}[colback=black!1!,title=Non-normal matrices]
     $$W\trp W \neq W W\trp$$
 \end{tcolorbox}
 The spectral theorem is nice because it decouples each dimension, but can we extend such analysis to non-normal matrices?
-As long as a matrix has $n$ linearly independent eigenvectors, we can diagonalize them using its eigenvectors.
+\begin{tcolorbox}[colback=black!1!,title=Diagonalization]
+If a square matrix has $n$ linearly independent (not necessarily orthogonal) eigenvectors, we can diagonalize them using its eigenvectors.
 \begin{align}\label{eq:eigendecomposition}
 A = S \Lambda S\inv  \qquad \text{(diagonalization)}
 \end{align}
 where $\Lambda$ is a diagonal matrix of complex numbers.
-\question Show that the columns of $S$ are (right) eigenvectors of $A$.
+\end{tcolorbox}
+
+\question Verify that the columns of $S$ are (right) eigenvectors of $A$.
 \vspace{\stretch{0.2}}
 
 As long as the set of eigenvectors span the whole space, we can use \eqref{eq:eigendecomposition} in reverse to construct matrices with specific eigenvectors and eigenvalues.
@@ -884,27 +900,18 @@ Let $W$ be diagonizable, and $\vx(t+1) = W\vx(t)$. Let $\vv_i$ be eigenvectors o
 	\end{bmatrix}
 	S\inv \vx(0)
 \end{align}
+
+\clearpage
 \question Show that $\vx(t) = S\lambda_i^t$ if initialized at the eigenvector, i.e., $\vx(0) = \vv_i$.
-\vspace{\stretch{0.2}}
-
-This means dynamics decomposed onto the eigenmodes behave independently and geometrically.
-They just need to be combined back with $S$.
-
-\question \textbf{Similarity transform and change of basis}:
-Let $M$ be any invertible matrix.
-Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
-A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
-Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
-($B$ is said to be \textit{``similar''} to $A$)
-\vspace{\stretch{0.5}}
-
-\question Consider a square matrix $A$. Let $B = M\inv A M$ be a similarity transform of $A$.
-Show that similar matrices $A$ and $B$ have the same eigenvalues.
 \vspace{\stretch{1}}
+
+This means dynamics decomposed onto the eigenmodes (spanned by $\vv_i$) behave independently and geometrically.
+This is almost as nice as the spectrally decomposed normal matrix case.
+They just need to be combined back with $S$ which is not an \emph{orthnormal} basis.
 
 
 \subsection{Difference of exponentials is usually not an exponential}
-\question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch
+\question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch the following difference of exponential decay (in continuous time):
 \begin{align}\label{eq:diff_ex:eg}
     f(t) = e^{-t/\tau_1} - e^{-t/\tau_2}
 \end{align}
@@ -914,27 +921,67 @@ Show that similar matrices $A$ and $B$ have the same eigenvalues.
 \vspace{\stretch{0.5}}
 
 \subsection{Purely feedforward networks}
-If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least internally).
+If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least within the circuit).
 Let us call such neural circuits \textbf{purely feedforward}.
 
 \question Consider a network of 3 neurons where neuron 1 excites neuron 2 and neuron 2 excites neuron 3? Draw the neural circuit graph.
 What is the corresponding connectivity matrix?
 \vspace{\stretch{0.5}}
 
-\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons).
+\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons; recall that reordering neurons is just a multiplication by a permutation matrix).
 \vspace{\stretch{0.5}}
 
 
-\subsection{Neural computation as filtering}
-Given an input signal $x(t)$, a \textbf{filter} outputs a corresponding output signal $y(t)$ through a causal mechanism.
-This captures the essence of biophysical computation at various scales--a transformation of a signal over time.
+\subsection{Neural computation as a system}
+Given an input signal $u(t)$, a \textbf{system} outputs a corresponding output signal $y(t)$ through a causal mechanism.
+\begin{align}
+    [y(s), s = 0, 1, \ldots, t] = H(u(s), s = 0, 1, \ldots, t)
+\end{align}
+Note that this is not necessarily an instantaneous mapping, but rather maps a time series to a time series.
+A system can capture the essence of biophysical computation at various scales--a transformation of signals over time.
 This transformation may also depend on the internal state of the neural system in general.
+However, for the simplicity of the argument let us first consider a system without an internal state.
 
-\subsection{Linear time invariant system}
+A system is said to be \textbf{time-invariant} if its response to a certain signal does not depend on time.
+\begin{align}
+    H(u(t + \tau)) = y(t + \tau)
+\end{align}
+A system is said to be \textbf{linear}, if.
+\begin{align}
+    H(a \cdot u_1(t) + b \cdot u_2(t)) = a \cdot y_1(t) + b \cdot y_2(t)
+\end{align}
+where $y_i(t) = H(u_i(t))$ for $i = 1, 2$.
+
+A linear time-invariant (LTI) system is fully characterized by its \emph{impuse response}, defined by the output to a unit pulse input at time $t = 0$.
+
+\question What is the impuse response of the system $y(t) = x(t-1)$?
+\vspace{\stretch{1}}
+
+Output of an LTI system is a convolution of input with the impulse response.
 
 \subsection{Finite impulse response}
+When a system's impulse response is restricted to a finite number of non-zero elements, it is said to have a finite impulse response (FIR).
 
-\subsection{Rotated feedforward networks}
+\question Show that a purely feedforward network produces a finite impulse response.
+\vspace{\stretch{1}}
+
+Filters are signal processing tools often used for smoothing, denoising, sharpening, removing line noise, and isolating signals in a particular frequency bands.
+They are implemented as LTI.
+
+\question Moving average is a simple linear low-pass filter. What is its impulse response?
+
+\question Design an FIR high-pass filter.
+
+A little bit of adaptive filtering.
+
+\question Delay line and TDNN
+
+\subsection{Coordinate transformed feedforward networks}
+
+
+\subsection{Infinite impulse response}
+
+\subsection{Schur decomposition}
 
 
 \subsection{Other cases}
