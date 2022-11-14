@@ -423,7 +423,7 @@ A \textbf{permutation matrix} is a matrix where each row and column has a single
 \vspace{\stretch{0.2}}
 \end{parts}
 
-\question Let $U$ be a unitary matrix. Show that unitary matrix preserves the inner product structure, i.e., $\vx\trp \vy = (U \vx)\trp (U\vy)$.
+\question Let $U$ be a unitary matrix. Show that unitary matrix preserves the inner product structure, i.e., $\vx\ctrp \vy = (U \vx)\ctrp (U\vy)$.
 \vspace{\stretch{0.2}}
 
 \begin{tcolorbox}[colback=black!1!,title=Unitary or Orthonormal Matrix]
@@ -840,7 +840,7 @@ Matrix times diagonal matrix scales column vectors:
 Let us continue to develop more intuition on the memory properties of linear ``recurrent'' neural networks of the form \eqref{eq:dtlds:LDS}.
 As discussed in \citet{Goldman2009}, some linear network models can be viewed as feedforward, while others can be feedback.
 This distinction is very important for the memory properties of the system.
-The traditional tool for analyzing memory traces in a neural system is use the eigenvalues (also known as spectra).
+The traditional tool for analyzing memory traces in a neural system is to use the eigenvalues (also known as spectra).
 In this section, we will stick with discrete time.
 
 \subsection{Diagonalization}
@@ -848,7 +848,7 @@ In this section, we will stick with discrete time.
     $$W\trp W \neq W W\trp$$
 \end{tcolorbox}
 The spectral theorem is nice because it decouples each dimension, but can we extend such analysis to non-normal matrices?
-As long as a matrix has $n$ linearly independent eigenvectors, we can diagonalize them using its eigenvectors.
+As long as a matrix has $n$ linearly independent (not necessarily orthogonal) eigenvectors, we can diagonalize them using its eigenvectors.
 \begin{align}\label{eq:eigendecomposition}
 A = S \Lambda S\inv  \qquad \text{(diagonalization)}
 \end{align}
