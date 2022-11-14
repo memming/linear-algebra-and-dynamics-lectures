@@ -845,9 +845,9 @@ In this section, we will still stick with discrete time.
 
 \question \textbf{Similarity transform and change of basis}:
 Let $M$ be any invertible matrix.
-Consider a linear system over discrete time, $x_{t+1} = Ax_t$.
-A change of variable $y_t = Mx_t$ is a linear trnasformation, or a change of basis.
-Show that $B = M\inv A M$ is the new dynamics matrix for $y_t$.
+Consider a linear system over discrete time, $\vx_{t+1} = A\vx_t$.
+A change of variable $\vy_t = M\vx_t$ is a linear trnasformation, or a change of basis.
+Show that $B = M\inv A M$ is the new dynamics matrix for $\vy_t$.
 ($B$ is said to be \textit{``similar''} to $A$)
 \vspace{\stretch{0.5}}
 
@@ -911,7 +911,7 @@ They just need to be combined back with $S$ which is not an \emph{orthnormal} ba
 
 
 \subsection{Difference of exponentials is usually not an exponential}
-\question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch
+\question Let $\tau_1 = 0.1$ and $\tau_2 = 0.2$, sketch the following difference of exponential decay (in continuous time):
 \begin{align}\label{eq:diff_ex:eg}
     f(t) = e^{-t/\tau_1} - e^{-t/\tau_2}
 \end{align}
@@ -921,14 +921,14 @@ They just need to be combined back with $S$ which is not an \emph{orthnormal} ba
 \vspace{\stretch{0.5}}
 
 \subsection{Purely feedforward networks}
-If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least internally).
+If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least within the circuit).
 Let us call such neural circuits \textbf{purely feedforward}.
 
 \question Consider a network of 3 neurons where neuron 1 excites neuron 2 and neuron 2 excites neuron 3? Draw the neural circuit graph.
 What is the corresponding connectivity matrix?
 \vspace{\stretch{0.5}}
 
-\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons).
+\question Show that the connectivity matrix of any purely feedforward network can be written as a strictly triangular form (by choosing a certain ordering of neurons; recall that reordering neurons is just a multiplication by a permutation matrix).
 \vspace{\stretch{0.5}}
 
 
@@ -936,8 +936,13 @@ What is the corresponding connectivity matrix?
 Given an input signal $x(t)$, a \textbf{filter} outputs a corresponding output signal $y(t)$ through a causal mechanism.
 This captures the essence of biophysical computation at various scales--a transformation of a signal over time.
 This transformation may also depend on the internal state of the neural system in general.
+Here, we consider an operator of that transforms 
+$y(t) = L(x(t))$
 
 \subsection{Linear time invariant system}
+\begin{enumerate}
+    \item 
+\end{enumerate}
 
 \subsection{Finite impulse response}
 
