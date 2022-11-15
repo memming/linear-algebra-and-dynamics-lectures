@@ -963,20 +963,33 @@ A system is said to be \textbf{linear}, if linear combination of input leads to 
 where $y_i(t) = H\{u_i(t)\}$ for $i = 1, 2$.
 Most neural systems are nonlinear, but linear analysis often provides a powerful baseline of understanding.
 
-\question
+\question \label{q:delay:1}
 Let $y(t) = u(t-1)$ be a system.
 It \emph{delays} the input by 1 time step.
 For example, this delay could represent conduction delay of an axon.
 Verify that this system is causal, linear, and time-invariant.
 \vspace{\stretch{1}}
 
-\question
+\question \label{q:movingavg}
 Let $y(t) = \frac{1}{3}\left( u(t) + u(t-1) + u(t-2) \right)$ be a system.
 It averages the input of the most recent 3 time steps, producing a smoothed output.
 Verify that this \emph{moving average} system is causal, linear, and time-invariant.
 \vspace{\stretch{1}}
 
 \clearpage
+A linear neural network can be seen as a system.
+For the simple case where it takes a scalar time series $u(t)$ as input and produces a scalar time series $y(t)$ as output, we can use,
+\begin{align}\label{eq:dtlds:lti:1}
+    \vx(t+1) &= W \vx(t) + \vb\trp u(t)
+    \\
+    y(t) &= \vc\trp \vx(t)
+\end{align}
+where $\vb$ and $\vc$ are instantaneous linear maps to and from the vector of neural activities $\vx(t)$.
+
+\question Show that a purely linear neural network is a causal LTI system.
+Draw neural circuit diagrams that corresponds to questions \ref{q:delay:1} and \ref{q:movingavg}.
+\vspace{\stretch{1}}
+
 \begin{tcolorbox}
 A linear time-invariant (LTI) system is fully characterized by its \emph{impuse response}, defined by the output of the system to a unit pulse input at time $t = 0$ (delta function; corresponds to the Dirac delta function in continuous time).
 \begin{align}
@@ -1006,28 +1019,66 @@ A linear time-invariant (LTI) system is fully characterized by its \emph{impuse 
 \end{align}
 \vspace{\stretch{1}}
 
+\clearpage
+When a system's impulse response is restricted to a finite number of non-zero elements, it is said to have a \textbf{finite impulse response (FIR)}.
+If there are infinite number of non-zero elements, then the system has an \textbf{infinite impulse response (IIR)}.
 
-\subsection{Finite impulse response}
-When a system's impulse response is restricted to a finite number of non-zero elements, it is said to have a finite impulse response (FIR).
-
-\question Show that a purely feedforward network produces a finite impulse response.
+\question Show that a purely feedforward linear network produces a finite impulse response.
 \vspace{\stretch{1}}
 
-Filters are signal processing tools often used for smoothing, denoising, sharpening, removing line noise, and isolating signals in a particular frequency bands.
-They are implemented as LTI.
-
-\question Design an FIR high-pass filter.
-
-A little bit of adaptive filtering.
-
-\question Delay line and TDNN
+LTI systems are used as \textbf{filters} in signal processing tools for smoothing, denoising, sharpening, removing line noise, isolating signals in a particular frequency bands, and so on.
+The \emph{frequency response} of an LTI is characterized by the Fourier transform of the impulse response.
+If you want to study this subject further, we recommend reading a textbook on ``digital signal processing'' or ``signals and systems'' (electrical engineering curriculum).
 
 \subsection{Coordinate transformed feedforward networks}
+So purely feedforward system is an FIR LTI, and also the connectivity weights are strictly upper triangular.
+\question Consider the following 2-neuron feedforward system:
+\begin{align}\label{eq:dtlds:lti:1}
+    \vx(t+1) &= 
+    \begin{bmatrix}
+	0 & 1\\
+	0 & 0
+    \end{bmatrix}
+    \vx(t) + 
+    \begin{bmatrix}
+	0 & 1
+    \end{bmatrix}
+    u(t)
+    \\
+    y(t) &= 
+    \begin{bmatrix}
+	1 & 0
+    \end{bmatrix}
+    \vx(t)
+\end{align}
+Let us do a change of variables, $\vz(t) = M \vx(t)$ with an invertible matrix, say a unitary matrix
+\begin{align}
+    M &=
+    \begin{bmatrix}
+	1 & 1\\
+	1 & -1
+    \end{bmatrix}.
+\end{align}
+\begin{parts}
+    \part What is the resulting neural network system defined with new neurons $z_1(t)$ and $z_2(t)$?
+    \vspace{\stretch{1}}
+    \part Is the weight matrix strictly upper triangular?
+    \vspace{\stretch{0.5}}
+    \part Does the impulse response change?
+    \vspace{\stretch{1}}
+    \part Draw the neural circuit diagram of neurons $\vz$ and compare to that of $\vx$.
+    \vspace{\stretch{1}}
+\end{parts}
 
-
-\subsection{Infinite impulse response}
-
+\clearpage
 \subsection{Schur decomposition}
+\begin{tcolorbox}[colback=black!1!,title=Schur decomposition]
+    Any square matrix (real- or complex-valued) $A$ can be decomposed into the following form,
+    \begin{align}\label{eq:schur}
+	A = U T U\ctrp \qquad \text{(schur decomposition)}
+    \end{align}
+    where $U$ is a unitary matrix, and $T$ is an upper triangular matrix.
+\end{tcolorbox}
 
 
 \subsection{Other cases}
@@ -1323,6 +1374,8 @@ We define the characteristic polynomial
 and the minimal polynomial, $\chi_A(x)$, to be the lowest order polynomial which satisfies $\chi_A(A) = 0$.
 
 \subsection{Functions of matrices}
+
+\newpage
 \section{Nonlinear systems that are really linear}
 \subsection{Linearization theorems}
 Let us consider a (time-invariant and autonomous) nonlinear dynamical system:
