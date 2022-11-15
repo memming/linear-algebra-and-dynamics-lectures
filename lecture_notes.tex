@@ -1026,12 +1026,15 @@ If there are infinite number of non-zero elements, then the system has an \textb
 \question Show that a purely feedforward linear network produces a finite impulse response.
 \vspace{\stretch{1}}
 
+\question Show that a linear network with a diagonal matrix produces an infinite impulse response.
+\vspace{\stretch{0.5}}
+
 LTI systems are used as \textbf{filters} in signal processing tools for smoothing, denoising, sharpening, removing line noise, isolating signals in a particular frequency bands, and so on.
 The \emph{frequency response} of an LTI is characterized by the Fourier transform of the impulse response.
 If you want to study this subject further, we recommend reading a textbook on ``digital signal processing'' or ``signals and systems'' (electrical engineering curriculum).
 
 \subsection{Coordinate transformed feedforward networks}
-So purely feedforward system is an FIR LTI, and also the connectivity weights are strictly upper triangular.
+So purely feedforward system is an FIR LTI, and also the connectivity weights are strictly upper (or lower) triangular.
 \question \label{q:rotff}
 Consider the following 2-neuron feedforward system:
 \begin{align}\label{eq:dtlds:lti:1}
@@ -1067,7 +1070,7 @@ Let us do a change of variables, $\vz(t) = M \vx(t)$ with an invertible matrix, 
     \part Is the weight matrix strictly upper triangular for $\vz$? Can it be made so through permutation?
     \vspace{\stretch{0.5}}
     \part Does the impulse response change?
-    \vspace{\stretch{1}}
+    \vspace{\stretch{0.5}}
     \part Draw the neural circuit diagram of neurons $\vz$ and compare to that of $\vx$.
     \vspace{\stretch{1}}
 \end{parts}
@@ -1087,16 +1090,16 @@ There's another matrix decomposition that can answer this question.
 The Schur decomposition can be numerically found cheaply.
 If the resulting triangular matrix $T$ has no non-zero diagonal element, that is, strictly triangular, then it is a feedforward system in disguise!
 
-\subsection{Other cases}
-Consider the following example permutation matrix:
-\begin{align}\label{eq:nnm:ex:b}
-W_b &=
-\begin{bmatrix}
-0 & 1 & 0\\
-0 & 0 & 1\\
-1 & 0 & 0
-\end{bmatrix}
-\end{align}
+%\subsection{Other cases}
+%Consider the following example permutation matrix:
+%\begin{align}\label{eq:nnm:ex:b}
+%W_b &=
+%\begin{bmatrix}
+%0 & 1 & 0\\
+%0 & 0 & 1\\
+%1 & 0 & 0
+%\end{bmatrix}
+%\end{align}
 
 %%% ===== DAY 3 =====
 \newpage
