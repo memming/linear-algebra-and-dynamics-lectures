@@ -933,31 +933,79 @@ What is the corresponding connectivity matrix?
 
 
 \subsection{Neural computation as a system}
-Given an input signal $u(t)$, a \textbf{system} outputs a corresponding output signal $y(t)$ through a causal mechanism.
+Given an input signal $u(t)$, a \textbf{system} outputs a corresponding output signal $y(t)$:
 \begin{align}
-    [y(s), s = 0, 1, \ldots, t] = H(u(s), s = 0, 1, \ldots, t)
+    \{y(s), s = 0, 1, \ldots\} = H\{u(s), s = 0, 1, \ldots\}
 \end{align}
+where $H: (\naturalNumbers \to \reals) \to (\naturalNumbers \to \reals)$ is an operator that denote the action of a system.
 Note that this is not necessarily an instantaneous mapping, but rather maps a time series to a time series.
-A system can capture the essence of biophysical computation at various scales--a transformation of signals over time.
+For simplicity, we will abuse the notation a little bit and simply write,
+\begin{align}
+    y(t) = H\{u(t)\}.
+\end{align}
+Typically we consider only systems that are \emph{causal}, that is, output is produced through a causal mechanism and does not depend on the future input nor output.
+A causal system can capture the essence of biophysical computation at various scales--a transformation of signals over time.
 This transformation may also depend on the internal state of the neural system in general.
-However, for the simplicity of the argument let us first consider a system without an internal state.
+However, for the simplicity, let us consider systems without an internal state.
 
-A system is said to be \textbf{time-invariant} if its response to a certain signal does not depend on time.
-\begin{align}
-    H(u(t + \tau)) = y(t + \tau)
+A system is said to be \textbf{time-invariant} if its response to a certain signal does not depend on (absolute) time.
+\begin{align}\label{eq:lti:invariant}
+    H\{u(t + \tau)\} = y(t + \tau)
 \end{align}
-A system is said to be \textbf{linear}, if.
+which shows that time shift of the input of the system is the same as the output shifted by the same amount of time.
+%Regardless of the time, same input sequence generates the same output.
+Note that if a system is changing over time, this is not necessarily true; for example, with time evolution of the unobserved internal state of the system induced by synaptic plasticity or neuromodulators.
+
+A system is said to be \textbf{linear}, if linear combination of input leads to corresponding linear combination of outputs,
 \begin{align}
-    H(a \cdot u_1(t) + b \cdot u_2(t)) = a \cdot y_1(t) + b \cdot y_2(t)
+    H\{a \cdot u_1(t) + b \cdot u_2(t)\} &= a \cdot y_1(t) + b \cdot y_2(t)
 \end{align}
-where $y_i(t) = H(u_i(t))$ for $i = 1, 2$.
+where $y_i(t) = H\{u_i(t)\}$ for $i = 1, 2$.
+Most neural systems are nonlinear, but linear analysis often provides a powerful baseline of understanding.
 
-A linear time-invariant (LTI) system is fully characterized by its \emph{impuse response}, defined by the output to a unit pulse input at time $t = 0$.
-
-\question What is the impuse response of the system $y(t) = x(t-1)$?
+\question
+Let $y(t) = u(t-1)$ be a system.
+It \emph{delays} the input by 1 time step.
+For example, this delay could represent conduction delay of an axon.
+Verify that this system is causal, linear, and time-invariant.
 \vspace{\stretch{1}}
 
-Output of an LTI system is a convolution of input with the impulse response.
+\question
+Let $y(t) = \frac{1}{3}\left( u(t) + u(t-1) + u(t-2) \right)$ be a system.
+It averages the input of the most recent 3 time steps, producing a smoothed output.
+Verify that this \emph{moving average} system is causal, linear, and time-invariant.
+\vspace{\stretch{1}}
+
+\clearpage
+\begin{tcolorbox}
+A linear time-invariant (LTI) system is fully characterized by its \emph{impuse response}, defined by the output of the system to a unit pulse input at time $t = 0$ (delta function; corresponds to the Dirac delta function in continuous time).
+\begin{align}
+    h(t) &\triangleq H\{ \delta(t) \} \qquad \text{(impuse response)}
+    \\
+    \delta(t) &= 
+	\begin{cases}
+	1 & t = 0\\
+	0 & t > 0
+	\end{cases}
+\end{align}
+\end{tcolorbox}
+
+\question What is the impuse response of the system $y(t) = u(t-2)$? Sketch it out over time.
+\vspace{\stretch{1}}
+
+\begin{tcolorbox}[colback=black!1!,title=Convolution]
+    Given two signals $x(t)$ and $y(t)$ for $t \in \integers$, we define convolution as
+\begin{align}\label{eq:convolution}
+    (x \ast y)(t) = \sum_{k=-\infty}^\infty x(k) y(t-k)
+\end{align}
+\end{tcolorbox}
+
+\question Given an LTI system with impulse response $h(t)$, show that the output of the system is a convolution of the input with the impulse response, i.e.,
+\begin{align}
+    y(t) = (u \ast h)(t)
+\end{align}
+\vspace{\stretch{1}}
+
 
 \subsection{Finite impulse response}
 When a system's impulse response is restricted to a finite number of non-zero elements, it is said to have a finite impulse response (FIR).
@@ -967,8 +1015,6 @@ When a system's impulse response is restricted to a finite number of non-zero el
 
 Filters are signal processing tools often used for smoothing, denoising, sharpening, removing line noise, and isolating signals in a particular frequency bands.
 They are implemented as LTI.
-
-\question Moving average is a simple linear low-pass filter. What is its impulse response?
 
 \question Design an FIR high-pass filter.
 
