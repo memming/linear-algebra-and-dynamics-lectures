@@ -1032,7 +1032,8 @@ If you want to study this subject further, we recommend reading a textbook on ``
 
 \subsection{Coordinate transformed feedforward networks}
 So purely feedforward system is an FIR LTI, and also the connectivity weights are strictly upper triangular.
-\question Consider the following 2-neuron feedforward system:
+\question \label{q:rotff}
+Consider the following 2-neuron feedforward system:
 \begin{align}\label{eq:dtlds:lti:1}
     \vx(t+1) &= 
     \begin{bmatrix}
@@ -1062,7 +1063,7 @@ Let us do a change of variables, $\vz(t) = M \vx(t)$ with an invertible matrix, 
 \begin{parts}
     \part What is the resulting neural network system defined with new neurons $z_1(t)$ and $z_2(t)$?
     \vspace{\stretch{1}}
-    \part Is the weight matrix strictly upper triangular?
+    \part Is the weight matrix strictly upper triangular for $\vz$? Can it be made so through permutation?
     \vspace{\stretch{0.5}}
     \part Does the impulse response change?
     \vspace{\stretch{1}}
@@ -1072,6 +1073,9 @@ Let us do a change of variables, $\vz(t) = M \vx(t)$ with an invertible matrix, 
 
 \clearpage
 \subsection{Schur decomposition}
+As we saw from \ref{q:rotff}, systems with finite impulse response do not necessarily have strictly triangular form.
+Can we reverse the construction of \ref{q:rotff} to determine if a system is purely feedforward in disguise?
+There's another matrix decomposition that can answer this question.
 \begin{tcolorbox}[colback=black!1!,title=Schur decomposition]
     Any square matrix (real- or complex-valued) $A$ can be decomposed into the following form,
     \begin{align}\label{eq:schur}
@@ -1079,7 +1083,8 @@ Let us do a change of variables, $\vz(t) = M \vx(t)$ with an invertible matrix, 
     \end{align}
     where $U$ is a unitary matrix, and $T$ is an upper triangular matrix.
 \end{tcolorbox}
-
+The Schur decomposition can be numerically found cheaply.
+If the resulting triangular matrix $T$ has no non-zero diagonal element, that is, strictly triangular, then it is a feedforward system in disguise!
 
 \subsection{Other cases}
 Consider the following example permutation matrix:
@@ -1092,7 +1097,8 @@ W_b &=
 \end{bmatrix}
 \end{align}
 
-
+%%% ===== DAY 3 =====
+\newpage
 \section{Continuous-time Linear Dynamical Systems}
 \subsection{Scope}
 We want to study homogenuous differential equations with constant coefficients that can be written succintly in matrix form as
@@ -1376,6 +1382,7 @@ and the minimal polynomial, $\chi_A(x)$, to be the lowest order polynomial which
 \subsection{Functions of matrices}
 
 \newpage
+%%% ===== DAY 4 =====
 \section{Nonlinear systems that are really linear}
 \subsection{Linearization theorems}
 Let us consider a (time-invariant and autonomous) nonlinear dynamical system:
