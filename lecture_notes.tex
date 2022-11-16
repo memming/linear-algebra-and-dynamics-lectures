@@ -1134,7 +1134,7 @@ If we were not given the initial condition, $x(0)=k$, this is as far as we could
 
 \textbf{Remark}: The system this differential equation describes is not very interesting.  If $a < 0$ then $x(t) \rightarrow \infty$, whereas if $a > 0$ then $x(t) \rightarrow 0$.
 
-\textbf{Remark}: Time evolution of 
+\textbf{Remark}: If $\phi(t) = e^{-at}$,
 \begin{align}
     x(t) &= \phi(t)x(0)
     \\
@@ -1143,8 +1143,10 @@ If we were not given the initial condition, $x(0)=k$, this is as far as we could
 
 \question {Draw the phase portrait for this first order system.}
 \vspace{\stretch{0.5}}
+
+\clearpage
 \subsection{$N$-th order linear differential equations}
-Lets consider a more interesting example where we consider the solution to an $N$-th order linear differential equation with constant coefficients given by
+Let us consider a more interesting example where we consider the solution to an $N$-th order linear differential equation with constant coefficients given by
 \begin{align}
     &\sum_{i=0}^N a_i x^{(i)}(t) = 0\\
     &x^{(i)}(0) = k_i \qquad i = 0, \ldots, N-1
@@ -1233,12 +1235,20 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
 \begin{tcolorbox}[colback=black!1!,title=Properties of the matrix exponential]
     \textbf{Diagonal matrices}: If $D = \diag(d_1, d_2, \ldots, d_N)$ then $\exp(D) = \diag(e^{d_1}, e^{d_2}, \ldots, e^{d_N} )$.\newline
 
-    \textbf{Commuting matrices}: If $A$ and $B$ commute ($AB = BA$), then we have that $\exp(A + B) = \exp(A) \exp(B) = \exp(B) \exp(A)$.\newline
+    \textbf{Commuting matrices}: If $A$ and $B$ commute (i.e., $AB = BA$), then we have that $\exp(A + B) = \exp(A) \exp(B) = \exp(B) \exp(A)$.\newline
+
+    \textbf{Diagonalizable matrices}: If $A = SDS\inv$ where $D$ is diagonal, then
+    $\exp(A) = S \exp(D) S\inv$.\\
 
     \textbf{Inverse}: $\exp(A) \exp(-A) = I$
 \end{tcolorbox}
 \question {Prove the property about commuting matrices.}
 \vspace{\stretch{0.5}}
+
+\begin{tcolorbox}[colback=black!1!,title=avoid this common pitfall]
+    Matrix exponential is not the exponential of each element of a matrix!
+    Numerical software libraries will have both operations similar name (e.g. \verb|exp| vs \verb|expm| in MATLAB)
+\end{tcolorbox}
 
 In many cases $\fundamentalSolution(t, 0)$ is unwieldly to actually compute.  However, we are fortunate in that we are working with differential equations of constant coefficients; in this particular case, 
 \begin{align}
