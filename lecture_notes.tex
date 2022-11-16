@@ -920,6 +920,59 @@ They just need to be combined back with $S$ which is not an \emph{orthnormal} ba
 \question Explain how two eigenmodes that independently exhibit exponential (geometric) decay can manifest in seemingly transient amplification in a different reference frame (e.g. a single neuron activity).
 \vspace{\stretch{0.5}}
 
+\begin{tcolorbox}
+    \begin{align}\label{eq:doe}
+	e^{-t/\tau_1}
+	-
+	e^{-t/\tau_2}
+	&=
+	    e^{-t/\tau_1}
+	    (
+	    1
+	    -
+	    e^{-t/\tau_2}
+	    e^{+t/\tau_1}
+	    )
+	=
+	    e^{-t/\tau_1}
+	    (
+	    1
+	    -
+	    e^{-t/\tau_2+t/\tau_1}
+	    )
+	\\
+	&=
+	    e^{-t/\tau_1}
+	    \left
+	    (
+	    1
+	    -
+	    \left(
+	    1 + \left(\frac{t}{\tau_1}-\frac{t}{\tau_2}\right)
+	    %+ O(t^2)
+	    + \text{(higher order terms)}
+	    \right)
+	    \right)
+	    %\quad \text{(series expansion)}
+	    \nonumber
+%	=
+%	    e^{-t/\tau_1}
+%	    \left
+%	    (
+%	    t \left(\frac{1}{\tau_2}-\frac{1}{\tau_1}
+%		\right)
+%	    + O(t^2)
+%	    \right
+%	    )
+	\\
+	&=
+	    \left(\frac{1}{\tau_2}-\frac{1}{\tau_1}\right)
+	    t e^{-t/\tau_1}
+	    + \text{(higher order terms)}
+	    %+ O(t^2) e^{t/\tau_1}
+    \end{align}
+\end{tcolorbox}
+
 \subsection{Purely feedforward networks}
 If there are no loops in the graph of the neural circuit, the neural activity of a neuron at time $t$ will never influence itself later (at least within the circuit).
 Let us call such neural circuits \textbf{purely feedforward}.
