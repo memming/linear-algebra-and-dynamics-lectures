@@ -1115,10 +1115,10 @@ Consider the following first order homogenuous linear ODE with constant coeffici
     &\dot{x}(t) + a x(t) = 0\\
     &x(0) = k
 \end{align}
-To solve the differential equation means to find the function $x(t)$ which passes through $c$ at time $t=0$ and has a derivative, which irregardless of time, is the function evaluation scaled by $a$.  Lets begin by making the formal rearrangement
+To solve the differential equation means to find the function $x(t)$ which passes through $k$ at time $t=0$ and has a derivative, which irregardless of time, is the function evaluation scaled by $a$.  Lets begin by making the formal rearrangement
 \begin{align}
     &\frac{dx}{x} = - a \, dt\\
-    \implies &x(t) = c_1 \exp(-at)
+    \implies &x(t) =  \exp(-at)
 \end{align}
 If we were not given the initial condition, $x(0)=k$, this is as far as we could go in determining a solution.  Fortunately, we can solve for $c_1$ by using the initial condition, so that $c_1 = k$.  Thus, the full solution to the differential equation is just $x(t) = k \exp(-at)$.  
 
@@ -1345,7 +1345,7 @@ It so happens that if $p(x)$ is the characteristic polynomial of $A$, then $p(A)
         \chi(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)^3
     \end{align}
 \end{tcolorbox}
-
+\newpage
 \subsection{Companion form matrices}
 Consider an $N\text{-th}$ order polynomial of the form
 \begin{align}
