@@ -991,9 +991,9 @@ Draw neural circuit diagrams that corresponds to questions \ref{q:delay:1} and \
 \vspace{\stretch{1}}
 
 \begin{tcolorbox}
-A linear time-invariant (LTI) system is fully characterized by its \emph{impuse response}, defined by the output of the system to a unit pulse input at time $t = 0$ (delta function; corresponds to the Dirac delta function in continuous time).
+A linear time-invariant (LTI) system is fully characterized by its \emph{impulse response}, defined by the output of the system to a unit pulse input at time $t = 0$ (delta function; corresponds to the Dirac delta function in continuous time).
 \begin{align}
-    h(t) &\triangleq H\{ \delta(t) \} \qquad \text{(impuse response)}
+    h(t) &\triangleq H\{ \delta(t) \} \qquad \text{(impulse response)}
     \\
     \delta(t) &= 
 	\begin{cases}
@@ -1187,6 +1187,9 @@ $, and setting
                         -a_1 & -a_2 & -a_3 & \cdots & -a_{N-1} \end{pmatrix}
 \end{align}
 \textbf{Remark}: A matrix in this form is said to be a companion form matrix.  They arise when we transform an $N$-th order differential equation into a first order system as we did above.
+
+\textbf{Remark}: Not every matrix is similar to a companion form. A matrix $A \in \reals^{n \times n}$ can be written in companion form if it is not singular (i.e. full rank). 
+% The similarity transform is given in Ding 2010 as $c\trp[A, A^2, \ldots, A^{n-1}]$ for some vector $c$.
 
 \subsection{Fundamental matrix solution}
 How can we actually solve this matrix differential equation? That is, how can we find the vector that satisfies Eq.~\eqref{eq::matrixDifferential} and the associated initial condition? To answer this question, we have to take a slight detour and discuss the \textit{fundamental matrix solution}
@@ -1444,7 +1447,7 @@ They are typically rare in practice, but of great interest to nonlinear dynamics
 Fixed points that allows linearlization are called \textbf{hyperbolic} fixed points.
 For hyperbolic fixed points, the stability of nonlinear system is equivalent to that of the linearized system.
 
-Away from the fixed points, the flow of nonlinear dynamical systems is topologically conujugate to a boring constant flow:
+Away from the fixed points, the flow of a linear or nonlinear dynamical system is topologically conujugate to a boring constant flow:
 \begin{theorem}[Rectification]
     If $p \in \reals^n$ and $f(p) \neq 0$, then there are open sets $U, V \in \reals^n$ with $p \in U$ and a diffiomorphism $g: U \to V$ such that the differential equation in the new coordinates, that is, the differential equation,
     $$ \dot{y} = Dg(g\inv(y)) f(g\inv(y)), $$
