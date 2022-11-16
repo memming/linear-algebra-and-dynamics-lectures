@@ -1111,7 +1111,8 @@ If the resulting triangular matrix $T$ has no non-zero diagonal element, that is
 %%% ===== DAY 3 =====
 \newpage
 \section{Continuous-time Linear Dynamical Systems}
-Physical systems are unarguably well described by a continuous time.
+Physical systems are unarguably well described by changes through continuous time.
+In continuous time, we can harness the power of calculus and differential equations to make powerful statements about dynamical systems without relying on ``crude'' discretization of time with a small time step.
 
 \subsection{Scope}
 We want to study homogenuous differential equations with constant coefficients that can be written succintly in matrix form as
@@ -1127,11 +1128,18 @@ Consider the following first order homogenuous linear ODE with constant coeffici
 To solve the differential equation means to find the function $x(t)$ which passes through $x_0$ at time $t=0$ and has a derivative, which irregardless of time, is the function evaluation scaled by $a$.  Lets begin by making the formal rearrangement
 \begin{align}
     &\frac{dx}{x} = - a \, dt\\
-    \implies &x(t) =  \exp(-at)
+    \implies &x(t) =  c_1 \exp(-at)
 \end{align}
-If we were not given the initial condition, $x(0)=k$, this is as far as we could go in determining a solution.  Fortunately, we can solve for $c_1$ by using the initial condition, so that $c_1 = k$.  Thus, the full solution to the differential equation is just $x(t) = x_0 \exp(-at)$.  
+If we were not given the initial condition, $x(0)=k$, this is as far as we could go in determining a solution.  Fortunately, we can solve for $c_1$ by using the initial condition, so that $c_1 = x_0$.  Thus, the full solution to the differential equation is just $x(t) = x_0 \exp(-at)$.  
 
 \textbf{Remark}: The system this differential equation describes is not very interesting.  If $a < 0$ then $x(t) \rightarrow \infty$, whereas if $a > 0$ then $x(t) \rightarrow 0$.
+
+\textbf{Remark}: Time evolution of 
+\begin{align}
+    x(t) &= \phi(t)x(0)
+    \\
+    x(t+\tau) &= \phi(\tau)x(t)
+\end{align}
 
 \question {Draw the phase portrait for this first order system.}
 \vspace{\stretch{0.5}}
