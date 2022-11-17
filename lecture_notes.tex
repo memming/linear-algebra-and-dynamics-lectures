@@ -1376,7 +1376,6 @@ Great! Now we have the ability to easily calculate the matrix exponential of any
     \end{align}
     where $J$ is in Jordan normal form, and the columns of $T$ contain the generalized eigenvectors of $A$.
 \end{tcolorbox}
-\subsection{Characterizing 2D dynamics}
 \begin{figure}[t]
     \centering
     \includegraphics{figs/phase_plane_nodes.pdf}
@@ -1437,45 +1436,6 @@ It so happens that if $p(x)$ is the characteristic polynomial of $A$, then $p(A)
         \chi(x) = (x - \lambda_1)(x - \lambda_2)(x - \lambda_3)^3
     \end{align}
 \end{tcolorbox}
-\newpage
-\subsection{Companion form matrices}
-Consider an $N\text{-th}$ order polynomial of the form
-\begin{align}
-    p(x) = x^N + a_{N-1} x^{N-1} + \cdots + a_1 x + a_0
-\end{align}
-then, the matrix $F$ defined below is called a companion form matrix
-\begin{align}
-    F = \begin{pmatrix} 0 & 1 & 0 & \cdots & 0\\
-                        0 & 0 & 1 & \cdots & 0\\
-                        \vdots & \vdots & \vdots & \ddots & \vdots\\
-                        -a_0 & -a_1 & -a_2 & \cdots & -a_{N-1}\end{pmatrix}
-\end{align}
-and we have that the eigenvalues of $F$ coincide with the roots of the characteristic polynomial defined by $p(x)$.  That is, if $\det(\lambda I - F) = 0$, then $p(\lambda) = 0$.  
-\subsection{Linear differential equations}
-We begin by examining $N-\text{th}$ order linear differential equations with constant coefficients
-\begin{align}
-    \dot{x}(t) &= A x(t)\\
-    x(0) &= x_0
-\end{align}
-If $A$ is not in companion form, then we can always reason about the surrogate system
-\begin{align}
-    \dot{y}(t) &= F y(t)\\
-    y(0) &= y_0
-\end{align}
-where $F$ is now a companion form matrix, that is similar to $A$.  The exact coordinate transformation can be found by taking the Jordan decomposition of $A$ and $F$
-\begin{align}
-    A &= T^{-1} J T\\
-    F &= S^{-1} J S\\
-\end{align}
-then setting $x(t) = T^{-1} S y(t)$.
-\subsection{Characteristic and minimal polynomials}
-We define the characteristic polynomial 
-\begin{align}
-    p_{A}(x) = \det \left( x I - A \right)
-\end{align}
-and the minimal polynomial, $\chi_A(x)$, to be the lowest order polynomial which satisfies $\chi_A(A) = 0$.
-
-\subsection{Functions of matrices}
 
 \newpage
 %%% ===== DAY 4 =====
