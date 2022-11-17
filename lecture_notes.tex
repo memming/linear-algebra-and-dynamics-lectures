@@ -67,6 +67,7 @@
 \newcommand{\complex}{\field{C}}
 \newcommand{\integers}{\field{Z}}
 \newcommand{\naturalNumbers}{\field{N}}
+\newcommand{\inputSpace}{\ensuremath{\mathfrak{X}}}
 
 \DeclareMathOperator*{\E}{\mathbb{E}} % expectation
 \DeclareMathOperator*{\var}{var}
@@ -1509,10 +1510,8 @@ For hyperbolic fixed points, the stability of nonlinear system is equivalent to 
 
 For example, the following 2D nonlinear system,
 \begin{align}\label{eq:cubicode}
-\begin{split}
 \dot x &= x^3 + y\\
-\dot y &= 3x \\
-\end{split}
+\dot y &= 3x
 \end{align}
 has a fixed point at $[0, 0]$, and is locally diffeomorphic to a saddle (Fig.~\ref{fig:linearization}).
 \begin{figure}[hbt]
@@ -1534,13 +1533,81 @@ Of course, a patchwork of linear dynamics can create some interesting systems.
 In neural data analysis, locally linear dynamical system model~\cite{Zhao2016d} and recurrent switching linear dynamical systems type models utilize this~\citep{Linderman2017,Nassar2018b}.
 
 \subsection{Kernel methods}
-When linear methods fail due to nonlinearity, you can always try linear methods applied to a nonlinearly mapped space.
+When linear methods fail due to nonlinearity, you can always try linear methods to a \emph{nonlinear representation}.
+In this section, we will deviate from dynamical systems, but connect back in the next section.
+Let us consider the problem of linear regression from a vector explanatory variable $\vx \in \reals^d$ to a scalar dependent variable $y \in \reals$, such that the square error is minimized.
+Given a (training) dataset of $n$ data points, $\{ (\vx_i, y_i) \}$, the least squares solution to the linear regression finds the best slope $\vw \in \reals^n$ that minimizes the following loss function:
+\begin{align}\label{eq:leastsquares:linear}
+    L(w) = \sum_{i=1}^n (y_i - \vw\trp \vx_i)^2
+\end{align}
+The result of linear regression is fitting the best slope $\vw$ for a line.
 
-All you need is an inner product to implement many linear methods (least squares regression, PCA, CCA, k-means).
+But what if the relationship between $\vx$ and $y$ are not very linear?
+One potential solution is to map the explanatory variables to a higher dimensional space.
+For example, we can choose to double the explanatory space of least squares regression appending the squared value for each dimension,
+\begin{align}
+\vx' = \Phi(\vx) =
+\begin{bmatrix}
+\vx
+\\
+\vx^2
+\end{bmatrix}
+\in \reals^{d^2}
+\end{align}
+We will still be able to minimize the same loss function:
+\begin{align}\label{eq:leastsquares:quadratic}
+    L(w) = \sum_{i=1}^n (y_i - \vw'\trp \vx'_i)^2
+\end{align}
+but now the weights $\vw'$ are also in $\reals^{d^2}$.
+The result of such regression is now in a quadratic form:
+\begin{align}
+	y = w_1 x_1 + w_2 x_2 + \cdots + w_n x_n + w_{n+1} x_1^2 + \cdots + w_{2n} x_n^2
+\end{align}
+but we only needed to solve a linear regression problem in the space of $\Phi(\vx)$.
+This quadratic regression is just a linear regression in disguise!
 
-\begin{tcolorbox}[colback=black!1!,title=Kernel Trick]
-You can implicitly map your data to an infinitely high-dimensional space by using a (positive semi-definite) \textbf{kernel}.
+We present two important remarks without proof:
+(1) the optimal weight vector that minimizes \eqref{eq:leastsquares:quadratic} is a linear combination of data, that is,
+\begin{align}\label{eq:representer:thm}
+\vw^\ast = \sum_{i=1}^n \alpha_i \Phi(\vx_i).
+\end{align}
+for some $\alpha_i$.
+This is known as the representer theorem, which allows to represent the solution as $n$ number of $\alpha_i$ instead of $d$ dimensional entries of $\vx$. For a review of the subject, we recommend \citep[Ch 4.2]{Scholkopf2002}.
+(2) in finding the optimal weight vector and for making predictions, the weight vector always interacts with $\Phi(\vx)$ through an inner product form.
+These two conditions holds for a number of important linear methods: Ridge regression, principal components analysis (PCA), support vector machine (SVM), canonical components analysis (CCA), least mean squares, spectral clustering, gaussian processes.
+
+To make a very powerful map from $\vx$ to $y$, we just need to use a map $\Phi(\vx)$ that carries all sorts of nonlinear representations of $\vx$.
+Thanks to the representer theorem, even if the dimensionality of $\Phi(\vx)$ is very large, we only need $n$ variables to represent the optimal solution.
+This means now we are almost ready to jump to infinite dimensions.
+The only problem is computing an inner product between $\Phi(\vx)$ and the weight vector $\vw'$.
+
+Inner product $\braket{\vx}{\vy}$ has three properties it must satisfy:
+\begin{align}\label{eq:innerproduct}
+	\braket{\vx}{\vy} &= \braket{\vy}{\vx} \qquad &\text{(symmetric)} \\
+	\braket{\vx}{\vx} &\geq 0 \qquad &\text{(positive semi-definite)}\\
+	\braket{a_1 \vx_1 + a_2 \vx_2}{\vy} &= a_1 \braket{\vx_1}{\vx} + a_2 \braket{\vx_2}{\vx} \qquad &\text{(linear)}
+\end{align}
+A \textbf{kernel} function is a symmetric positive semi-definite function in the input space $\inputSpace$.
+\begin{align}
+	k: \inputSpace \times \inputSpace \to \reals
+\end{align}
+That is, for $x, y \in \inputSpace$,
+\begin{align}\label{eq:kernelreq}
+	k(x,y) &= k(y,x) \qquad &\text{(symmetric)} \\
+	\sum_i \sum_j \alpha_i \alpha_j k(x_i,x_j) &\geq 0    \qquad &\text{(positive semi-definite)}
+\end{align}
+
+By the Moore-Aronzajn theorem\citep{Aronszajn1950}, there exist a unique space with the inner product defined by a kernel, a so-called \emph{reproducting kernel Hilbert space (RKHS)}.
+
+\begin{tcolorbox}[colback=black!1!,title=Kernel Trick!]
+Implicitly map data to an infinite-dimensional space by using a powerful \textbf{kernel}.
+Apply a suitable kernelized linear method.
 \end{tcolorbox}
+
+Some kernels can be shown to be \emph{universal}, in the sense that they can approximate almost any nonlinear map arbitrarily closely~\citep{Scholkopf2002}.
+
+Kernels not only extends linear methods to solve nonlinear problems, once we define kernels on \emph{any} input space, we can apply linear methods on that space.
+There are graph kernels, sequence kernels, and even kernels defined on neural spike trains~\citep{Park2012a,Park2013a}.
 
 \subsection{Koopman operators}
 
