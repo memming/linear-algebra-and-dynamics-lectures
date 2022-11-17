@@ -1442,9 +1442,13 @@ It so happens that if $p(x)$ is the characteristic polynomial of $A$, then $p(A)
 \section{Nonlinear systems that are really linear}
 \subsection{Limitations of Linear Dynamical Systems}
 Linear dynamical system (LDS) is fundamentally inappropriate for describing neural dynamics, because the asymptotic behavior of LDS can only support a single isolated fixed point, oscillating center, or a linear subspace of zero flow (continuous attractor), while most tasks require characteristics such as multiple attractors, stable limit cycles, and saddles when the task duration can be \emph{arbitrarily long}.
-However, in practice, even well trained subjects only perform tasks for a limited amount of time.
-The existence of an upper bound in duration introduces a potential identifiability problem, if the following conjecture is true.
-\begin{tcolorbox}[colback=red!20!white,title=Universal latent LDS conjecture]
+In other words, the topological stability structures expressible by LDS are too limited.
+
+\question Sketch the phase portrait of some 2D dynamical system that can stably sustain in one of two ``states'', i.e., \emph{bistable}.
+
+However, in practice, even well trained experimental subjects only perform tasks for a limited amount of time.
+The existence of an upper bound in duration introduces a potential identifiability problem in inferring the underlying dynamics as neural computation, especially if the following conjecture is true.
+\begin{tcolorbox}[colback=red!10!white,title=Universal latent LDS conjecture]
     A latent LDS model can approximate the behavior of any dynamical system $\dot{\vx} = f(\vx)$ arbitrarily well for a finite duration.
 \end{tcolorbox}
 where by latent LDS model is of the form
@@ -1454,6 +1458,7 @@ where by latent LDS model is of the form
     \vx(t) &= C \vz(t)
 \end{align}
 with matrices $A$, and $C$.
+
 
 \question[10] Prove (constructively) or disprove the LDS conjecture.
 
