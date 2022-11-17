@@ -1492,8 +1492,8 @@ Much of this nonlinear dynamical system can be understood piece by piece using o
 \end{tcolorbox}
 
 In particular, the dynamics around equilibria (fixed points) are topologically conjugate to that of the linearization.
-Let $\bar{x}$ be a fixed point of the dynamics that is, $f(\bar{x}) = 0$.
-Note that there are potentially many or infinitely many fixed points.
+Let $\bar{x}$ be a fixed point of the dynamics, that is, $f(\bar{x}) = 0$.
+Note that there can be several or even infinitely many fixed points.
 Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}}$ be the Jacobian (matrix), i.e., linearization of the dynamics at $\bar{x}$:
 \begin{align}\label{eq:linearized_around_FP}
     \dot{x} = Df(\bar{x}) (x - \bar{x})
@@ -1505,12 +1505,12 @@ Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}
 \end{theorem}
 As the theorem states, linearlization around the fixed point fails if there are eigenvalues with zero real part.
 They are typically rare in practice, but of great interest to nonlinear dynamics analysis and important for bifurcation theory.
-Fixed points that allows linearlization are called \textbf{hyperbolic} fixed points.
+Fixed points that guarantee linearlization are called \textbf{hyperbolic} fixed points.
 For hyperbolic fixed points, the stability of nonlinear system is equivalent to that of the linearized system.
 
-Away from the fixed points, the flow of a linear or nonlinear dynamical system is topologically conujugate to a boring constant flow:
+Away from the fixed points, the flow of a linear or nonlinear dynamical system is topologically conjugate to a boring constant flow:
 \begin{theorem}[Rectification]
-    If $p \in \reals^n$ and $f(p) \neq 0$, then there are open sets $U, V \in \reals^n$ with $p \in U$ and a diffiomorphism $g: U \to V$ such that the differential equation in the new coordinates, that is, the differential equation,
+    If $p \in \reals^n$ and $f(p) \neq 0$, then there are open sets $U, V \in \reals^n$ with $p \in U$ and a diffeomorphism $g: U \to V$ such that the differential equation in the new coordinates, that is, the differential equation,
     $$ \dot{y} = Dg(g\inv(y)) f(g\inv(y)), $$
 is given by $(\dot{y}_1, \ldots, \dot{y}_n) = (1, 0, 0, \ldots, 0)$.
 \end{theorem}
