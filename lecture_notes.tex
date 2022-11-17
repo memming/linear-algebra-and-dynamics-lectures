@@ -1499,7 +1499,6 @@ Let $[Df]_{i,j}(\bar{x}) = \frac{\partial f_i}{\partial x_j}\bigr\rvert_{\bar{x}
     \dot{x} = Df(\bar{x}) (x - \bar{x})
 \end{align}
 
-
 \begin{theorem}[Hartman-Grobman]
     If $Df(\bar{x})$ has no zero or purely imaginary eigenvalues then there is a homeomorphism $h$ defined on some neighborhood $U$ of $\bar{x}$ in $\reals^n$ locally taking obits of the nonlinear flow $\phi_t$ to those of the linear flow.
 \end{theorem}
@@ -1507,6 +1506,21 @@ As the theorem states, linearlization around the fixed point fails if there are 
 They are typically rare in practice, but of great interest to nonlinear dynamics analysis and important for bifurcation theory.
 Fixed points that guarantee linearlization are called \textbf{hyperbolic} fixed points.
 For hyperbolic fixed points, the stability of nonlinear system is equivalent to that of the linearized system.
+
+For example, the following 2D nonlinear system,
+\begin{align}\label{eq:cubicode}
+\begin{split}
+\dot x &= x^3 + y\\
+\dot y &= 3x \\
+\end{split}
+\end{align}
+has a fixed point at $[0, 0]$, and is locally diffeomorphic to a saddle (Fig.~\ref{fig:linearization}).
+\begin{figure}[hbt]
+    \centering
+    \includegraphics[width=\textwidth]{linearization}
+    \caption{Linearization of the system described in \eqref{eq:cubicode}.}
+    \label{fig:linearization}
+\end{figure}
 
 Away from the fixed points, the flow of a linear or nonlinear dynamical system is topologically conjugate to a boring constant flow:
 \begin{theorem}[Rectification]
@@ -1518,20 +1532,6 @@ See \citet[Lemma 1.120]{Chicone2006}.
 
 Of course, a patchwork of linear dynamics can create some interesting systems.
 In neural data analysis, locally linear dynamical system model~\cite{Zhao2016d} and recurrent switching linear dynamical systems type models utilize this~\citep{Linderman2017,Nassar2018b}.
-
-\begin{align}\label{eq:cubicode}
-\begin{split}
-\dot x &= x^3 + y\\
-\dot y &= 3x \\
-\end{split}
-\end{align}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{linearization}
-    \caption{Linearization of the system described in Equation \ref{eq:cubicode}.}
-    \label{fig:linearization}
-\end{figure}
 
 \subsection{Kernel methods}
 When linear methods fail due to nonlinearity, you can always try linear methods applied to a nonlinearly mapped space.
