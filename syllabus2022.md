@@ -42,7 +42,7 @@
 - Linear time invariant systems, convolution
 - Filtering: tap-delay-line, finite impulse response, infinite impulse response, frequency response
 - Adjoint matrix: zero-padding, finite difference operator, binning
-- Neuroscience: non-normal / transient amplification [^Murphy2009]
+- Neuroscience: non-normal / transient amplification [^Murphy2009][^Mante2013]
 
 ### Day 3: Continuous-time linear dynamical system
 
@@ -102,6 +102,8 @@
 [^Meddis1986]: Meddis, R. (1986). Simulation of mechanical to neural transduction in the auditory receptor. The Journal of the Acoustical Society of America, 79(3), 702–711.
 
 [^Sumner2002]: Sumner, C. J., Enrique, O’Mard, L. P., & Meddis, R. (2002). A revised model of the inner-hair cell and auditory-nerve complex. The Journal of the Acoustical Society of America, 111(5), 2178–2188.
+
+[^Mante2013]: Mante, V., Sussillo, D., Shenoy, K. V., & Newsome, W. T. (2013). Context-dependent computation by recurrent dynamics in prefrontal cortex. Nature, 503(7474), 78–84.
 
 
 [^Horn2012]: Horn, R. A., & Johnson, C. R. (2012). Matrix Analysis. Cambridge University Press.
