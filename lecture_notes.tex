@@ -1480,6 +1480,23 @@ and the minimal polynomial, $\chi_A(x)$, to be the lowest order polynomial which
 \newpage
 %%% ===== DAY 4 =====
 \section{Nonlinear systems that are really linear}
+\subsection{Limitations of Linear Dynamical Systems}
+Linear dynamical system (LDS) is fundamentally inappropriate for describing neural dynamics, because the asymptotic behavior of LDS can only support a single isolated fixed point, oscillating center, or a linear subspace of zero flow (continuous attractor), while most tasks require characteristics such as multiple attractors, stable limit cycles, and saddles when the task duration can be \emph{arbitrarily long}.
+However, in practice, even well trained subjects only perform tasks for a limited amount of time.
+The existence of an upper bound in duration introduces a potential identifiability problem, if the following conjecture is true.
+\begin{tcolorbox}[colback=red!20!white,title=Universal latent LDS conjecture]
+    A latent LDS model can approximate the behavior of any dynamical system $\dot{\vx} = f(\vx)$ arbitrarily well for a finite duration.
+\end{tcolorbox}
+where by latent LDS model is of the form
+\begin{align}
+    \dot{\vz}(t) &= A \vz(t)
+\\
+    \vx(t) &= C \vz(t)
+\end{align}
+with matrices $A$, and $C$.
+
+\question[10] Prove (constructively) or disprove the LDS conjecture.
+
 \subsection{Linearization theorems}
 Let us consider a (time-invariant and autonomous) nonlinear dynamical system:
 \begin{align}
@@ -1610,6 +1627,7 @@ Kernels not only extends linear methods to solve nonlinear problems, once we def
 There are graph kernels, sequence kernels, and even kernels defined on neural spike trains~\citep{Park2012a,Park2013a}.
 
 \subsection{Koopman operators}
+Can we take a similar approach to neural dynamics?
 
 \end{questions}
 
