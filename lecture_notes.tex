@@ -1659,9 +1659,32 @@ Another property we might suspect is that this projection matrix applied multipl
     &= P
 \end{align}
 \section{PCA}
+Imagine we perform an experiment $N$ times where we record $M$ neurons each trial.  We then assemble the data into a matrix $X \in \reals^{N \times M}$
+\begin{align}
+    X = \begin{pmatrix} 
+        \rule[.5ex]{3.5em}{0.4pt} & \vx^{(1)} & \rule[.5ex]{3.5em}{0.4pt} \\
+        \rule[.5ex]{3.5em}{0.4pt} & \vx^{(2)} & \rule[.5ex]{3.5em}{0.4pt} \\
+         & \vdots & \\
+         \rule[.5ex]{3.5em}{0.4pt} & \vx^{(N)} & \rule[.5ex]{3.5em}{0.4pt}
+     \end{pmatrix}
+\end{align}
+We do not know exactly which neurons we are recording from, or even which ones are important for the task at hand; but we do know that each experiment is costly and we want to collect as much data as we can.  After the experiment, we want to maximally compress the data with minimal loss of information.  The simplest procedure we can do is linearly project $X \in \reals^{N \times M}$ to $Y \in \reals^{N \times D}$ with $D \ll M$; this means we want to find a matrix $P$ such that
+\begin{align}
+    Y = X P
+\end{align}
+It would also be nice if the columns of $P$ were orthonormal to one another so that we would have $P^\top P = I$ (actually this ends up being necessary to make sure the optimization problem is not ill posed). We could formulate this as an optimization problem
+\begin{align}
+    &P = \text{arg max } \tr((XP)^\top (XP))\\
+    &\text{subject to } P^\top P = I
+\end{align}
+Decomposing $X=USV^\top$ the $P$ that solves this optimization problem is given by $V_{1:D}$, making $Y=U_{1:D} S_{1:D}$.  Therefore, if you want to do PCA you only have to be able to take the SVD of the data matrix $X$ and then isolate the columns of $U$ and $V$ associated with the top $D$ singular values.
 
 \section{Observability and Controllability}
-
+Lets think about a state-space model that we write in discrete time as
+\begin{align}
+    \vx(t+1) &= A \vx(t) + B \vu(t)\\
+    \vy(t) &= C \vx(t) + D \vu(t)
+\end{align}
 \newpage
 \section*{Acknowledgements}
 Special thanks to Ayesha Vermani and \'Abel S\'agodi.
