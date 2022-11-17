@@ -1597,6 +1597,40 @@ Can we take a similar approach to neural dynamics?
 \end{questions}
 
 \newpage
+%----- Day 5 ----%
+\section{Least squares}
+Often we want to solve the equation
+\begin{align}
+    A \vx = \vy
+\end{align}
+for $\vx$ when we know $\vy$.  If $A$ is a square matrix of full rank, then given a $\vy$ we can always find an $\vx$ that makes $A\vx = \vy$ true.  In most applications of interest, $A$ is a tall and skinny matrix and except in select cases there will not exist an $\vx$ making $A\vx = \vy$
+
+\begin{align}
+    \framebox[1.0cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat A$}}\subdims{-2.0cm} n m} \ 
+    \framebox[0.5cm]{\clapp{\raisebox{0mm}[4.5mm][2.5mm]{$\,\,\mat x$}}       \subdims{-8mm} m 1}
+    =
+    \framebox[0.5cm]{\clapp{\raisebox{0pt}[1.5cm][1.5cm]{$\mat y$}}\subdims{-2.0cm} n 1}
+\end{align}
+\vspace{5pt}
+\begin{tcolorbox}[colback=black!1!,title=A motivating example]
+    Consider the case where we want to solve $A\vx = \vy$ for the system
+    \begin{align}
+        \begin{pmatrix} 1 & 0 \\ 2 & 3 \\ 3 & 1 \end{pmatrix} \begin{bmatrix} \vx_1 \\ \vx_2 \end{bmatrix} = \begin{bmatrix} 2 \\ 0 \\ 0 \end{bmatrix}
+    \end{align}
+    The columns of the matrix $A$ span a plane in $\reals^3$, or in other words, linear combinations of the columns of $A$ can only reach vectors that lay on that plane.  If you were to randomly pick points $\vy \in \reals^3$ they would almost never lay on this plane!
+
+    We need to adjust our thinking a bit now. Our best bet, is to find some $\hat{\vx}$ that \textit{approximately} solves $A\hat{\vx} = \vy$. How do we do this? We will define the quality of our approximate solution by the norm of the error, e.g.
+    \begin{align}
+        \ell = || A \hat{\vx} - \vy ||^2
+    \end{align}
+    The closer $A \hat{\vx}$ is to $\vy$, the better the solution $\hat{\vx}$ is.  The most immediate question is, how do we find this $\hat{\vx}$. We might also ask if $\hat{\vx}$ is unique. It turns out this $\hat{\vx}$ is unique, but what we will discuss now, is how to find this $\hat{\vx}$.
+\end{tcolorbox}
+
+\section{PCA}
+
+\section{Observability and Controllability}
+
+\newpage
 \section*{Acknowledgements}
 Special thanks to Ayesha Vermani and \'Abel S\'agodi.
 
