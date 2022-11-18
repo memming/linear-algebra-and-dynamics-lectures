@@ -1677,14 +1677,65 @@ It would also be nice if the columns of $P$ were orthonormal to one another so t
     &P = \text{arg max } \tr((XP)^\top (XP))\\
     &\text{subject to } P^\top P = I
 \end{align}
-Decomposing $X=USV^\top$ the $P$ that solves this optimization problem is given by $V_{1:D}$, making $Y=U_{1:D} S_{1:D}$.  Therefore, if you want to do PCA you only have to be able to take the SVD of the data matrix $X$ and then isolate the columns of $U$ and $V$ associated with the top $D$ singular values.
+Decomposing $X=USV^\top$ the $P$ that solves this optimization problem is given by $V_{1:D}$, making $Y=U_{1:D} S_{1:D}$, where the subscript $1:D$ means that we are taking the $D$ singular vectors associated with the top $D$ simgular values.  Therefore, if you want to do PCA you only have to be able to take the SVD of the data matrix $X$ and then isolate the columns of $U$ and $V$ associated with the top $D$ singular values.
 
 \section{Observability and Controllability}
+\subsection*{Observability}
 Lets think about a state-space model that we write in discrete time as
 \begin{align}
     \vx(t+1) &= A \vx(t) + B \vu(t)\\
     \vy(t) &= C \vx(t) + D \vu(t)
 \end{align}
+with $\vx(t) \in \reals^L$, $\vy(t) \in \reals^N$, and $\vu(t) \in \reals^M$. In our case $\vy(t)$ may represent neural responses that we record, $\vu(t)$ may be some experimental stimuli, and $\vx(t)$ is a time varying quantity which we are concerned with.  Usually, $\vy(t)$ will be much higher dimensional than $\vx(t)$, and our goal will be to estimate our quantity of interest, $\vx(t)$.
+
+A good question may be under what circumstances can we perfectly recover $\vx(t)$? After all, if we use this model to try to make some scientific conclusions, this will be extremely important.  This is really the idea behind a concept called \textbf{observability}.
+
+To try to glean some insight into this problem, the first thing we can do is write $\vy(t)$ in terms of the initial state vector $\vx(0)$.  When we do this, we find that
+\begin{align}
+    \vy(t) &= CA^t \vx(0) + \sum_{i=0}^{t-1} CA^{t-(i+1)} B u(i) + D u(t)
+\end{align}
+Lets now define a quantity that we know regardless of knowing the initial state, $\vx(0)$
+\begin{align}
+    \tilde{\vy}(t) &= \vy(t) - \sum_{i=0}^{t-1} CA^{t-(i+1)} B u(i) + D u(t)\\
+    &= CA^k \vx(0)
+\end{align}
+If we actually knew $\vx(0)$, then we could recover the latent trajectory $\vx(1), \vx(2), \ldots, \vx(t)$ perfectly.  However, in this case we do not; so under what circumstances can we recover $\vx(0)$ \textit{perfectly}.  Lets now define the so-called \textit{observability matrix}, 
+\begin{align}
+    \mathcal{O}_t &= \begin{pmatrix} C \\ CA \\ CA^2 \\ \vdots \\ CA^{t-1} \end{pmatrix} \in \reals^{Nt \times L}
+\end{align}
+If we create the vector $\mathcal{Y}_{0:t-1} \in \reals^{Nt}$, defined as
+\begin{align}
+    \mathcal{Y}_{0:t-1} &= \begin{pmatrix} \tilde{\vy}(0) \\ \tilde{\vy}(1) \\ \vdots \\\tilde{\vy}(t-1) \end{pmatrix}
+\end{align}
+Then from earlier we know that we can write,
+\begin{align}
+    \mathcal{Y}_{0:t-1} &= \mathcal{O}_t \vx(0)
+\end{align}
+Now we see the exact condition for when we can recover $\vx(0)$, which is exactly when $\mathcal{O}_t$ has full column rank $L$. 
+
+\subsection{Controllability}
+Lets consider a different problem now: can we always apply a control sequence $\vu(0), \vu(1), \ldots, \vu(t)$ that can bring our initial condition from $\vx(0)$ to $0$ in a finite amount of time.  Similar to before, we can write $\vx(t)$ in terms of $\vx(0)$ as
+\begin{align}
+    \vx(t) &= A^t \vx(0) + \sum_{i=0}^{t-1} A^{t - (i+1)} B \vu(i)
+\end{align}
+then if we make the manipulation
+\begin{align}
+    \vx(t) - A^t \vx(0) &= \sum_{i=0}^{t-1} A^{t - (i+1)} B \vu(i)
+\end{align}
+we can define the so-called \textbf{controllability} matrix
+\begin{align}
+    \mathcal{C} = \begin{pmatrix} B \\ AB \\ A^2B \\ \vdots \\ A^{t-1}B \end{pmatrix} \in \reals^{L \times Mt} 
+\end{align}
+and vectorize the sequence of control inputs to
+\begin{align}
+    \mathcal{U}_t &= \begin{pmatrix} \vu(t-1) \\ \vu(t-2) \\ \vdots \\ \vu(0) \end{pmatrix}
+\end{align}
+then similar to before we can write
+\begin{align}
+    \vx(t) - A^t \vx(0) &= \mathcal{C} \mathcal{U}_t
+\end{align}
+Therefore, if $\mathcal{C}$ has column rank $L$, then we can reach any $\vx(t)$ starting from $\vx(0) = 0$. In fact, there is no need to require more than $L$ time steps if this is true; if we cannot do this in $L$ steps, then we can never hope to do it.
+
 \newpage
 \section*{Acknowledgements}
 Special thanks to Ayesha Vermani and \'Abel S\'agodi.
