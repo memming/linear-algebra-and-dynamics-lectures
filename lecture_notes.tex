@@ -87,10 +87,10 @@
 
 \pagestyle{headandfoot}
 \runningheadrule
-\runningheader{Nov 2022}{Linear Dynamics}{Park \& Dowling}
+\runningheader{INDP 2023}{Linear Dynamics}{Park \& Dowling}
 
 \title{Lecture notes on linear dynamical systems for neuroscience\footnote{Available online: \url{https://github.com/memming/linear-algebra-and-dynamics-lectures}}}
-\author{Il Memming Park and Matthew Dowling} %, Ayesha Vermani, \'Abel S\'agodi}
+\author{Il Memming Park and Matthew Dowling}
 \begin{document}
 \maketitle
 \section{Motivation}
@@ -260,9 +260,10 @@ Let us try out with some special matrices.
 	\diag(1, 1, \ldots, 1)
     =
     \begin{bmatrix}
-	1 & & \\
-	& \ddots & \\
-	& & 1
+	1 & 0 & \cdots & 0\\
+	0 & 1 & \cdots & 0\\
+	\vdots &   & \ddots & \vdots\\
+	0 & 0 & \cdots & 1
     \end{bmatrix}
 \end{align}
 
@@ -1002,7 +1003,7 @@ A causal system can capture the essence of biophysical computation at various sc
 This transformation may also depend on the internal state of the neural system in general.
 However, for the simplicity, let us consider systems without an internal state.
 
-A system is said to be \textbf{time-invariant} if its response to a certain signal does not depend on (absolute) time.
+A system is \textbf{time-invariant} if its response to a certain signal does not depend on (absolute) time.
 \begin{align}\label{eq:lti:invariant}
     H\{u(t + \tau)\} = y(t + \tau)
 \end{align}
@@ -1010,7 +1011,7 @@ which shows that time shift of the input of the system is the same as the output
 %Regardless of the time, same input sequence generates the same output.
 Note that if a system is changing over time, this is not necessarily true; for example, with time evolution of the unobserved internal state of the system induced by synaptic plasticity or neuromodulators.
 
-A system is said to be \textbf{linear}, if linear combination of input leads to corresponding linear combination of outputs,
+A system is \textbf{linear}, if linear combination of input leads to corresponding linear combination of outputs,
 \begin{align}
     H\{a \cdot u_1(t) + b \cdot u_2(t)\} &= a \cdot y_1(t) + b \cdot y_2(t)
 \end{align}
@@ -1240,9 +1241,10 @@ $, and setting
                         \vdots & \vdots & \vdots & \ddots & \vdots\\
                         -a_1 & -a_2 & -a_3 & \cdots & -a_{N-1} \end{pmatrix}
 \end{align}
-\textbf{Remark}: A matrix in this form is said to be a companion form matrix.  They arise when we transform an $N$-th order differential equation into a first order system as we did above.
+\textbf{Remark}: A matrix in this form is called a \textit{companion form matrix}.
+They arise when we transform an $N$-th order differential equation into a first order system as we did above.
 
-\textbf{Remark}: Not every matrix is similar to a companion form. A matrix $A \in \reals^{n \times n}$ can be written in companion form if it is not singular (i.e. full rank). 
+\textbf{Remark}: Not every matrix is similar to a companion form. A matrix $A \in \reals^{n \times n}$ can be written in companion form if it is not singular (i.e. full rank).
 % The similarity transform is given in Ding 2010 as $c\trp[A, A^2, \ldots, A^{n-1}]$ for some vector $c$.
 
 \subsection{Fundamental matrix solution}
@@ -1318,7 +1320,9 @@ which we can verify satisfies both $\fundamentalSolution(0, 0) = I$ as well as
     &= F \exp(F t)
 \end{align}
 \subsection{Jordan form}
-Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.  For this, we have to introduce the concept of a \textit{Jordan matrix}.  A matrix $J \in \reals^{M\times M}$ is said to be a Jordan matrix if it takes the form
+Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.
+For this, we have to introduce the concept of a \textit{Jordan matrix}.
+A matrix $J \in \reals^{M\times M}$ is said to be a Jordan matrix if it takes the form:
 \begin{align}
     J = \begin{pmatrix} \lambda & 1 & 0 & 0 & \cdots & 0\\
         0 & \lambda & 1 & 0 & \cdots & 0\\
@@ -1326,10 +1330,10 @@ Since the matrix exponential is defined in terms of an infinite series, we are l
         0 & 0 & 0 & 0 & \cdots & \lambda
     \end{pmatrix}
 \end{align}
-which means we could write that $J = \lambda I + N$; this matrix $N$ is said to be nilpotent. 
+which means we could write that $J = \lambda I + N$, where matrix $N$ is nilpotent.
 
 \begin{tcolorbox}[colback=black!1!,title=Nilpotent matrices]
-    A matrix $N$ is said to be nilpotent if there exists an integer $k$ such that $N^k = 0$
+    A matrix $N$ is \textbf{nilpotent} if there exists an integer $k$ such that $N^k = 0$
 \end{tcolorbox}
 
 \question Is the following matrix nilpotent? Support your claim either way.
