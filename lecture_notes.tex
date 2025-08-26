@@ -1319,6 +1319,11 @@ which we can verify satisfies both $\fundamentalSolution(0, 0) = I$ as well as
     &= F + F^2 t + F^3 \frac{t^2}{2!} + \cdots\\
     &= F \exp(F t)
 \end{align}
+\subsection{Smoothness of solutions}
+Note that given a trajectory (solution) of the initial value problem of a time-varying linear dynamical system,
+the time-derivative of the trajectory is also a solution.
+This means that the trajectories are smooth.
+Also, this means that the sensitivity follows the same dynamics as the linear dynamical system and has implications in gradient based learning of nonlinear dynamical systems~\cite{Park2023a}.
 \subsection{Jordan form}
 Since the matrix exponential is defined in terms of an infinite series, we are left wondering whether it can be computed analytically.
 For this, we have to introduce the concept of a \textit{Jordan matrix}.
