@@ -1296,6 +1296,9 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
 
     \textbf{Commuting matrices}: If $A$ and $B$ commute (i.e., $AB = BA$), then we have that $\exp(A + B) = \exp(A) \exp(B) = \exp(B) \exp(A)$.\newline
 
+    \textbf{You commute with your matrix exponential}: $A \exp(A) = \exp(A) A$
+    \newline
+
     \textbf{Diagonalizable matrices}: If $A = SDS\inv$ where $D$ is diagonal, then
     $\exp(A) = S \exp(D) S\inv$.\\
 
@@ -1304,7 +1307,7 @@ which also implies that $\fundamentalSolution(0, 0) = I$.
 \question {Prove the property about commuting matrices.}
 \vspace{\stretch{0.5}}
 
-\begin{tcolorbox}[colback=black!1!,title=avoid this common pitfall]
+\begin{tcolorbox}[colback=black!1!,title=Avoid this common pitfall]
     Matrix exponential is not the exponential of each element of a matrix!
     Numerical software libraries will have both operations similar name (e.g. \verb|exp| vs \verb|expm| in MATLAB)
 \end{tcolorbox}
