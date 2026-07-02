@@ -1,0 +1,20 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fmt
+*.fot
+*.cb
+*.cb2
+*.synctex.gz
+
+# PDFs (generated from .tex). Already-tracked PDFs are unaffected;
+# force-add new ones you want versioned with `git add -f`.
+*.pdf
